@@ -1,1 +1,118 @@
 @import "tailwindcss";
+
+@theme {
+  --color-midnight: #121a24;
+  --color-red: #be1127;
+  --color-white: #ffffff;
+  --color-off-white: #f4f4f4;
+  --color-pink: #b25581;
+  --color-purple: #9721b9;
+  --color-gray-base: #c8c8c8;
+  --color-login-button: #d9d9d933;
+  --color-stroke-color: #7f7f7f;
+
+  --font-antonio: "Antonio", sans-serif;
+  --font-open-sans: "Open Sans", sans-serif;
+}
+
+@layer utilities {
+  .bg-hero-home {
+    background-image: url("./assets/heroHome-mobile.png");
+
+    @media (width >= 700px) {
+      background-image: url("./assets/heroHome-tablet.png");
+    }
+
+    @media (width >= 1100px) {
+      background-image: url("./assets/heroHome-notebook.png");
+    }
+
+    @media (min-width: 1400px) {
+      background-image: url("./assets/heroHome-desktop2.png");
+    }
+  }
+}
+
+@layer components {
+  /* Fontes Antonio */
+  .heading-hero {
+    @apply text-[48px] text-center leading-[124.2%] font-bold font-antonio;
+
+    @media (width >= 1024px) {
+      @apply text-[4rem] text-left leading-[124.2%] font-bold font-antonio;
+    }
+  }
+
+  .heading-section {
+    @apply font-bold text-[2.5rem] leading-[124.2%] font-antonio;
+  }
+
+  .heading-card {
+    @apply font-bold text-[1.5625rem] leading-[100%] font-antonio;
+  }
+
+  .heading-form {
+    @apply font-bold text-[1.75rem] leading-[124.2%] font-antonio;
+  }
+
+  /* Fontes Open sans */
+  .nav-text {
+    @apply font-normal text-[1rem] leading-[100%] font-open-sans;
+  }
+
+  .subtext-hero {
+    @apply text-[18px] text-center font-normal font-open-sans;
+
+    @media (width >= 1024px) {
+      @apply font-normal text-[0.875rem] leading-[124.2%] lg:text-left font-open-sans;
+    }
+  }
+
+  .button-text {
+    @apply font-normal text-[0.875rem] leading-[124.2%] font-open-sans;
+  }
+
+  .section-label {
+    @apply font-semibold text-[0.875rem] leading-[124.2%] font-open-sans;
+  }
+
+  .body-text {
+    @apply font-light text-[0.875rem] leading-[124.2%] font-open-sans;
+  }
+
+  .card-text {
+    @apply font-light text-[0.8125rem] leading-[124.2%] font-open-sans;
+  }
+
+  .input-text {
+    @apply font-normal text-[0.75rem] leading-[100%] font-open-sans;
+  }
+
+  .button-form {
+    @apply font-semibold text-[1.25rem] leading-[100%] font-open-sans;
+  }
+
+  .form-caption {
+    @apply font-normal text-[0.625rem] leading-[100%] font-open-sans;
+  }
+
+  .footer-social-name {
+    @apply font-semibold text-[0.625rem] leading-[124.2%] font-open-sans;
+  }
+
+  .footer-social-handle {
+    @apply font-bold text-[0.6875rem] leading-[124.2%] font-open-sans;
+  }
+
+  .footer-list-title {
+    @apply font-bold text-[0.875rem] leading-[100%] font-open-sans;
+  }
+
+  .footer-list-item {
+    @apply font-semibold text-[0.75rem] leading-[124.2%] font-open-sans;
+  }
+
+  .footer-copy {
+    @apply font-normal text-[0.625rem] leading-[100%] font-open-sans;
+  }
+}
