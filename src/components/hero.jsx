@@ -4,7 +4,7 @@ export default function Hero({ title, subtitle, buttonText, bgClass }) {
   return (
     <section
       id="hero"
-      className={`${bgClass} bg-no-repeat bg-cover h-screen relative`}
+      className={`${bgClass} bg-no-repeat bg-cover h-screen relative overflow-hidden`}
     >
       <div className="max-w-[1150px] mx-auto">
         <Header />
