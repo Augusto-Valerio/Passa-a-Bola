@@ -28,7 +28,7 @@
     }
 
     @media (min-width: 1400px) {
-      background-image: url("./assets/heroHome-desktop2.png");
+      background-image: url("./assets/heroHome-desktop.png");
     }
   }
 }
