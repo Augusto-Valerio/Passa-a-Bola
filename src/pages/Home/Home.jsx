@@ -27,10 +27,10 @@ export default function Home() {
         >
           <div
             id="content-wrapper"
-            className="flex flex-col items-center  max-w-[456px]"
+            className="flex flex-col items-center max-w-[456px]"
           >
             {/* Label */}
-            <div className="flex items-center gap-2 ml-auto lg:ml-auto">
+            <div className="flex items-center gap-2 ml-auto">
               <span className="text-purple section-label">O PROJETO</span>
               <div className="w-[40px] h-px bg-purple"></div>
             </div>
@@ -39,7 +39,7 @@ export default function Home() {
             <h2 className="heading-section text-midnight mt-[8px] lg:ml-auto">
               A COPA PASSA A BOLA
             </h2>
-            <p className="body-text text-midnight font-semibold text-right mt-[30px] lg:font-light lg:text-right">
+            <p className="body-text text-midnight text-right mt-[30px]">
               A Copa Passa a Bola é um campeonato voltado para mulheres, com
               foco em inclusão, equilíbrio e organização. A plataforma
               automatiza inscrições, forma times com jogadoras avulsas e separa
@@ -52,7 +52,7 @@ export default function Home() {
             <Stats />
 
             {/* Botão */}
-            <button className="py-[8px] px-[34px] rounded-[20px] bg-pink text-white button-text w-fit my-[32px] lg:ml-auto">
+            <button className="py-[8px] px-[34px] rounded-[20px] bg-pink text-white button-text my-[32px] ml-auto">
               Nosso time
             </button>
           </div>
@@ -99,7 +99,7 @@ export default function Home() {
               NO YOUTUBE
             </h2>
 
-            <div className="max-w-[474px] mt-[30px] flex flex-col gap-4 body-text text-midnight font-semibold lg:font-light">
+            <div className="max-w-[474px] mt-[30px] flex flex-col gap-4 body-text text-midnight">
               <p>
                 O canal Passa a Bola é comandado por Alê Xavier e Luana Maluf,
                 duas criadoras de conteúdo que usam informação, leveza e
@@ -119,7 +119,7 @@ export default function Home() {
             <a
               href="https://www.youtube.com/@passabola"
               target="_blank"
-              className="inline-block py-[8px] px-[34px] rounded-[20px] bg-pink text-white button-text w-fit mt-[32px]"
+              className="inline-block py-[8px] px-[34px] rounded-[20px] bg-pink text-white button-text mt-[32px]"
             >
               Veja mais
             </a>
