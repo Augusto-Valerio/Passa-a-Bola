@@ -1,9 +1,14 @@
 import Hero from "../../components/Hero";
 import Stats from "../../components/Stats";
+import Benefits from "../../components/Benefits";
 
 import Img1 from "../../assets/img1.png";
 import Img2 from "../../assets/img2.png";
 import Img3 from "../../assets/img3.png";
+
+import Calendar from "../../assets/calendar.svg";
+import Match from "../../assets/match.svg";
+import Reload from "../../assets/reload.svg";
 
 export default function Home() {
   return (
@@ -119,6 +124,45 @@ export default function Home() {
             >
               Veja mais
             </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="benefits" className="bg-off-white">
+        <div
+          id="benefits-container"
+          className="max-w-[800px] lg:max-w-[62.5em] mx-auto px-[2.375rem]"
+        >
+          <div id="benefits-wrapper" className="flex flex-col gap-[30px]">
+            {/* label */}
+            <div className="flex items-center gap-6 justify-center mt-[100px]">
+              <div className="w-[40px] h-px bg-purple"></div>
+              <span className="text-purple section-label whitespace-nowrap">
+                POR QUE JOGAR COM A GENTE?
+              </span>
+              <div className="w-[40px] h-px bg-purple"></div>
+            </div>
+
+            {/* Benefícios */}
+            <div className="bg-white flex flex-col rounded-[5px] py-[40px] px-[68px] shadow-[0px_0px_40px_rgba(0,0,0,0.25)] lg:flex-row">
+              <Benefits
+                imgClass={Match}
+                title="Match perfeito"
+                subtitle="Os confrontos são organizados por nível, garantindo partidas equilibradas e seguras para todas as jogadoras."
+              />
+              <div className="border-b border-gray-base my-[40px] lg:my-0 lg:mx-[40px] lg:border-l"></div>
+              <Benefits
+                imgClass={Reload}
+                title="Fase de grupos"
+                subtitle="A fase de grupos evita eliminações precoces e garante que todas joguem mais de uma vez."
+              />
+              <div className="border-b border-gray-base my-[40px] lg:my-0 lg:mx-[40px] lg:border-l"></div>
+              <Benefits
+                imgClass={Calendar}
+                title="Tudo em Tempo Real"
+                subtitle="Horários, quadras e atualizações são acessados direto na plataforma, com nova partida realocada em caso de W.O."
+              />
+            </div>
           </div>
         </div>
       </section>
