@@ -13,7 +13,7 @@ export default function Hero({ title, subtitle, buttonText, bgClass }) {
           <h1 className="heading-hero">{title}</h1>
           <p className="subtext-hero">{subtitle}</p>
 
-          <button className="bg-pink rounded-[20px] py-[8px] px-[15px] w-fit self-center lg:self-start">
+          <button className="button-text bg-pink rounded-[20px] py-[11px] px-[15px] w-fit self-center lg:self-start">
             {buttonText}
           </button>
         </div>
