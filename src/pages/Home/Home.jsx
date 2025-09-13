@@ -77,12 +77,16 @@ export default function Home() {
         >
           {/* imagens */}
           <div className="relative order-2 lg:order-1">
-            <img src={Img3} alt="" />
-            <img
-              src={Img4}
-              alt=""
-              className="absolute bottom-[-70px] left-[30px] lg:bottom-[-34px] lg:left-auto lg:right-[-40px]"
-            />
+            <a href="https://www.youtube.com/@passabola" target="_blank">
+              <img src={Img3} alt="" />
+            </a>
+            <a href="https://www.youtube.com/@passabola" target="_blank">
+              <img
+                src={Img4}
+                alt=""
+                className="absolute bottom-[-70px] left-[30px] lg:bottom-[-34px] lg:left-auto lg:right-[-40px]"
+              />
+            </a>
           </div>
 
           {/* textos e botão*/}
@@ -114,9 +118,13 @@ export default function Home() {
               </p>
             </div>
 
-            <button className="py-[8px] px-[34px] rounded-[20px] bg-pink text-white button-text w-fit mt-[32px]">
+            <a
+              href="https://www.youtube.com/@passabola"
+              target="_blank"
+              className="inline-block py-[8px] px-[34px] rounded-[20px] bg-pink text-white button-text w-fit mt-[32px]"
+            >
               Veja mais
-            </button>
+            </a>
           </div>
         </div>
       </section>
