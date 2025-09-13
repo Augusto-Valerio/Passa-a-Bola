@@ -31,7 +31,6 @@ export default function Home() {
           >
             {/* Label */}
             <div className="flex items-center gap-2 ml-auto lg:ml-auto">
-              <div className="w-[40px] h-px bg-purple lg:hidden"></div>
               <span className="text-purple section-label">O PROJETO</span>
               <div className="w-[40px] h-px bg-purple"></div>
             </div>
@@ -92,7 +91,6 @@ export default function Home() {
           {/* textos e botão*/}
           <div id="about-wrapper" className="order-1 lg:order-2">
             <div className="flex items-center gap-2">
-              <div className="w-[40px] h-px bg-red lg:hidden"></div>
               <span className="text-red section-label">SOBRE NOS</span>
               <div className="w-[40px] h-px bg-red"></div>
             </div>
