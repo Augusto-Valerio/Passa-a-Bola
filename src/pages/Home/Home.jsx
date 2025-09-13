@@ -30,7 +30,7 @@ export default function Home() {
             className="flex flex-col items-center max-w-[456px]"
           >
             {/* Label */}
-            <div className="flex items-center gap-2 ml-auto">
+            <div className="flex items-center gap-2 mr-auto lg:mr-0 lg:ml-auto">
               <span className="text-purple section-label">O PROJETO</span>
               <div className="w-[40px] h-px bg-purple"></div>
             </div>
@@ -39,7 +39,7 @@ export default function Home() {
             <h2 className="heading-section text-midnight mt-[8px] lg:ml-auto">
               A COPA PASSA A BOLA
             </h2>
-            <p className="body-text text-midnight text-right mt-[30px]">
+            <p className="body-text text-midnight lg:text-right mt-[30px]">
               A Copa Passa a Bola é um campeonato voltado para mulheres, com
               foco em inclusão, equilíbrio e organização. A plataforma
               automatiza inscrições, forma times com jogadoras avulsas e separa
@@ -52,18 +52,18 @@ export default function Home() {
             <Stats />
 
             {/* Botão */}
-            <button className="py-[8px] px-[34px] rounded-[20px] bg-pink text-white button-text my-[32px] ml-auto">
+            <button className="py-[8px] px-[34px] rounded-[20px] bg-pink text-white button-text my-[32px] mr-auto lg:mr-0 lg:ml-auto">
               Nosso time
             </button>
           </div>
 
           {/* imagens */}
-          <div className="relative flex justify-center mt-[10px] lg:block">
+          <div className="relative flex mt-[10px] lg:block">
             <img src={Img1} className="w-[80%] lg:w-[100%]" alt="" />
             <img
               src={Img2}
               alt=""
-              className="absolute w-[80%] bottom-[-40px] right-[-50px] lg:w-[100%] lg:bottom-[-80px] lg:right-[-170px]"
+              className="absolute w-[80%] bottom-[-90px] right-[-20px] lg:w-[100%] lg:bottom-[-80px] lg:right-[-170px]"
             />
           </div>
         </div>
