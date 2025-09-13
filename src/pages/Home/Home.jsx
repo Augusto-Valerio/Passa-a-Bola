@@ -4,7 +4,6 @@ import Stats from "../../components/Stats";
 import Img1 from "../../assets/img1.png";
 import Img2 from "../../assets/img2.png";
 import Img3 from "../../assets/img3.png";
-import Img4 from "../../assets/img4.png";
 
 export default function Home() {
   return (
@@ -23,11 +22,11 @@ export default function Home() {
       >
         <div
           id="container-project"
-          className="max-w-[300px] mx-auto flex flex-col  lg:flex-row lg:gap-[74px] lg:max-w-[1000px] "
+          className="max-w-[62.5em] px-[2.375rem] mx-auto flex flex-col lg:flex-row lg:gap-[4.625rem] lg:px-[0]"
         >
           <div
             id="content-wrapper"
-            className="flex flex-col items-center max-w-[456px]"
+            className="flex flex-col items-center max-w-[456px] mx-auto"
           >
             {/* Label */}
             <div className="flex items-center gap-2 mr-auto lg:mr-0 lg:ml-auto">
@@ -36,10 +35,10 @@ export default function Home() {
             </div>
 
             {/* Título e texto */}
-            <h2 className="heading-section text-midnight mt-[8px] lg:ml-auto">
+            <h2 className="heading-section text-midnight mt-[8px] mr-auto lg:ml-auto lg:mr-0">
               A COPA PASSA A BOLA
             </h2>
-            <p className="body-text text-midnight lg:text-right mt-[30px]">
+            <p className="body-text text-midnight lg:text-right mt-[30px] ">
               A Copa Passa a Bola é um campeonato voltado para mulheres, com
               foco em inclusão, equilíbrio e organização. A plataforma
               automatiza inscrições, forma times com jogadoras avulsas e separa
@@ -57,14 +56,8 @@ export default function Home() {
             </button>
           </div>
 
-          {/* imagens */}
-          <div className="relative flex mt-[10px] lg:block">
-            <img src={Img1} className="w-[80%] lg:w-[100%]" alt="" />
-            <img
-              src={Img2}
-              alt=""
-              className="absolute w-[80%] bottom-[-90px] right-[-20px] lg:w-[100%] lg:bottom-[-80px] lg:right-[-190px]"
-            />
+          <div className=" mt-[10px] max-w[456px] mx-auto">
+            <img src={Img1} className="" alt="" />
           </div>
         </div>
       </section>
@@ -72,24 +65,27 @@ export default function Home() {
       <section id="about" className="bg-off-white py-[100px] overflow-hidden">
         <div
           id="about-container"
-          className="max-w-[300px] mx-auto flex flex-col justify-between lg:flex-row lg:max-w-[1000px]"
+          className="max-w-[62.5em] px-[2.375rem] mx-auto flex flex-col justify-between lg:flex-row lg:px-0 lg:gap-[76px]"
         >
           {/* imagens */}
-          <div className="relative order-2 lg:order-1">
+          <div className="relative order-2 lg:order-1 max-w[456px] mx-auto">
             <a href="https://www.youtube.com/@passabola" target="_blank">
-              <img src={Img3} alt="" />
+              <img src={Img2} alt="" />
             </a>
             <a href="https://www.youtube.com/@passabola" target="_blank">
               <img
-                src={Img4}
+                src={Img3}
                 alt=""
-                className="absolute bottom-[-70px] left-[30px] lg:bottom-[10px] lg:left-auto lg:right-[-40px]"
+                className="absolute bottom-[-35%] right-[-10%] lg:bottom-[10px] lg:left-auto lg:right-[-40px]"
               />
             </a>
           </div>
 
           {/* textos e botão*/}
-          <div id="about-wrapper" className="order-1 lg:order-2">
+          <div
+            id="about-wrapper"
+            className="order-1 lg:order-2 max-w-[456px] mx-auto"
+          >
             <div className="flex items-center gap-2">
               <span className="text-red section-label">SOBRE NOS</span>
               <div className="w-[40px] h-px bg-red"></div>
@@ -125,10 +121,6 @@ export default function Home() {
             </a>
           </div>
         </div>
-      </section>
-
-      <section id="benefits">
-
       </section>
     </>
   );
