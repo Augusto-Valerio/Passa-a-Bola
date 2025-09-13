@@ -23,7 +23,7 @@ export default function Home() {
       >
         <div
           id="container-project"
-          className="max-w-[300px] mx-auto flex flex-col gap-2 lg:flex-row lg:gap-[74px] lg:max-w-[1000px] "
+          className="max-w-[300px] mx-auto flex flex-col  lg:flex-row lg:gap-[74px] lg:max-w-[1000px] "
         >
           <div
             id="content-wrapper"
@@ -63,7 +63,7 @@ export default function Home() {
             <img
               src={Img2}
               alt=""
-              className="absolute w-[80%] bottom-[-90px] right-[-20px] lg:w-[100%] lg:bottom-[-80px] lg:right-[-170px]"
+              className="absolute w-[80%] bottom-[-90px] right-[-20px] lg:w-[100%] lg:bottom-[-80px] lg:right-[-190px]"
             />
           </div>
         </div>
@@ -72,7 +72,7 @@ export default function Home() {
       <section id="about" className="bg-off-white py-[100px] overflow-hidden">
         <div
           id="about-container"
-          className="max-w-[300px] mx-auto flex flex-col gap-[74px] lg:flex-row lg:max-w-[1000px]"
+          className="max-w-[300px] mx-auto flex flex-col justify-between lg:flex-row lg:max-w-[1000px]"
         >
           {/* imagens */}
           <div className="relative order-2 lg:order-1">
@@ -83,7 +83,7 @@ export default function Home() {
               <img
                 src={Img4}
                 alt=""
-                className="absolute bottom-[-70px] left-[30px] lg:bottom-[-34px] lg:left-auto lg:right-[-40px]"
+                className="absolute bottom-[-70px] left-[30px] lg:bottom-[10px] lg:left-auto lg:right-[-40px]"
               />
             </a>
           </div>
@@ -119,12 +119,16 @@ export default function Home() {
             <a
               href="https://www.youtube.com/@passabola"
               target="_blank"
-              className="inline-block py-[8px] px-[34px] rounded-[20px] bg-pink text-white button-text mt-[32px]"
+              className="inline-block py-[8px] px-[34px] rounded-[20px] bg-pink text-white button-text my-[32px]"
             >
               Veja mais
             </a>
           </div>
         </div>
+      </section>
+
+      <section id="benefits">
+
       </section>
     </>
   );
