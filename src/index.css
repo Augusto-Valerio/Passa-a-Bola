@@ -77,7 +77,11 @@
   }
 
   .body-text {
-    @apply font-light text-[0.875rem] leading-[124.2%] font-open-sans;
+    @apply font-semibold text-[0.875rem] leading-[124.2%] font-open-sans;
+
+    @media (width >= 1024px) {
+      @apply font-light text-[0.875rem] leading-[124.2%] font-open-sans;
+    }
   }
 
   .card-text {
