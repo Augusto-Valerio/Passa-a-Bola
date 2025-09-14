@@ -106,7 +106,7 @@ body {
   }
 
   .footer-social-name {
-    @apply font-semibold text-[0.625rem] leading-[124.2%] font-open-sans;
+    @apply font-bold text-[0.625rem] leading-[124.2%] font-open-sans;
   }
 
   .footer-social-handle {
