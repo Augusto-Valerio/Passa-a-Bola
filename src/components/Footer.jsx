@@ -50,7 +50,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-white py-11">
+    <footer className="bg-white pt-11">
       <div className="border-b border-gray-base pb-9 max-w-[950px] mx-auto">
         <div
           id="social-media"
@@ -124,8 +124,9 @@ export default function Footer() {
             <h3 className="footer-list-title mb-3">INFORMAÇÕES LEGAIS</h3>
             <ul className="flex flex-col gap-[10px] text-gray-700">
               <li>
-                <a href="#" className="hover:underline"></a>
-                Sobre nós
+                <a href="#" className="hover:underline">
+                  Sobre nós
+                </a>
               </li>
               <li>
                 <a href="#" className="hover:underline">
@@ -167,6 +168,10 @@ export default function Footer() {
           </div>
         </div>
       </div>
+
+      <p className="mt-10 place-self-center pb-3 text-[0.875rem] text-gray-700">
+        Copyright © 2025 Passaabola. Todos os direitos reservados.
+      </p>
     </footer>
   );
 }
