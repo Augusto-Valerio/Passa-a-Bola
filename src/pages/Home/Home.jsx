@@ -2,6 +2,7 @@ import Hero from "../../components/Hero";
 import Stats from "../../components/Stats";
 import Benefits from "../../components/Benefits";
 import Form from "../../components/Form";
+import Footer from "../../components/Footer";
 
 import Img1 from "../../assets/img1.png";
 import Img2 from "../../assets/img2.png";
@@ -169,7 +170,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="form" className="bg-off-white py-[100px]">
+      <section id="form" className="bg-off-white py-[186px]">
         <div
           id="form-container"
           className="max-w-[62.5em] px-[2.375rem] mx-auto flex flex-col gap-12 lg:flex-row lg:px-[0]"
@@ -202,6 +203,10 @@ export default function Home() {
           <Form />
         </div>
       </section>
+
+      <footer>
+        <Footer />
+      </footer>
     </>
   );
 }
