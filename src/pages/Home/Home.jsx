@@ -7,6 +7,11 @@ import Footer from "../../components/Footer";
 import Img1 from "../../assets/img1.png";
 import Img2 from "../../assets/img2.png";
 import Img3 from "../../assets/img3.png";
+import Appito from "../../assets/appito.png";
+import Adidas from "../../assets/adidas.png";
+import Playstation from "../../assets/playstation.png";
+import Pepsi from "../../assets/pepsi.png";
+import Cimed from "../../assets/cimed.png";
 
 import Calendar from "../../assets/calendar.svg";
 import Match from "../../assets/match.svg";
@@ -204,9 +209,41 @@ export default function Home() {
         </div>
       </section>
 
-      <footer>
-        <Footer />
-      </footer>
+      <section id="partners" className="bg-off-white py-20">
+        {/* label */}
+        <div className="flex items-center gap-6 justify-center">
+          <div className="w-[40px] h-px bg-purple"></div>
+          <span className="text-purple section-label whitespace-nowrap">
+            PARCEIROS COPA PAB 2025
+          </span>
+          <div className="w-[40px] h-px bg-purple"></div>
+        </div>
+
+        {/* Patrocinadores */}
+        <div className="grid grid-cols-3 place-self-center gap-3 lg:grid-cols-5 lg:max-w-[900px] lg:gap-[70px] items-center mt-12">
+          <a href="https://appito.com/" target="_blank">
+            <img src={Appito} alt="Appito" />
+          </a>
+
+          <a href="https://www.adidas.com.br/" target="_blank">
+            <img src={Adidas} alt="Adidas" />
+          </a>
+
+          <a href="https://www.playstation.com/pt-br/" target="_blank">
+            <img src={Playstation} alt="Playstation" />
+          </a>
+
+          <a href="https://www.pepsi.pt/" target="blank">
+            <img src={Pepsi} alt="Pepsi" />
+          </a>
+
+          <a href="https://cimedremedios.com.br/" target="_blank">
+            <img src={Cimed} alt="Cimed" />
+          </a>
+        </div>
+      </section>
+
+      <Footer />
     </>
   );
 }
