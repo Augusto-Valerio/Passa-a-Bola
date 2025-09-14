@@ -7,6 +7,8 @@ import Tiktok from "../assets/tiktok-icon.svg";
 import Twitter from "../assets/twitter-icon.svg";
 import Spotify from "../assets/spotify-icon.svg";
 
+import LogoFooter from "../assets/logo-footer.svg";
+
 export default function Footer() {
   const socials = [
     {
@@ -48,18 +50,122 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-white mt-11">
-      <div className="flex gap-5 overflow-x-auto snap-x lg:justify-center lg:overflow-visible ">
-        {socials.map((item) => (
-          <div className="shrink-0 w-[150px]">
-            <FooterCard
-              icon={item.icon}
-              platform={item.platform}
-              social={item.social}
-              link={item.link}
-            />
+    <footer className="bg-white py-11">
+      <div className="border-b border-gray-base pb-9 max-w-[950px] mx-auto">
+        <div
+          id="social-media"
+          className="flex gap-5 overflow-x-auto snap-x lg:justify-center lg:overflow-visible"
+        >
+          {socials.map((item) => (
+            <div className="shrink-0 w-[150px]">
+              <FooterCard
+                icon={item.icon}
+                platform={item.platform}
+                social={item.social}
+                link={item.link}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Links e logo */}
+      <div className="mt-8 place-self-center md:flex md:gap-16">
+        {/* Logo */}
+        <div>
+          <img src={LogoFooter} alt="Passa a Bola" />
+        </div>
+
+        {/* Colunas */}
+        <div id="list-wrapper" className="grid grid-cols-2 mt-3 gap-12 md:flex">
+          <div>
+            <h3 className="footer-list-title mb-3">SOBRE NÓS</h3>
+            <ul className="flex flex-col gap-[10px] text-gray-700">
+              <li>
+                <a href="#" className="hover:underline">
+                  Contato
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:underline">
+                  Centro de ajuda
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:underline">
+                  Todas competições
+                </a>
+              </li>
+            </ul>
           </div>
-        ))}
+
+          <div>
+            <h3 className="footer-list-title mb-3">SEJA UM PATROCINADOR</h3>
+            <ul className="flex flex-col gap-[10px] text-gray-700">
+              <li>
+                <a href="#" className="hover:underline">
+                  Vendas
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:underline">
+                  Fontes
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:underline">
+                  Solução de marca
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="footer-list-title mb-3">INFORMAÇÕES LEGAIS</h3>
+            <ul className="flex flex-col gap-[10px] text-gray-700">
+              <li>
+                <a href="#" className="hover:underline"></a>
+                Sobre nós
+              </li>
+              <li>
+                <a href="#" className="hover:underline">
+                  Política e privacidade
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:underline">
+                  Termos e condições
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:underline">
+                  Licenças
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="footer-list-title mb-3">MAIS PASSAABOLA</h3>
+            <ul className="flex flex-col gap-[10px] text-gray-700">
+              <li>
+                <a href="#" className="hover:underline">
+                  App Store
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:underline">
+                  Google Play
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:underline">
+                  TV comentada
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </footer>
   );
