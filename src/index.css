@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+body {
+  -webkit-font-smoothing: antialiased;
+  color: var(--color-midnight);
+}
+
 @theme {
   --color-midnight: #121a24;
   --color-red: #be1127;
@@ -89,7 +94,7 @@
   }
 
   .input-text {
-    @apply font-normal text-[0.75rem] leading-[100%] font-open-sans;
+    @apply font-normal text-[0.75rem] font-open-sans;
   }
 
   .button-form {
@@ -97,7 +102,7 @@
   }
 
   .form-caption {
-    @apply font-normal text-[0.625rem] leading-[100%] font-open-sans;
+    @apply text-[0.625rem] font-open-sans;
   }
 
   .footer-social-name {
