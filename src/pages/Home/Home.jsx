@@ -1,6 +1,7 @@
 import Hero from "../../components/Hero";
 import Stats from "../../components/Stats";
 import Benefits from "../../components/Benefits";
+import Form from "../../components/Form";
 
 import Img1 from "../../assets/img1.png";
 import Img2 from "../../assets/img2.png";
@@ -26,11 +27,11 @@ export default function Home() {
         className="bg-off-white py-[70px] lg:py-[100px] overflow-hidden"
       >
         <div
-          id="container-project"
+          id="project-container"
           className="max-w-[62.5em] px-[2.375rem] mx-auto flex flex-col lg:flex-row lg:gap-[4.625rem] lg:px-[0]"
         >
           <div
-            id="content-wrapper"
+            id="project-wrapper"
             className="flex flex-col items-center max-w-[456px] mx-auto"
           >
             {/* Label */}
@@ -91,6 +92,7 @@ export default function Home() {
             id="about-wrapper"
             className="order-1 lg:order-2 max-w-[456px] mx-auto"
           >
+            {/* label */}
             <div className="flex items-center gap-2">
               <span className="text-red section-label">SOBRE NOS</span>
               <div className="w-[40px] h-px bg-red"></div>
@@ -164,6 +166,40 @@ export default function Home() {
               />
             </div>
           </div>
+        </div>
+      </section>
+
+      <section id="form" className="bg-off-white py-[100px]">
+        <div
+          id="form-container"
+          className="max-w-[62.5em] px-[2.375rem] mx-auto flex flex-col gap-12 lg:flex-row lg:px-[0]"
+        >
+          <div
+            id="content-wrapper"
+            className="flex flex-col items-center max-w-[456px] mx-auto lg:mx-0"
+          >
+            {/* Label */}
+            <div className="flex items-center gap-2 mr-auto ">
+              <div className="w-[40px] h-px bg-purple"></div>
+              <span className="text-purple section-label">FORMULÁRIO</span>
+            </div>
+
+            {/* Título e texto */}
+            <h2 className="heading-section text-midnight mt-[8px] mr-auto">
+              SE INSCREVA
+            </h2>
+            <p className="body-text text-midnight mt-[30px] ">
+              Quer jogar a Copa Passa a Bola? Preencha o formulário para mostrar
+              seu interesse, seja com um time completo, incompleto ou como
+              jogadora avulsa. Nossa plataforma cuida do resto: forma equipes,
+              organiza os jogos e garante uma experiência divertida, justa e
+              acolhedora. Esse é o primeiro passo pra entrar no campeonato de
+              forma simples e descomplicada. Depois do cadastro, a gente entra
+              em contato com todos os detalhes. Bora jogar com a gente?
+            </p>
+          </div>
+
+          <Form />
         </div>
       </section>
     </>
