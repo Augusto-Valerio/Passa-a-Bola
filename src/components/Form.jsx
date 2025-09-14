@@ -11,6 +11,7 @@ export default function Form() {
             id="name"
             name="name"
             placeholder=" "
+            required
             className="peer w-full border-b border-stroke-color outline-0 pt-2"
           />
           <span
@@ -29,6 +30,7 @@ export default function Form() {
             id="email"
             name="email"
             placeholder=" "
+            required
             className="peer w-full border-b border-stroke-color outline-0 pt-2 "
           />
           <span
@@ -47,6 +49,7 @@ export default function Form() {
             id="phone"
             name="phone"
             placeholder=" "
+            required
             className="peer w-full border-b border-stroke-color outline-0 pt-2"
           />
           <span
@@ -65,6 +68,7 @@ export default function Form() {
             id="team"
             name="team"
             placeholder=" "
+            required
             className="peer w-full border-b border-stroke-color outline-0 pt-2"
           />
           <span
