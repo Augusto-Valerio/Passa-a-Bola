@@ -13,7 +13,7 @@ export default function Sidebar() {
     <>
       {/* botão pra abrir a sidebar  */}
       <button
-        className="fixed top-6 left-5 z-20 bg-white text-black p-2 rounded-full shadow-[0px_5px_15px_rgba(0,0,0,0.35)]  lg:hidden"
+        className="fixed top-6 right-5 z-20 bg-white text-black p-2 rounded-full shadow-[0px_5px_15px_rgba(0,0,0,0.35)]  lg:hidden"
         onClick={() => setIsOpen(true)}
       >
         <TfiMenu className="w-6 h-6" />
@@ -28,16 +28,16 @@ export default function Sidebar() {
 
       {/* Sidebar */}
       <aside
-        className={`min-w-56 w-[50%] bg-white text-midnight h-screen p-5 flex flex-col fixed top-0 left-0 z-30 lg:hidden transform transition-transform duration-300 
-        ${isOpen ? "translate-x-0" : "-translate-x-160"}`}
+        className={`min-w-56 w-[50%] bg-white text-midnight h-screen p-5 flex flex-col fixed top-0 right-0 z-30 lg:hidden transform transition-transform duration-300 
+        ${isOpen ? "translate-x-0" : "translate-x-160"}`}
       >
         <div className="flex justify-between">
+          <img src={LogoSidebar} alt="" className="w-12" />
           {/* botão pra fechar a SideBard */}
           <button onClick={() => setIsOpen(false)}>
             <FiX className="w-9 h-9" />
           </button>
 
-          <img src={LogoSidebar} alt="" className="w-12" />
         </div>
 
         <nav className="flex flex-col gap-3">
