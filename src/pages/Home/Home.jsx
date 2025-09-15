@@ -4,6 +4,7 @@ import Benefits from "../../components/Benefits";
 import Form from "../../components/Form";
 import Footer from "../../components/Footer";
 import BackTop from "../../components/BackTop";
+import Sidebar from "../../components/Sidebar";
 
 import Img1 from "../../assets/img1.png";
 import Img2 from "../../assets/img2.png";
@@ -21,6 +22,8 @@ import Reload from "../../assets/reload.svg";
 export default function Home() {
   return (
     <>
+      <BackTop />
+
       <Hero
         title="INSCRIÇÕES ABERTAS PARA COPA PAB"
         subtitle="Participe como jogadora avulsa, time completo ou incompleto.
@@ -29,7 +32,7 @@ export default function Home() {
         bgClass="bg-hero-home"
       />
 
-      <BackTop />
+      <Sidebar />
 
       <section
         id="project"
