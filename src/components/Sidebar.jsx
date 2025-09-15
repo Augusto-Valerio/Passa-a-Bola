@@ -29,7 +29,7 @@ export default function Sidebar() {
       {/* Sidebar */}
       <aside
         className={`min-w-56 w-[50%] bg-white text-midnight h-screen p-5 flex flex-col fixed top-0 left-0 z-30 lg:hidden transform transition-transform duration-300 
-        ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
+        ${isOpen ? "translate-x-0" : "-translate-x-160"}`}
       >
         <div className="flex justify-between">
           {/* botão pra fechar a SideBard */}
