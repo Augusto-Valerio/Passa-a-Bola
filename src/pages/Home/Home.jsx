@@ -3,6 +3,7 @@ import Stats from "../../components/Stats";
 import Benefits from "../../components/Benefits";
 import Form from "../../components/Form";
 import Footer from "../../components/Footer";
+import BackTop from "../../components/BackTop";
 
 import Img1 from "../../assets/img1.png";
 import Img2 from "../../assets/img2.png";
@@ -27,6 +28,8 @@ export default function Home() {
         buttonText="Inscreva-se"
         bgClass="bg-hero-home"
       />
+
+      <BackTop />
 
       <section
         id="project"
