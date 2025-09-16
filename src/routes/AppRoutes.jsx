@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Home from "../pages/Home/Home";
 import Copa from "../pages/CopaPAB/Copa";
+import Login from "../pages/Login/Login";
 
 export const router = createBrowserRouter([
   {
@@ -10,5 +11,9 @@ export const router = createBrowserRouter([
   {
     path: "/copa-pab",
     element: <Copa />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
 ]);

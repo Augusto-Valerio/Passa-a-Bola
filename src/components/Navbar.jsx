@@ -49,7 +49,7 @@ export default function Navigation() {
               Inscreva-se
             </button>
             <button className="py-[0.30rem] px-[3.125rem] bg-login-button rounded-[1.875rem]">
-              Login
+              <Link to="/login">Login</Link>
             </button>
           </div>
         </div>
