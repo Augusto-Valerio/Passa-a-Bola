@@ -15,10 +15,7 @@ import time8 from "../../assets/time8.png"
 import logoPab from "../../assets/icon-pab.png"
 // import GameCard from "../../components/GameCards"
 
-import { useEffect, useState } from "react";
-
 export default function Copa() {
-  
   const games = [
     {
       icon1: time8,
