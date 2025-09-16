@@ -20,6 +20,7 @@ import Match from "../../assets/match.svg";
 import Reload from "../../assets/reload.svg";
 
 export default function Home() {
+
   return (
     <>
       <BackTop />
