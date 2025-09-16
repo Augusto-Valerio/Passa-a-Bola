@@ -1,4 +1,4 @@
-import Hero from "../../components/Hero";
+import HeroPage from "../../components/HeroPage";
 import GameCards from "../../components/GameCards";
 import Positions from "../../components/Positions";
 import NextGame from "../../components/NextGame";
@@ -150,7 +150,7 @@ export default function Copa() {
 
   return (
     <>
-    <Hero
+    <HeroPage
       title="A COPA PAB ESTÁ ACONTECENDO!"
       subtitle="Confira os jogos, horários, resultados e acompanhe tudo em tempo real. Fique por dentro e torça com a gente!"
       buttonText="Acompanhe"
