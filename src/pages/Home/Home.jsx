@@ -1,10 +1,10 @@
-import Hero from "../../components/Hero";
+import HeroPage from "../../components/HeroPage";
 import Stats from "../../components/Stats";
 import Benefits from "../../components/Benefits";
 import Form from "../../components/Form";
 import Footer from "../../components/Footer";
 import BackTop from "../../components/BackTop";
-import Sidebar from "../../components/Sidebar";
+import Navbar from "../../components/Navbar";
 
 import Img1 from "../../assets/img1.png";
 import Img2 from "../../assets/img2.png";
@@ -20,20 +20,19 @@ import Match from "../../assets/match.svg";
 import Reload from "../../assets/reload.svg";
 
 export default function Home() {
-
   return (
     <>
+      <Navbar />
+
       <BackTop />
 
-      <Hero
+      <HeroPage
         title="INSCRIÇÕES ABERTAS PARA COPA PAB"
         subtitle="Participe como jogadora avulsa, time completo ou incompleto.
         Garanta sua vaga e entre em campo com a gente!"
         buttonText="Inscreva-se"
         bgClass="bg-hero-home"
       />
-
-      <Sidebar />
 
       <section
         id="project"
