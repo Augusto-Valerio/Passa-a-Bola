@@ -47,12 +47,14 @@ export default function Navigation() {
           </nav>
 
           <div className="flex items-center gap-3 text-white">
-            <button className="py-[0.30rem] px-[1.875rem] border-1 border-white rounded-[1.875rem]">
+            <a href="#form" className="py-[0.30rem] px-[1.875rem] border-1 border-white rounded-[1.875rem] cursor-pointer">
               Inscreva-se
-            </button>
-            <button className="py-[0.30rem] px-[3.125rem] bg-login-button rounded-[1.875rem]">
-              <Link to="/login">Login</Link>
-            </button>
+            </a>
+            <Link to="/login">
+              <a className="py-[0.30rem] px-[3.125rem] bg-login-button rounded-[1.875rem] cursor-pointer">
+                Login
+              </a>
+            </Link>
           </div>
         </div>
       </header>
