@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { TfiMenu } from "react-icons/tfi";
 import { FiX } from "react-icons/fi";
 
+import { RiAdminLine } from "react-icons/ri";
+
 import logoHeader from "../assets/logo-header.svg";
 import logoSidebar from "../assets/logo-sidebar.svg";
 
@@ -45,15 +47,27 @@ export default function Navigation() {
           </nav>
 
           <div className="flex items-center gap-3 text-white">
-            <button className="py-[0.30rem] px-[1.875rem] border-1 border-white rounded-[1.875rem]">
+            <a href="#form" className="py-[0.30rem] px-[1.875rem] border-1 border-white rounded-[1.875rem] cursor-pointer">
               Inscreva-se
-            </button>
-            <button className="py-[0.30rem] px-[3.125rem] bg-login-button rounded-[1.875rem]">
-              Login
-            </button>
+            </a>
+            <Link to="/login">
+              <a className="py-[0.30rem] px-[3.125rem] bg-login-button rounded-[1.875rem] cursor-pointer">
+                Login
+              </a>
+            </Link>
           </div>
         </div>
       </header>
+
+      {/* Botão pra abrir o login */}
+      <button
+        className="fixed top-6 right-20 z-20 bg-white text-black p-2 rounded-full shadow-[0px_5px_15px_rgba(0,0,0,0.35)] lg:hidden"
+        onClick={() => setIsOpen(true)}
+      >
+        <Link to="/login">
+          <RiAdminLine className="w-6 h-6" />
+        </Link>
+      </button>
 
       {/* Botão para abrir a Sidebar */}
       <button

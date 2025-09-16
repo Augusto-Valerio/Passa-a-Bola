@@ -32,6 +32,7 @@ export default function Home() {
         Garanta sua vaga e entre em campo com a gente!"
         buttonText="Inscreva-se"
         bgClass="bg-hero-home"
+        buttonHref="#form"
       />
 
       <section

@@ -1,4 +1,4 @@
-export default function HeroPage({ title, subtitle, buttonText, bgClass }) {
+export default function HeroPage({ title, subtitle, buttonText, bgClass, buttonHref }) {
   return (
     <section
       id="hero"
@@ -9,9 +9,9 @@ export default function HeroPage({ title, subtitle, buttonText, bgClass }) {
           <h1 className="heading-hero">{title}</h1>
           <p className="subtext-hero">{subtitle}</p>
 
-          <button className="button-text bg-pink rounded-[20px] py-[11px] px-[15px] w-fit self-center lg:self-start">
+          <a href={buttonHref} className="button-text bg-pink rounded-[20px] py-[11px] px-[15px] w-fit self-center lg:self-start">
             {buttonText}
-          </button>
+          </a>
         </div>
       </div>
     </section>
