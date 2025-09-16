@@ -87,7 +87,7 @@ export default function Form() {
 
         <button
           type="submit"
-          className="py-[12px] rounded-[20px] bg-pink text-white button-text button-form"
+          className="py-[12px] rounded-[20px] bg-pink text-white button-text button-form cursor-pointer"
         >
           Continuar
         </button>
