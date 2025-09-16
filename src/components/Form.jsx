@@ -3,7 +3,7 @@ export default function Form() {
     <form className="flex flex-col items-center gap-[14px] mx-auto lg:w-full lg:max-w-[335px] lg:mx-0 lg:ml-auto">
       <h1 className="heading-form">Inscreva-se</h1>
 
-      <div id="input-wrapper" className="flex flex-col lg:w-full">
+      <div id="input-wrapper" className="flex flex-col lg:w-full mt-4">
         {/* Nome */}
         <label htmlFor="name" className="relative mb-5">
           <input
@@ -43,7 +43,7 @@ export default function Form() {
         </label>
 
         {/* Telefone */}
-        <label htmlFor="phone" className="relative mb-10">
+        <label htmlFor="phone" className="relative mb-5">
           <input
             type="tel"
             id="phone"
@@ -76,7 +76,7 @@ export default function Form() {
               "absolute left-0 -top-3 text-sm transition-all duration-200 peer-placeholder-shown:top-1 peer-placeholder-shown:text-midnight peer-focus:-top-3 peer-focus:text-sm peer-focus:text-pink cursor-text whitespace-nowrap"
             }
           >
-            Inscreva seu time (completo ou não)
+            CPF
           </span>
         </label>
 
