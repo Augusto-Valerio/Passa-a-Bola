@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,6 +13,29 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export function LoginForm({ className, ...props }) {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [error, setError] = useState("");
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    const userFound = users.find(
+      (u) => u.email === email && u.senha === senha
+    );
+
+    if (userFound) {
+      // salva usuário logado
+      localStorage.setItem("loggedUser", JSON.stringify(userFound));
+      navigate("/time"); // redireciona para a página
+    } else {
+      setError("Email ou senha incorretos!");
+    }
+  };
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="bg-zinc-800 text-white border-zinc-500">
@@ -21,7 +46,7 @@ export function LoginForm({ className, ...props }) {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={handleLogin}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-3">
                 <Label htmlFor="email">Email</Label>
@@ -29,21 +54,26 @@ export function LoginForm({ className, ...props }) {
                   id="email"
                   type="email"
                   placeholder="m@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
               </div>
               <div className="grid gap-3">
                 <div className="flex items-center">
                   <Label htmlFor="password">Senha</Label>
-                  <a
-                    href="#"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                  >
-                    Esqueceu sua senha?
-                  </a>
                 </div>
-                <Input id="password" type="password" required />
+                <Input
+                  id="password"
+                  type="password"
+                  value={senha}
+                  onChange={(e) => setSenha(e.target.value)}
+                  required
+                />
               </div>
+              {error && (
+                <p className="text-red-500 text-sm">{error}</p>
+              )}
               <div className="flex flex-col gap-3">
                 <Button
                   type="submit"
