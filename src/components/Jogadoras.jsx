@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Usuario from "../../assets/usuario.png"
 
 export default function Jogadoras({ img, num}) { 
   const [usuario, setUsuario] = useState([]);
@@ -22,7 +23,7 @@ export default function Jogadoras({ img, num}) {
         index % 2 === 0 ? "bg-gray-200" : "bg-white"}`}
     >
         <div className="flex items-center ml-4 gap-3">
-          <img src={img} alt="imagem perfil jogadora" className="w-4 h-4" />
+          <img src={Usuario} alt="imagem perfil jogadora" className="w-4 h-4" />
           <p>{pegaItem.name}</p>
         </div>
         <p className="flex items-center mr-4">{num}</p>
