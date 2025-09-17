@@ -12,6 +12,7 @@ import time5 from "../../assets/time5.png"
 import time6 from "../../assets/time6.png"
 import time7 from "../../assets/time7.png"
 import time8 from "../../assets/time8.png"
+import Navbar from "../../components/Navbar"
 import logoPab from "../../assets/icon-pab.png"
 // import GameCard from "../../components/GameCards"
 
@@ -150,11 +151,12 @@ export default function Copa() {
 
   return (
     <>
+    <Navbar/>
     <HeroPage
       title="A COPA PAB ESTÁ ACONTECENDO!"
       subtitle="Confira os jogos, horários, resultados e acompanhe tudo em tempo real. Fique por dentro e torça com a gente!"
       buttonText="Acompanhe"
-      bgClass="bg-hero-home"
+      bgClass="bg-hero-copa"
     />
 
     <section className="flex justify-center py-9 pl-3 w-[100vw] mx-auto bg-off-white ">
