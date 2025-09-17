@@ -14,6 +14,7 @@ import time7 from "../../assets/time7.png"
 import time8 from "../../assets/time8.png"
 import Navbar from "../../components/Navbar"
 import logoPab from "../../assets/icon-pab.png"
+import BackTop from "../../components/BackTop";
 // import GameCard from "../../components/GameCards"
 
 export default function Copa() {
@@ -151,6 +152,7 @@ export default function Copa() {
 
   return (
     <>
+    <BackTop/>
     <Navbar/>
     <HeroPage
       title="A COPA PAB ESTÁ ACONTECENDO!"
