@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Home from "../pages/Home/Home";
 import Copa from "../pages/CopaPAB/Copa";
 import Login from "../pages/Login/Login";
-import Time from "../pages/Admin/Time";
+import Time from "../pages/admin/Time";
 
 export const router = createBrowserRouter([
   {
