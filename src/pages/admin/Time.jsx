@@ -6,7 +6,7 @@ import Jogadoras from "../../components/Jogadoras"
 export default function Copa(){
   return(
     <>
-    <section className="flex items-center justify-center bg-off-white ">
+    <section className="flex items-center justify-center bg-off-white h-screen ">
       <div className="bg-white w-[80vw] items-center rounded-2xl ">
         <div className="flex justify-center items-center mx-8 flex-col my-5">
           <div className="flex justify-between w-[100%] items-center">

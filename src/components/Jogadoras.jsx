@@ -1,22 +1,25 @@
 import { useEffect, useState } from "react";
-import Usuario from "../../assets/usuario.png"
+import Usuario from "../../src/assets/usuario.png"
 
-export default function Jogadoras({ img, num}) { 
+export default function Jogadoras({ num}) { 
   const [usuario, setUsuario] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true)
     fetch("https://jsonplaceholder.typicode.com/users")
       .then(responde => responde.json())
       .then(data => setUsuario(data)) 
       .catch(error => console.log(error))
-      .finally(() => console.log("Finalizou!"));
+      .finally(setLoading(false));
   }, []);
 
   if (!usuario) return null; 
 
   return ( 
     <>
-    {usuario.map((pegaItem,index) => (
+    {loading? <p>Carregando</p>:    
+    usuario.map((pegaItem,index) => (
       <div
       key={index}
       className={`flex justify-between h-10 ${
