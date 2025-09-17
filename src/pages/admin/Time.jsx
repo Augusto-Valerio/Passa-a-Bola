@@ -1,7 +1,5 @@
 import editar from "../../assets/editar.png"
 import retorno from "../../assets/retorno.png"
-// import logoPab from "../../assets/icon-pab.png"
-// import GameCard from "../../components/GameCards"
 
 import Jogadoras from "../../components/Jogadoras"
 
@@ -30,10 +28,6 @@ export default function Copa(){
           </div>
         </div>
 
-        <Jogadoras
-          img= "../../assets/time3.png"
-          num = "6"
-        />
         <Jogadoras
           img= "../../assets/time3.png"
           num = "6"
