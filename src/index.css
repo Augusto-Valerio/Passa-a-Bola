@@ -43,6 +43,11 @@ body {
       background-image: url("./assets/heroHome-desktop.png");
     }
   }
+
+  .bg-hero-copa{
+    background-image: url("./assets/img-copaPab.png");
+
+  }
 }
 
 @layer components {
