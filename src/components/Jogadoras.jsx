@@ -22,8 +22,9 @@ export default function Jogadoras({ num}) {
     usuario.map((pegaItem,index) => (
       <div
       key={index}
-      className={`flex justify-between h-10 ${
-        index % 2 === 0 ? "bg-gray-200" : "bg-white"}`}
+      className={`flex justify-between h-10 last:rounded-b-2xl ${
+        index % 2 === 0 ? "bg-gray-200" : "bg-white"
+      }`}
     >
         <div className="flex items-center ml-4 gap-3">
           <img src={Usuario} alt="imagem perfil jogadora" className="w-4 h-4" />
