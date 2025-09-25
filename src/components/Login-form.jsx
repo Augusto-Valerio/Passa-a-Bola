@@ -30,7 +30,7 @@ export function LoginForm({ className, ...props }) {
     if (userFound) {
       // salva usuário logado
       localStorage.setItem("loggedUser", JSON.stringify(userFound));
-      navigate("time"); // redireciona para a página
+      navigate("/admin"); // redireciona para a página
     } else {
       setError("Email ou senha incorretos!");
     }
