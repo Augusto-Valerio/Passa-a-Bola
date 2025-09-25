@@ -35,7 +35,7 @@ export default function NavbarAdmin() {
               <LuUserRound color="white" className="sm:h-7 sm:w-7" />
             </button>
             <button onClick={() => setIsOpen(true)}>
-              <TfiMenu color="white" className="sm:h-7 sm:w-7" />
+              <TfiMenu color="white" className="sm:h-7 sm:w-7 cursor-pointer" />
             </button>
           </div>
         </div>
@@ -43,8 +43,10 @@ export default function NavbarAdmin() {
 
       {/* Overlay */}
       <div
-        className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-20 transition-opacity duration-300
-              ${isOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}
+        className={`
+        fixed inset-0 bg-black/50 backdrop-blur-sm z-20 transition-opacity duration-300
+        cursor-pointer
+        ${isOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}
         onClick={() => setIsOpen(false)}
       ></div>
 
@@ -58,22 +60,45 @@ export default function NavbarAdmin() {
         <div className="flex justify-between items-center">
           {/* Botão pra fechar a Sidebar */}
           <button onClick={() => setIsOpen(false)}>
-            <FiX className="w-9 h-9" />
+            <FiX className="w-9 h-9 cursor-pointer" />
           </button>
         </div>
 
         <nav className="flex flex-col gap-3 mt-6">
-          <Link to="/" className="p-2 border-b border-stroke-color">
+          <Link
+            to="/"
+            className="p-2 border-b border-stroke-color"
+            onClick={() => setIsOpen(false)}
+          >
             Home
           </Link>
-          <Link to="/copa-pab" className="p-2 border-b border-stroke-color">
-            Copa PAB
+          <Link
+            to="/admin/time"
+            className="p-2 border-b border-stroke-color"
+            onClick={() => setIsOpen(false)}
+          >
+            Admin
           </Link>
-          <Link to="" className="p-2 border-b border-stroke-color">
-            Nosso time
+          <Link
+            to="/admin/time"
+            className="p-2 border-b border-stroke-color"
+            onClick={() => setIsOpen(false)}
+          >
+            Central de Times
           </Link>
-          <Link to="" className="p-2 border-b border-stroke-color">
-            Contato
+          <Link
+            to="/admin/dashboard"
+            className="p-2 border-b border-stroke-color"
+            onClick={() => setIsOpen(false)}
+          >
+            Estatísticas
+          </Link>
+          <Link
+            to=""
+            className="p-2 border-b border-stroke-color"
+            onClick={() => setIsOpen(false)}
+          >
+            Jogadoras
           </Link>
         </nav>
       </aside>
