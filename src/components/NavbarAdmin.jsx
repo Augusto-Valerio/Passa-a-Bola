@@ -35,7 +35,7 @@ export default function NavbarAdmin() {
               <LuUserRound color="white" className="sm:h-7 sm:w-7" />
             </button>
             <button onClick={() => setIsOpen(true)}>
-              <TfiMenu color="white" className="sm:h-7 sm:w-7" />
+              <TfiMenu color="white" className="sm:h-7 sm:w-7 cursor-pointer" />
             </button>
           </div>
         </div>
@@ -43,8 +43,10 @@ export default function NavbarAdmin() {
 
       {/* Overlay */}
       <div
-        className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-20 transition-opacity duration-300
-              ${isOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}
+        className={`
+        fixed inset-0 bg-black/50 backdrop-blur-sm z-20 transition-opacity duration-300
+        cursor-pointer
+        ${isOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}
         onClick={() => setIsOpen(false)}
       ></div>
 
@@ -58,7 +60,7 @@ export default function NavbarAdmin() {
         <div className="flex justify-between items-center">
           {/* Botão pra fechar a Sidebar */}
           <button onClick={() => setIsOpen(false)}>
-            <FiX className="w-9 h-9" />
+            <FiX className="w-9 h-9 cursor-pointer" />
           </button>
         </div>
 
