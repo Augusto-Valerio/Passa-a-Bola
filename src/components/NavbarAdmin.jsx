@@ -10,20 +10,73 @@ import logoMobile from "../assets/logo-admin.svg";
 import logoHeader from "../assets/logo-header.svg";
 
 export default function NavbarAdmin() {
-  return (
-    <header className="bg-headerAdmin py-[12px] px-[21px]">
-      <div className="flex items-center justify-between">
-        <Link to="/time">
-          <img src={logoMobile} alt="Logo passa a bola" className="sm:hidden" />
-          <img src={logoHeader} alt="Logo passa a bola" className="hidden sm:block" />
-        </Link>
+  const [isOpen, setIsOpen] = useState(false);
 
-        {/* botoes */}
-        <div className="flex items-center gap-2">
-          <LuUserRound color="white" className="sm:h-7 sm:w-7"/>
-          <TfiMenu color="white" className="sm:h-7 sm:w-7"/>
+  return (
+    <>
+      <header className="bg-headerAdmin py-[12px] px-[21px]">
+        <div className="flex items-center justify-between">
+          <Link to="time">
+            <img
+              src={logoMobile}
+              alt="Logo passa a bola"
+              className="sm:hidden"
+            />
+            <img
+              src={logoHeader}
+              alt="Logo passa a bola"
+              className="hidden sm:block"
+            />
+          </Link>
+
+          {/* botoes */}
+          <div className="flex items-center gap-2">
+            <button>
+              <LuUserRound color="white" className="sm:h-7 sm:w-7" />
+            </button>
+            <button onClick={() => setIsOpen(true)}>
+              <TfiMenu color="white" className="sm:h-7 sm:w-7" />
+            </button>
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+
+      {/* Overlay */}
+      <div
+        className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-20 transition-opacity duration-300
+              ${isOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}
+        onClick={() => setIsOpen(false)}
+      ></div>
+
+      {/* Sidebar */}
+      <aside
+        className={`min-w-56 w-[50%] bg-white text-midnight h-screen p-5 flex flex-col fixed top-0 right-0 z-30 transform transition-transform duration-300
+              ${
+                isOpen ? "translate-x-0" : "translate-x-160 lg:translate-x-200"
+              }`}
+      >
+        <div className="flex justify-between items-center">
+          {/* Botão pra fechar a Sidebar */}
+          <button onClick={() => setIsOpen(false)}>
+            <FiX className="w-9 h-9" />
+          </button>
+        </div>
+
+        <nav className="flex flex-col gap-3 mt-6">
+          <Link to="/" className="p-2 border-b border-stroke-color">
+            Home
+          </Link>
+          <Link to="/copa-pab" className="p-2 border-b border-stroke-color">
+            Copa PAB
+          </Link>
+          <Link to="" className="p-2 border-b border-stroke-color">
+            Nosso time
+          </Link>
+          <Link to="" className="p-2 border-b border-stroke-color">
+            Contato
+          </Link>
+        </nav>
+      </aside>
+    </>
   );
 }

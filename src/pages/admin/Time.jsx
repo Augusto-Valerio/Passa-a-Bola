@@ -2,13 +2,10 @@ import editar from "../../assets/editar.png";
 import retorno from "../../assets/retorno.png";
 
 import Jogadoras from "../../components/Jogadoras";
-import NavbarAdmin from "../../components/NavbarAdmin";
 
 export default function Copa() {
   return (
     <>
-      <NavbarAdmin />
-
       <section className="flex justify-center bg-off-white h-screen">
         <div className="bg-white w-[80vw] items-center rounded-2xl mt-[43px] h-fit drop-shadow-[0px_0px_12.1px_rgba(0,0,0,0.26)]">
           <div className="flex justify-center items-center mx-8 flex-col my-5">
