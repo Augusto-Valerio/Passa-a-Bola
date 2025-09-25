@@ -66,14 +66,17 @@ export default function NavbarAdmin() {
           <Link to="/" className="p-2 border-b border-stroke-color">
             Home
           </Link>
-          <Link to="/copa-pab" className="p-2 border-b border-stroke-color">
-            Copa PAB
+          <Link to="/admin/time" className="p-2 border-b border-stroke-color">
+            Admin
+          </Link>
+          <Link to="/admin/time" className="p-2 border-b border-stroke-color">
+            Central de Times
+          </Link>
+          <Link to="/admin/dashboard" className="p-2 border-b border-stroke-color">
+            Estatísticas
           </Link>
           <Link to="" className="p-2 border-b border-stroke-color">
-            Nosso time
-          </Link>
-          <Link to="" className="p-2 border-b border-stroke-color">
-            Contato
+            Jogadoras
           </Link>
         </nav>
       </aside>
