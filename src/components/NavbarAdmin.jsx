@@ -63,19 +63,39 @@ export default function NavbarAdmin() {
         </div>
 
         <nav className="flex flex-col gap-3 mt-6">
-          <Link to="/" className="p-2 border-b border-stroke-color">
+          <Link
+            to="/"
+            className="p-2 border-b border-stroke-color"
+            onClick={() => setIsOpen(false)}
+          >
             Home
           </Link>
-          <Link to="/admin/time" className="p-2 border-b border-stroke-color">
+          <Link
+            to="/admin/time"
+            className="p-2 border-b border-stroke-color"
+            onClick={() => setIsOpen(false)}
+          >
             Admin
           </Link>
-          <Link to="/admin/time" className="p-2 border-b border-stroke-color">
+          <Link
+            to="/admin/time"
+            className="p-2 border-b border-stroke-color"
+            onClick={() => setIsOpen(false)}
+          >
             Central de Times
           </Link>
-          <Link to="/admin/dashboard" className="p-2 border-b border-stroke-color">
+          <Link
+            to="/admin/dashboard"
+            className="p-2 border-b border-stroke-color"
+            onClick={() => setIsOpen(false)}
+          >
             Estatísticas
           </Link>
-          <Link to="" className="p-2 border-b border-stroke-color">
+          <Link
+            to=""
+            className="p-2 border-b border-stroke-color"
+            onClick={() => setIsOpen(false)}
+          >
             Jogadoras
           </Link>
         </nav>
