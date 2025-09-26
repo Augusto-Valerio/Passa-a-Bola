@@ -5,6 +5,7 @@ import Login from "../pages/Login/Login";
 import Time from "../pages/admin/Time";
 import Dashboards from "@/pages/admin/Dashboards";
 import AdminLayout from "@/pages/admin/AdminLayout";
+import CentralDeTimes from "@/pages/admin/CentralDeTimes";
 
 export const router = createBrowserRouter([
   {
@@ -26,7 +27,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Time />,
+        element: <CentralDeTimes />,
       },
       {
         path: "dashboard",
