@@ -73,7 +73,7 @@ export default function NavbarAdmin() {
             Home
           </Link>
           <Link
-            to="/admin/time"
+            to="/admin"
             className="p-2 border-b border-stroke-color"
             onClick={() => setIsOpen(false)}
           >
