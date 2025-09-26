@@ -17,12 +17,7 @@ import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
 
 export default function CentralDeTimes() {
-  // estado para lista dinâmica
-  const [listaTimes, setListaTimes] = useState([
-    "Time Wolves",
-    "Time Raptors",
-    "Time Aurora FC",
-  ]);
+  const [listaTimes, setListaTimes] = useState([]);
   const [novoTime, setNovoTime] = useState("");
 
   return (
@@ -35,23 +30,28 @@ export default function CentralDeTimes() {
           Central de times
         </h1>
 
-        <ul className="divide-y divide-gray-200">
-          {listaTimes.map((time, index) => (
-            <li
-              key={index}
-              className={`${index % 2 === 0 ? "bg-[#D9D9D9]" : "bg-white"}`}
-            >
-              <Link to="/admin/time">
-                <button
-                  className="w-full text-left py-2 px-3 hover:bg-gray-100 cursor-pointer"
+        {listaTimes.length === 0 ? (
+          <p className="text-center text-gray-500 font-open-sans">
+            Nenhum time inscrito
+          </p>
+        ) : (
+          <ul className="divide-y divide-gray-200">
+            {listaTimes.map((time, index) => (
+              <li
+                key={index}
+                className={`${index % 2 === 0 ? "bg-[#D9D9D9]" : "bg-white"}`}
+              >
+                <Link
+                  to="/admin/time"
+                  className="block w-full text-left py-2 px-3 hover:bg-gray-100 cursor-pointer"
                   onClick={() => console.log(`Abrir ${time}`)}
                 >
                   {time}
-                </button>
-              </Link>
-            </li>
-          ))}
-        </ul>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
 
         {/* Botão para adicionar time */}
         <Dialog>
