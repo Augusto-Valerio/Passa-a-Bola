@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -14,11 +15,34 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-import { Link } from "react-router-dom";
-
 export default function CentralDeTimes() {
+  const API_URL = import.meta.env.VITE_API_URL;
   const [listaTimes, setListaTimes] = useState([]);
   const [novoTime, setNovoTime] = useState("");
+
+  useEffect(() => {
+    fetch(`${API_URL}/teams`)
+      .then((response) => response.json())
+      .then((data) => setListaTimes(data))
+      .catch((error) => console.error("Erro ao buscar times:", error));
+  }, []);
+
+  const adicionarTime = (e) => {
+    e.preventDefault();
+    if (novoTime.trim() === "") return;
+
+    fetch(`${API_URL}/teams`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: novoTime }),
+    })
+      .then((response) => response.json())
+      .then((novo) => {
+        setListaTimes([...listaTimes, novo]);
+        setNovoTime("");
+      })
+      .catch((error) => console.error("Erro ao adicionar time:", error));
+  };
 
   return (
     <section className="py-[43px] flex flex-col justify-center items-center">
@@ -38,15 +62,14 @@ export default function CentralDeTimes() {
           <ul className="divide-y divide-gray-200">
             {listaTimes.map((time, index) => (
               <li
-                key={index}
+                key={time.id}
                 className={`${index % 2 === 0 ? "bg-[#D9D9D9]" : "bg-white"}`}
               >
                 <Link
                   to="/admin/time"
                   className="block w-full text-left py-2 px-3 hover:bg-gray-100 cursor-pointer"
-                  onClick={() => console.log(`Abrir ${time}`)}
                 >
-                  {time}
+                  {time.name}
                 </Link>
               </li>
             ))}
@@ -62,15 +85,7 @@ export default function CentralDeTimes() {
           </DialogTrigger>
 
           <DialogContent className="sm:max-w-[425px]">
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                if (novoTime.trim() !== "") {
-                  setListaTimes([...listaTimes, novoTime.trim()]);
-                  setNovoTime("");
-                }
-              }}
-            >
+            <form onSubmit={adicionarTime}>
               <DialogHeader>
                 <DialogTitle>Adicionar time</DialogTitle>
                 <DialogDescription>
