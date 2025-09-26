@@ -53,7 +53,7 @@ const chartConfig = {
 
 export function ChartBarMixed() {
   return (
-    <Card>
+    <Card className="max-w-[600px] bg-transparent shadow-none border-0">
       <CardHeader>
         <CardTitle>Bar Chart - Mixed</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
