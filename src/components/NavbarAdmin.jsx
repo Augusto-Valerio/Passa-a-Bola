@@ -20,7 +20,7 @@ export default function NavbarAdmin() {
             <img
               src={logoMobile}
               alt="Logo passa a bola"
-              className="sm:hidden"
+              className="sm:hidden h-7"
             />
             <img
               src={logoHeader}
@@ -32,10 +32,10 @@ export default function NavbarAdmin() {
           {/* botoes */}
           <div className="flex items-center gap-2">
             <button>
-              <LuUserRound color="white" className="sm:h-7 sm:w-7" />
+              <LuUserRound color="white" className="h-7 w-7" />
             </button>
             <button onClick={() => setIsOpen(true)}>
-              <TfiMenu color="white" className="sm:h-7 sm:w-7 cursor-pointer" />
+              <TfiMenu color="white" className="h-7 w-7 cursor-pointer" />
             </button>
           </div>
         </div>
@@ -52,12 +52,12 @@ export default function NavbarAdmin() {
 
       {/* Sidebar */}
       <aside
-        className={`min-w-56 w-[50%] bg-white text-midnight h-screen p-5 flex flex-col fixed top-0 right-0 z-30 transform transition-transform duration-300
+        className={`min-w-56 w-[50%] bg-white text-midnight h-screen p-5 flex flex-col fixed top-0 right-0 z-30 transform transition-transform duration-300 lg:w-0 lg:text-white lg:bg-midnight
               ${
-                isOpen ? "translate-x-0" : "translate-x-160 lg:translate-x-200"
+                isOpen ? "translate-x-0" : "translate-x-160 lg:translate-x-300"
               }`}
       >
-        <div className="flex justify-between items-center">
+        <div className="flex justify-end">
           {/* Botão pra fechar a Sidebar */}
           <button onClick={() => setIsOpen(false)}>
             <FiX className="w-9 h-9 cursor-pointer" />
@@ -77,13 +77,6 @@ export default function NavbarAdmin() {
             className="p-2 border-b border-stroke-color"
             onClick={() => setIsOpen(false)}
           >
-            Admin
-          </Link>
-          <Link
-            to="/admin/time"
-            className="p-2 border-b border-stroke-color"
-            onClick={() => setIsOpen(false)}
-          >
             Central de Times
           </Link>
           <Link
@@ -92,13 +85,6 @@ export default function NavbarAdmin() {
             onClick={() => setIsOpen(false)}
           >
             Estatísticas
-          </Link>
-          <Link
-            to=""
-            className="p-2 border-b border-stroke-color"
-            onClick={() => setIsOpen(false)}
-          >
-            Jogadoras
           </Link>
         </nav>
       </aside>
