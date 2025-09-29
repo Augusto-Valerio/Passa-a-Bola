@@ -22,7 +22,7 @@ import {
 import { FiUser } from "react-icons/fi";
 import { FiEdit2 } from "react-icons/fi";
 
-export function AddPlayers({ index, player = {}, onUpdate }) {
+export function AddPlayer({ index, player = {}, onUpdate }) {
   const avatarInputRef = useRef(null);
 
   // estados locais (baseados no que já tiver em player)
@@ -31,6 +31,7 @@ export function AddPlayers({ index, player = {}, onUpdate }) {
   const [email, setEmail] = useState(player.email || "");
   const [phone, setPhone] = useState(player.phone || "");
   const [cpf, setCpf] = useState(player.cpf || "");
+  const [shirt, setShirt] = useState(player.shirt || "");
   const [position, setPosition] = useState(player.position || "");
   const [leg, setLeg] = useState(player.leg || "");
 
@@ -38,10 +39,8 @@ export function AddPlayers({ index, player = {}, onUpdate }) {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // já seta no estado local (avatar grande)
     setAvatar(file);
 
-    // já atualiza no pai também (avatar pequeno + infos do player)
     onUpdate(index, {
       ...player,
       avatarFile: file,
@@ -66,6 +65,7 @@ export function AddPlayers({ index, player = {}, onUpdate }) {
     setEmail("");
     setPhone("");
     setCpf("");
+    setShirt("");
     setPosition("");
     setLeg("");
 
@@ -79,6 +79,7 @@ export function AddPlayers({ index, player = {}, onUpdate }) {
       email: "",
       phone: "",
       cpf: "",
+      shirt: "",
       position: "",
       leg: "",
     });
@@ -129,7 +130,7 @@ export function AddPlayers({ index, player = {}, onUpdate }) {
           </Button>
         </DialogTrigger>
 
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-[425px] max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>
               {player?.name ? "Editar Jogadora" : "Adicionar Jogadora"}
@@ -195,6 +196,15 @@ export function AddPlayers({ index, player = {}, onUpdate }) {
               />
             </div>
 
+            <div className="grid gap-3">
+              <Label>Numero da camisa</Label>
+              <Input
+                value={shirt}
+                onChange={(e) => setShirt(e.target.value)}
+                placeholder="Ex: 10"
+              />
+            </div>
+
             <div className="grid sm:grid-cols-2 gap-4">
               <div className="grid gap-3">
                 <Label>Escolha a posição</Label>
@@ -248,7 +258,6 @@ export function AddPlayers({ index, player = {}, onUpdate }) {
           </div>
 
           <DialogFooter>
-            <DialogClose asChild>
               <Button
                 variant="outline"
                 className="cursor-pointer"
@@ -256,7 +265,6 @@ export function AddPlayers({ index, player = {}, onUpdate }) {
               >
                 Limpar
               </Button>
-            </DialogClose>
             <DialogClose asChild>
               <Button
                 className=" bg-pink text-white hover:bg-hover-pink cursor-pointer"
