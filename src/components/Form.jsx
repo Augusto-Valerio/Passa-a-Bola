@@ -140,7 +140,7 @@ export default function Form() {
         players: mode === "team" ? playersData : null,
         avatar: avatarUrl,
         team_logo: teamLogoUrl,
-        status: "pending",
+        status: "Pendente",
       };
 
       const { data: inserted, error: insertError } = await supabase

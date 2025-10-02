@@ -18,7 +18,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export default function CentralDeTimes() {
-  const API_URL = import.meta.env.VITE_API_URL;
   const [listaTimes, setListaTimes] = useState([]);
   const [novoTime, setNovoTime] = useState("");
 

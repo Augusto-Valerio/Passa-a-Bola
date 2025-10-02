@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
+import StatusFilter from "@/components/StatusFilter";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -16,6 +18,7 @@ export default function Inbox() {
   const [inscricoes, setInscricoes] = useState([]);
   const [selected, setSelected] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [statusFilter, setStatusFilter] = useState("Todos");
 
   useEffect(() => {
     fetchInscricoes();
@@ -36,10 +39,10 @@ export default function Inbox() {
     setLoading(false);
   }
 
-  async function updateStatus(id, status) {
+  async function updateStatus(id, newStatus) {
     const { error } = await supabase
       .from("inscricoes")
-      .update({ status })
+      .update({ status: newStatus })
       .eq("id", id);
 
     if (error) {
@@ -48,15 +51,17 @@ export default function Inbox() {
     } else {
       // se for aceitação de time, adiciona o time no CentralDeTimes
       const inscricao = inscricoes.find((i) => i.id === id);
-      if (status === "accepted" && inscricao?.mode === "team") {
+      if (newStatus === "Aceitos" && inscricao?.mode === "team") {
         const { error: teamError } = await supabase
           .from("teams")
           .insert([{ name: inscricao.team }]);
-
         if (teamError) console.error("Erro ao criar time:", teamError);
       }
 
-      fetchInscricoes();
+      setInscricoes((prev) =>
+        prev.map((i) => (i.id === id ? { ...i, status: newStatus } : i))
+      );
+
       setSelected(null);
     }
   }
@@ -65,36 +70,42 @@ export default function Inbox() {
     <section className="py-[43px] flex flex-col justify-center items-center">
       <div
         className="bg-white w-[80vw] items-center rounded-2xl h-fit 
-        drop-shadow-[0px_0px_12.1px_rgba(0,0,0,0.26)]"
+        drop-shadow-[0px_0px_12.1px_rgba(0,0,0,0.26)] p-2"
       >
         <h1 className="font-antonio text-[28px] text-center pt-[30px] pb-[37px]">
           Caixa de entrada
         </h1>
 
+        <StatusFilter onChange={setStatusFilter} />
+
         {loading ? (
           <p>Carregando...</p>
         ) : (
           <ul className="space-y-3">
-            {inscricoes.map((i) => (
-              <li
-                key={i.id}
-                className="p-3 border flex justify-between items-center"
-              >
-                <div>
-                  <div className="font-semibold">{i.name}</div>
-                  <div className="text-sm text-gray-500">
-                    {i.mode === "team" ? "Time" : "Individual"}
+            {inscricoes
+              .filter(
+                (i) => statusFilter === "Todos" || i.status === statusFilter
+              )
+              .map((i) => (
+                <li
+                  key={i.id}
+                  className="p-3 border-2 mt-2 flex justify-between items-center rounded-[13px]"
+                >
+                  <div>
+                    <div className="font-semibold">{i.name}</div>
+                    <div className="text-sm text-gray-500">
+                      {i.mode === "team" ? "Inscrição: Time" : "Inscrição: Individual"}
+                    </div>
+                    <div className="text-xs text-gray-400">
+                      Status: {i.status}
+                    </div>
                   </div>
-                  <div className="text-xs text-gray-400">
-                    Status: {i.status}
-                  </div>
-                </div>
 
-                <div className="flex gap-2">
-                  <Button onClick={() => setSelected(i)}>Visualizar</Button>
-                </div>
-              </li>
-            ))}
+                  <div className="flex gap-2">
+                    <Button onClick={() => setSelected(i)}>Visualizar</Button>
+                  </div>
+                </li>
+              ))}
           </ul>
         )}
 
@@ -230,13 +241,17 @@ export default function Inbox() {
             )}
 
             <DialogFooter className="flex gap-2 mt-4">
-              <Button variant="ghost" onClick={() => setSelected(null)}>
-                Fechar
-              </Button>
-              <Button onClick={() => updateStatus(selected.id, "accepted")}>
+              <Button
+                onClick={() => updateStatus(selected.id, "Aceitos")}
+                disabled={!selected || selected.status !== "Pendente"}
+              >
                 Aceitar
               </Button>
-              <Button onClick={() => updateStatus(selected.id, "rejected")}>
+
+              <Button
+                onClick={() => updateStatus(selected.id, "Rejeitados")}
+                disabled={!selected || selected.status !== "Pendente"}
+              >
                 Rejeitar
               </Button>
             </DialogFooter>
