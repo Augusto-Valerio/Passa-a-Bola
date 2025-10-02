@@ -94,7 +94,9 @@ export default function Inbox() {
                   <div>
                     <div className="font-semibold">{i.name}</div>
                     <div className="text-sm text-gray-500">
-                      {i.mode === "team" ? "Inscrição: Time" : "Inscrição: Individual"}
+                      {i.mode === "team"
+                        ? "Inscrição: Time"
+                        : "Inscrição: Individual"}
                     </div>
                     <div className="text-xs text-gray-400">
                       Status: {i.status}
@@ -102,7 +104,12 @@ export default function Inbox() {
                   </div>
 
                   <div className="flex gap-2">
-                    <Button onClick={() => setSelected(i)}>Visualizar</Button>
+                    <Button
+                      className=" bg-pink text-white hover:bg-hover-pink cursor-pointer"
+                      onClick={() => setSelected(i)}
+                    >
+                      Visualizar
+                    </Button>
                   </div>
                 </li>
               ))}
@@ -242,17 +249,20 @@ export default function Inbox() {
 
             <DialogFooter className="flex gap-2 mt-4">
               <Button
-                onClick={() => updateStatus(selected.id, "Aceitos")}
+                onClick={() => updateStatus(selected.id, "Rejeitados")}
                 disabled={!selected || selected.status !== "Pendente"}
+                className="cursor-pointer"
+                variant="outline"
               >
-                Aceitar
+                Rejeitar
               </Button>
 
               <Button
-                onClick={() => updateStatus(selected.id, "Rejeitados")}
+                onClick={() => updateStatus(selected.id, "Aceitos")}
                 disabled={!selected || selected.status !== "Pendente"}
+                className=" bg-pink text-white hover:bg-hover-pink cursor-pointer"
               >
-                Rejeitar
+                Aceitar
               </Button>
             </DialogFooter>
           </DialogContent>

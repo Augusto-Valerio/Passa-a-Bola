@@ -8,31 +8,43 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+
+import { RiArrowDownSLine } from "react-icons/ri";
 
 // Lista de status com label e valor real do banco
 const statuses = [
-  { value: "Todos", label: "Todos" },
   { value: "Pendente", label: "Pendente" },
   { value: "Aceitos", label: "Aceitos" },
   { value: "Rejeitados", label: "Rejeitados" },
+  { value: "Todos", label: "Todos" },
 ];
 
 export default function StatusFilter({ onChange }) {
   const [open, setOpen] = useState(false);
-  const [selectedStatus, setSelectedStatus] = useState(statuses[3]); 
+  const [selectedStatus, setSelectedStatus] = useState(statuses[3]);
 
   const handleSelect = (status) => {
     setSelectedStatus(status);
     setOpen(false);
-    if (onChange) onChange(status.value ); // retorna label em português
+    if (onChange) onChange(status.value); // retorna label em português
   };
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant="outline" className="w-[150px] justify-start">
-          {selectedStatus ? selectedStatus.label : "+ Filtrar status"}
+        <Button
+          variant="outline"
+          className="w-[150px] flex justify-between items-center cursor-pointer"
+        >
+          <span>
+            {selectedStatus ? selectedStatus.label : "Todos"}
+          </span>
+          <RiArrowDownSLine className="w-4 h-4" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0" align="start">
@@ -46,6 +58,7 @@ export default function StatusFilter({ onChange }) {
                   key={status.value}
                   value={status.value}
                   onSelect={() => handleSelect(status)}
+                  className="cursor-pointer"
                 >
                   {status.label}
                 </CommandItem>
