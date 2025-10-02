@@ -41,9 +41,7 @@ export default function StatusFilter({ onChange }) {
           variant="outline"
           className="w-[150px] flex justify-between items-center cursor-pointer"
         >
-          <span>
-            {selectedStatus ? selectedStatus.label : "Todos"}
-          </span>
+          <span>{selectedStatus ? selectedStatus.label : "Todos"}</span>
           <RiArrowDownSLine className="w-4 h-4" />
         </Button>
       </PopoverTrigger>
