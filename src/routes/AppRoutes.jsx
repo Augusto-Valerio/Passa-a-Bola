@@ -6,6 +6,7 @@ import Time from "../pages/admin/Time";
 import Dashboards from "@/pages/admin/Dashboards";
 import AdminLayout from "@/pages/admin/AdminLayout";
 import CentralDeTimes from "@/pages/admin/CentralDeTimes";
+import Inbox from "@/pages/admin/Inbox";
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <CentralDeTimes />,
+      },
+      {
+        path: "inbox",
+        element: <Inbox />,
       },
       {
         path: "dashboard",

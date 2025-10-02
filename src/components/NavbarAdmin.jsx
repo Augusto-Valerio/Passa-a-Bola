@@ -73,6 +73,13 @@ export default function NavbarAdmin() {
             Home
           </Link>
           <Link
+            to="/admin/inbox"
+            className="p-2 border-b border-stroke-color"
+            onClick={() => setIsOpen(false)}
+          >
+            Caixa de entrada
+          </Link>
+          <Link
             to="/admin"
             className="p-2 border-b border-stroke-color"
             onClick={() => setIsOpen(false)}
