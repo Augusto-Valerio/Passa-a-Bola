@@ -1,3 +1,5 @@
+import { supabase } from "@/lib/supabase";
+
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
@@ -21,27 +23,37 @@ export default function CentralDeTimes() {
   const [novoTime, setNovoTime] = useState("");
 
   useEffect(() => {
-    fetch(`${API_URL}/teams`)
-      .then((response) => response.json())
-      .then((data) => setListaTimes(data))
-      .catch((error) => console.error("Erro ao buscar times:", error));
+    fetchTimes();
   }, []);
 
-  const adicionarTime = (e) => {
-    e.preventDefault();
-    if (novoTime.trim() === "") return;
+  async function fetchTimes() {
+    const { data, error } = await supabase
+      .from("teams")
+      .select("*")
+      .order("created_at", { ascending: false });
 
-    fetch(`${API_URL}/teams`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name: novoTime }),
-    })
-      .then((response) => response.json())
-      .then((novo) => {
-        setListaTimes([...listaTimes, novo]);
-        setNovoTime("");
-      })
-      .catch((error) => console.error("Erro ao adicionar time:", error));
+    if (error) {
+      console.error("Erro ao buscar times:", error);
+    } else {
+      setListaTimes(data);
+    }
+  }
+
+  const adicionarTime = async (e) => {
+    e.preventDefault();
+    if (!novoTime.trim()) return;
+
+    const { data, error } = await supabase
+      .from("teams")
+      .insert([{ name: novoTime }])
+      .select();
+
+    if (error) {
+      console.error("Erro ao adicionar time:", error);
+    } else {
+      setListaTimes((prev) => [data[0], ...prev]);
+      setNovoTime("");
+    }
   };
 
   return (

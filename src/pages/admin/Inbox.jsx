@@ -1,4 +1,3 @@
-// src/pages/admin/inbox.jsx
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
@@ -11,6 +10,7 @@ import {
   DialogTrigger,
   DialogClose,
 } from "@/components/ui/dialog";
+import { FiUser } from "react-icons/fi";
 
 export default function Inbox() {
   const [inscricoes, setInscricoes] = useState([]);
@@ -41,10 +41,21 @@ export default function Inbox() {
       .from("inscricoes")
       .update({ status })
       .eq("id", id);
+
     if (error) {
       console.error("Erro ao atualizar status:", error);
       alert("Erro ao atualizar status.");
     } else {
+      // se for aceitação de time, adiciona o time no CentralDeTimes
+      const inscricao = inscricoes.find((i) => i.id === id);
+      if (status === "accepted" && inscricao?.mode === "team") {
+        const { error: teamError } = await supabase
+          .from("teams")
+          .insert([{ name: inscricao.team }]);
+
+        if (teamError) console.error("Erro ao criar time:", teamError);
+      }
+
       fetchInscricoes();
       setSelected(null);
     }
@@ -100,15 +111,21 @@ export default function Inbox() {
             {selected && (
               <div className="mt-2 space-y-2">
                 <div className="flex gap-4 items-center">
-                  {selected.avatar && (
-                    <img
-                      src={selected.avatar}
-                      alt="avatar"
-                      className="w-20 h-20 rounded-full object-cover"
-                    />
-                  )}
+                  <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center">
+                    {selected.avatar ? (
+                      <img
+                        src={selected.avatar}
+                        alt="avatar"
+                        className="w-20 h-20 rounded-full object-cover"
+                      />
+                    ) : (
+                      <FiUser size={40} className="text-gray-400" />
+                    )}
+                  </div>
                   <div className="grid gap-3">
-                    <h2 className="font-bold">Capitão do time:</h2>
+                    <h2 className="font-bold">
+                      Jogadora que inscreveu o time:
+                    </h2>
 
                     <div className="grid grid-cols-2 gap-2">
                       <div>
@@ -159,36 +176,48 @@ export default function Inbox() {
                             key={idx}
                             className="flex flex-col gap-3 border-2 rounded-2xl p-3"
                           >
-                            {p.avatar && (
-                              <div className="border-b-2">
+                            <div className="border-b-2 flex justify-center mb-2">
+                              {p.avatar ? (
                                 <img
                                   src={p.avatar}
-                                  className="w-12 h-12 rounded-full object-cover justify-self-center mb-2"
+                                  className="w-12 h-12 rounded-full object-cover mb-2"
                                   alt={p.name}
                                 />
-                              </div>
-                            )}
-                            <div>
+                              ) : (
+                                <FiUser
+                                  size={48}
+                                  className="text-gray-400 bg-off-white rounded-full mb-2"
+                                />
+                              )}
+                            </div>
+                            <div className="grid gap-2">
                               <div>
-                                <strong>Nome:</strong> {p.name}
-                              </div>
-                              <div>
-                                <strong>Email:</strong> {p.email}
-                              </div>
-                              <div>
-                                <strong>Telefone:</strong> {p.phone}
-                              </div>
-                              <div>
-                                <strong>CPF:</strong> {p.cpf}
+                                <h3 className="font-bold">Nome:</h3>
+                                <p>{p.name}</p>
                               </div>
                               <div>
-                                <strong>Camisa:</strong> {p.shirt}
+                                <h3 className="font-bold">Email:</h3>
+                                <div>{p.email}</div>
                               </div>
                               <div>
-                                <strong>Posição:</strong> {p.position}
+                                <h3 className="font-bold">Telefone:</h3>
+                                <div>{p.phone}</div>
                               </div>
                               <div>
-                                <strong>Perna dominante:</strong> {p.leg}
+                                <h3 className="font-bold">CPF:</h3>
+                                <div>{p.cpf}</div>
+                              </div>
+                              <div>
+                                <h3 className="font-bold">Camisa:</h3>
+                                <div>{p.shirt}</div>
+                              </div>
+                              <div>
+                                <h3 className="font-bold">Posição:</h3>
+                                <div>{p.position}</div>
+                              </div>
+                              <div>
+                                <h3 className="font-bold">Perna dominante:</h3>
+                                <div>{p.leg}</div>
                               </div>
                             </div>
                           </li>

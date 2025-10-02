@@ -155,13 +155,11 @@ export default function Form() {
       }
 
       alert("Inscrição enviada com sucesso!");
-      handleMainCancel(); // reseta o formulário (você já tem essa função)
+      handleMainCancel(); // reseta o formulário
     } catch (err) {
       console.error("Erro no submit:", err);
       alert("Erro ao processar. Verifique o console.");
-    } finally {
-      // (opcional) reabilitar botão / tirar loading
-    }
+    } 
   };
 
   const handleAvatarChange = (e) => {
