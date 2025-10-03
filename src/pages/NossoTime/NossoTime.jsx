@@ -8,12 +8,12 @@ export default function NossoTime() {
   return (
     <div className="grid grid-cols-4 gap-6 p-6">
       {/* Card de apresentação "Nosso Time" */}
-      <div className=" col-span-1 bg-pink text-white rounded-[10px] p-3 flex flex-col items-center gap-[50px] pt-[60px]">
+      <div className=" col-span-1 bg-pink text-white rounded-[0.625rem] p-3 flex flex-col items-center gap-[3.125rem] pt-[3.75rem]">
         <img src={Logo} alt="logo" className="w-25 h-25 mb-4" />
-        <h2 className="text-2xl font-bold mb-4 font-antonio text-[40px] ">
+        <h2 className="text-2xl font-bold mb-4 font-antonio text-[2.5rem] ">
           NOSSO TIME
         </h2>
-        <p className="max-w-[183px] text-center font-antonio font-light text-[12px]">
+        <p className="max-w-[11.438rem] text-center font-antonio font-light text-[0.75rem]">
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's standard dummy text ever
           since the 1500s, when an unknown printer took a galley of type and

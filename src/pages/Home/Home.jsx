@@ -52,27 +52,27 @@ export default function Home() {
 
       <section
         id="project"
-        className="bg-off-white py-[70px] lg:py-[100px] overflow-hidden"
+        className="bg-off-white py-[4.375rem] lg:py-[6.25rem] overflow-hidden"
       >
         <div
           id="project-container"
-          className="max-w-[62.5em] px-[2.375rem] mx-auto flex flex-col lg:flex-row lg:gap-[4.625rem] lg:px-[0]"
+          className="max-w-[62.5rem] px-[2.375rem] mx-auto flex flex-col lg:flex-row lg:gap-[4.625rem] lg:px-[0]"
         >
           <div
             id="project-wrapper"
-            className="flex flex-col items-center max-w-[456px] mx-auto"
+            className="flex flex-col items-center max-w-[28.5rem] mx-auto"
           >
             {/* Label */}
             <div className="flex items-center gap-2 mr-auto lg:mr-0 lg:ml-auto">
               <span className="text-purple section-label">O PROJETO</span>
-              <div className="w-[40px] h-px bg-purple"></div>
+              <div className="w-[2.5rem] h-px bg-purple"></div>
             </div>
 
             {/* Título e texto */}
-            <h2 className="heading-section text-midnight mt-[8px] mr-auto lg:ml-auto lg:mr-0">
+            <h2 className="heading-section text-midnight mt-[0.5rem] mr-auto lg:ml-auto lg:mr-0">
               A COPA PASSA A BOLA
             </h2>
-            <p className="body-text text-midnight lg:text-right mt-[30px] ">
+            <p className="body-text text-midnight lg:text-right mt-[1.875rem] ">
               A Copa Passa a Bola é um campeonato voltado para mulheres, com
               foco em inclusão, equilíbrio e organização. A plataforma
               automatiza inscrições, forma times com jogadoras avulsas e separa
@@ -89,17 +89,17 @@ export default function Home() {
             <Dialog>
               <form>
                 <DialogTrigger asChild>
-                  <Button className="py-[8px] px-[34px] rounded-[20px] bg-pink text-white button-text my-[32px] mr-auto lg:mr-0 lg:ml-auto cursor-pointer hover:bg-hover-pink">
+                  <Button className="py-[0.5rem] px-[2.125rem] rounded-[1.25rem] bg-pink text-white button-text my-[2rem] mr-auto lg:mr-0 lg:ml-auto cursor-pointer hover:bg-hover-pink">
                     Nosso Time
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[1172px] overflow-y-auto max-h-[90vh]">
+                <DialogContent className="sm:max-w-[73.25rem] overflow-y-auto max-h-[90vh]">
                   <DialogHeader></DialogHeader>
                   <NossoTime />
 
                   <DialogFooter>
                     <DialogClose asChild>
-                      <Button className=" bg-pink text-white hover:bg-hover-pink cursor-pointer mr-[24px]">
+                      <Button className=" bg-pink text-white hover:bg-hover-pink cursor-pointer mr-[1.5rem]">
                         Fechar
                       </Button>
                     </DialogClose>
@@ -109,19 +109,19 @@ export default function Home() {
             </Dialog>
           </div>
 
-          <div className=" mt-[10px] max-w[456px] mx-auto">
+          <div className=" mt-[0.625rem] max-w[28.5rem] mx-auto">
             <img src={Img1} className="" alt="" />
           </div>
         </div>
       </section>
 
-      <section id="about" className="bg-off-white py-[100px] overflow-hidden">
+      <section id="about" className="bg-off-white py-[6.25rem] overflow-hidden">
         <div
           id="about-container"
-          className="max-w-[62.5em] px-[2.375rem] mx-auto flex flex-col justify-between lg:flex-row lg:px-0 lg:gap-[76px]"
+          className="max-w-[62.5em] px-[2.375rem] mx-auto flex flex-col justify-between lg:flex-row lg:px-0 lg:gap-[4.75rem]"
         >
           {/* imagens */}
-          <div className="relative order-2 lg:order-1 max-w[456px] mx-auto">
+          <div className="relative order-2 lg:order-1 max-w[28.5rem] mx-auto">
             <a href="https://www.youtube.com/@passabola" target="_blank">
               <img src={Img2} alt="" />
             </a>
@@ -129,7 +129,7 @@ export default function Home() {
               <img
                 src={Img3}
                 alt=""
-                className="absolute bottom-[-35%] right-[-10%] lg:bottom-[10px] lg:left-auto lg:right-[-40px]"
+                className="absolute bottom-[-35%] right-[-10%] lg:bottom-[0.625rem] lg:left-auto lg:right-[-2.5rem]"
               />
             </a>
           </div>
@@ -137,19 +137,19 @@ export default function Home() {
           {/* textos e botão*/}
           <div
             id="about-wrapper"
-            className="order-1 lg:order-2 max-w-[456px] mx-auto"
+            className="order-1 lg:order-2 max-w-[28.5rem] mx-auto"
           >
             {/* label */}
             <div className="flex items-center gap-2">
               <span className="text-red section-label">SOBRE NOS</span>
-              <div className="w-[40px] h-px bg-red"></div>
+              <div className="w-[2.5rem] h-px bg-red"></div>
             </div>
 
-            <h2 className="heading-section text-midnight mt-[8px]">
+            <h2 className="heading-section text-midnight mt-[0.5rem]">
               NO YOUTUBE
             </h2>
 
-            <div className="max-w-[474px] mt-[30px] flex flex-col gap-4 body-text text-midnight">
+            <div className="max-w-[29.625rem] mt-[1.875rem] flex flex-col gap-4 body-text text-midnight">
               <p>
                 O canal Passa a Bola é comandado por Alê Xavier e Luana Maluf,
                 duas criadoras de conteúdo que usam informação, leveza e
@@ -169,7 +169,7 @@ export default function Home() {
             <a
               href="https://www.youtube.com/@passabola"
               target="_blank"
-              className="inline-block py-[8px] px-[34px] rounded-[20px] bg-pink text-white button-text my-[32px]"
+              className="inline-block py-[0.5rem] px-[2.125rem] rounded-[1.25rem] bg-pink text-white button-text my-[2rem]"
             >
               Veja mais
             </a>
@@ -180,32 +180,32 @@ export default function Home() {
       <section id="benefits" className="bg-off-white">
         <div
           id="benefits-container"
-          className="max-w-[800px] lg:max-w-[62.5em] mx-auto px-[2.375rem]"
+          className="max-w-[50rem] lg:max-w-[62.5rem] mx-auto px-[2.375rem]"
         >
-          <div id="benefits-wrapper" className="flex flex-col gap-[30px]">
+          <div id="benefits-wrapper" className="flex flex-col gap-[1.875rem]">
             {/* label */}
-            <div className="flex items-center gap-6 justify-center mt-[100px]">
-              <div className="w-[40px] h-px bg-purple"></div>
+            <div className="flex items-center gap-6 justify-center mt-[6.25rem]">
+              <div className="w-[2.5rem] h-px bg-purple"></div>
               <span className="text-purple section-label whitespace-nowrap">
                 POR QUE JOGAR COM A GENTE?
               </span>
-              <div className="w-[40px] h-px bg-purple"></div>
+              <div className="w-[2.5rem] h-px bg-purple"></div>
             </div>
 
             {/* Benefícios */}
-            <div className="bg-white flex flex-col rounded-[5px] py-[40px] px-[68px] shadow-[0px_0px_40px_rgba(0,0,0,0.25)] lg:flex-row">
+            <div className="bg-white flex flex-col rounded-[0.313rem] py-[2.5rem] px-[4.25rem] shadow-[0px_0px_40px_rgba(0,0,0,0.25)] lg:flex-row">
               <Benefits
                 imgClass={Match}
                 title="Match perfeito"
                 subtitle="Os confrontos são organizados por nível, garantindo partidas equilibradas e seguras para todas as jogadoras."
               />
-              <div className="border-b border-gray-base my-[40px] lg:my-0 lg:mx-[40px] lg:border-l"></div>
+              <div className="border-b border-gray-base my-[2.5rem] lg:my-0 lg:mx-[2.5rem] lg:border-l"></div>
               <Benefits
                 imgClass={Reload}
                 title="Fase de grupos"
                 subtitle="A fase de grupos evita eliminações precoces e garante que todas joguem mais de uma vez."
               />
-              <div className="border-b border-gray-base my-[40px] lg:my-0 lg:mx-[40px] lg:border-l"></div>
+              <div className="border-b border-gray-base my-[2.5rem] lg:my-0 lg:mx-[2.5rem] lg:border-l"></div>
               <Benefits
                 imgClass={Calendar}
                 title="Tudo em Tempo Real"
@@ -216,26 +216,26 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="form" className="bg-off-white py-[186px]">
+      <section id="form" className="bg-off-white py-[11.625rem]">
         <div
           id="form-container"
-          className="max-w-[62.5em] px-[2.375rem] mx-auto flex flex-col gap-12 lg:flex-row lg:px-[0]"
+          className="max-w-[62.5rem] px-[2.375rem] mx-auto flex flex-col gap-12 lg:flex-row lg:px-[0]"
         >
           <div
             id="content-wrapper"
-            className="flex flex-col items-center max-w-[456px] mx-auto lg:mx-0"
+            className="flex flex-col items-center max-w-[28.5rem] mx-auto lg:mx-0"
           >
             {/* Label */}
             <div className="flex items-center gap-2 mr-auto ">
-              <div className="w-[40px] h-px bg-purple"></div>
+              <div className="w-[2,5rem] h-px bg-purple"></div>
               <span className="text-purple section-label">FORMULÁRIO</span>
             </div>
 
             {/* Título e texto */}
-            <h2 className="heading-section text-midnight mt-[8px] mr-auto">
+            <h2 className="heading-section text-midnight mt-[0.5rem] mr-auto">
               SE INSCREVA
             </h2>
-            <p className="body-text text-midnight mt-[30px] ">
+            <p className="body-text text-midnight mt-[1.875rem] ">
               Quer jogar a Copa Passa a Bola? Preencha o formulário para mostrar
               seu interesse, seja com um time completo, incompleto ou como
               jogadora avulsa. Nossa plataforma cuida do resto: forma equipes,
@@ -253,15 +253,15 @@ export default function Home() {
       <section id="partners" className="bg-off-white py-20">
         {/* label */}
         <div className="flex items-center gap-6 justify-center">
-          <div className="w-[40px] h-px bg-purple"></div>
+          <div className="w-[2.5rem] h-px bg-purple"></div>
           <span className="text-purple section-label whitespace-nowrap">
             PARCEIROS COPA PAB 2025
           </span>
-          <div className="w-[40px] h-px bg-purple"></div>
+          <div className="w-[2.5rem] h-px bg-purple"></div>
         </div>
 
         {/* Patrocinadores */}
-        <div className="grid grid-cols-3 place-self-center gap-3 lg:grid-cols-5 lg:max-w-[900px] lg:gap-[70px] items-center mt-12">
+        <div className="grid grid-cols-3 place-self-center gap-3 lg:grid-cols-5 lg:max-w-[56.25rem] lg:gap-[4.375rem] items-center mt-12">
           <a href="https://appito.com/" target="_blank">
             <img src={Appito} alt="Appito" />
           </a>

@@ -56,12 +56,12 @@ export default function CentralDeTimes() {
   };
 
   return (
-    <section className="py-[43px] flex flex-col justify-center items-center">
+    <section className="py-[2.6875rem] flex flex-col justify-center items-center">
       <div
         className="bg-white w-[80vw] items-center rounded-2xl h-fit 
         drop-shadow-[0px_0px_12.1px_rgba(0,0,0,0.26)]"
       >
-        <h1 className="font-antonio text-[28px] text-center pt-[30px] pb-[37px]">
+        <h1 className="font-antonio text-[1.75rem] text-center pt-[1.875rem] pb-[2.3125rem]">
           Central de times
         </h1>
 
@@ -95,7 +95,7 @@ export default function CentralDeTimes() {
             </Button>
           </DialogTrigger>
 
-          <DialogContent className="sm:max-w-[425px]">
+          <DialogContent className="sm:max-w-[26.5625rem]">
             <form onSubmit={adicionarTime}>
               <DialogHeader>
                 <DialogTitle>Adicionar time</DialogTitle>

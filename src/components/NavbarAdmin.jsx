@@ -14,7 +14,7 @@ export default function NavbarAdmin() {
 
   return (
     <>
-      <header className="bg-headerAdmin py-[12px] px-[21px]">
+      <header className="bg-headerAdmin py-[0.75rem] px-[1.3125rem]">
         <div className="flex items-center justify-between">
           <Link to="time">
             <img
