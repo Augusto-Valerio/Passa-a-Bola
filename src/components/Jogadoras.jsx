@@ -27,7 +27,7 @@ export default function Jogadoras({ num}) {
       }`}
     >
         <div className="flex items-center ml-4 gap-3">
-          <img src={Usuario} alt="imagem perfil jogadora" className="w-4 h-4" />
+          <img src={Usuario} alt="imagem do perfil da jogadora" className="w-4 h-4" />
           <p>{pegaItem.name}</p>
         </div>
         <p className="flex items-center mr-4">{num}</p>

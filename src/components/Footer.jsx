@@ -73,7 +73,7 @@ export default function Footer() {
       <div className="mt-8 place-self-center md:flex md:gap-16">
         {/* Logo */}
         <div>
-          <img src={LogoFooter} alt="Passa a Bola" />
+          <img src={LogoFooter} alt="Logo do Passa a Bola no footer" />
         </div>
 
         {/* Colunas */}

@@ -10,8 +10,8 @@ export default function Copa() {
         <div className="bg-white w-[80vw] items-center rounded-2xl mt-[2.6875rem] h-fit drop-shadow-[0px_0px_12.1px_rgba(0,0,0,0.26)]">
           <div className="flex justify-center items-center mx-8 flex-col my-5">
             <div className="flex justify-between w-[100%] items-center">
-              <img src={retorno} alt="icon de retorno" className="w-3 h-2" />
-              <img src={editar} alt="icon de editar" className="w-3 h-3" />
+              <img src={retorno} alt="icone de retorno" className="w-3 h-2" />
+              <img src={editar} alt="icone de edição" className="w-3 h-3" />
             </div>
             <h1>Wolves</h1>
           </div>

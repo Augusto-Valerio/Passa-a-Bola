@@ -149,7 +149,7 @@ export function AddPlayer({ index, player = {}, onUpdate }) {
               {avatar ? (
                 <img
                   src={URL.createObjectURL(avatar)}
-                  alt="Avatar"
+                  alt="Avatar para seleção de adicionar jogadoras"
                   className="rounded-full w-32 h-32 object-cover"
                 />
               ) : (
