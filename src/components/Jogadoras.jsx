@@ -11,9 +11,9 @@ export default function JogadorasLista({ teamName }) {
 
       const { data, error } = await supabase
         .from("inscricoes")
-        .select("name, email, avatar, players")
+        .select("name, email, avatar, shirt, players")
         .eq("team", teamName)
-        .single(); // assume 1 inscrição por time
+        .single();
 
       if (error) {
         console.error("Erro ao buscar inscrição:", error);
@@ -21,18 +21,21 @@ export default function JogadorasLista({ teamName }) {
       }
 
       if (data) {
-        // Garantir que players seja array
-        const playersArray = Array.isArray(data.players) ? data.players : [];
-        
-        // Inserir o responsável como primeira jogadora
+        const playersArray = Array.isArray(data.players)
+          ? data.players.map((p) => ({
+              ...p,
+              shirt: p.shirt || "",
+            }))
+          : [];
+
         const allPlayers = [
           {
             name: data.name,
             email: data.email,
             avatar: data.avatar || null,
-            shirt: data.shirt || "",   // caso queira mostrar número do responsável
+            shirt: data.shirt || "",
           },
-          ...playersArray
+          ...playersArray,
         ];
 
         setJogadoras(allPlayers);
@@ -42,7 +45,6 @@ export default function JogadorasLista({ teamName }) {
     fetchInscricao();
   }, [teamName]);
 
-  // Criar array fixo de 12 vagas
   const slots = Array.from({ length: 12 }, (_, i) => jogadoras[i] || null);
 
   return (

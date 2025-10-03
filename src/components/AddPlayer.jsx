@@ -54,6 +54,7 @@ export function AddPlayer({ index, player = {}, onUpdate }) {
       email,
       phone,
       cpf,
+      shirt,
       position,
       leg,
     });

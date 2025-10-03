@@ -169,7 +169,9 @@ export default function Inbox() {
       <div className="grid gap-2">
         <div>
           <h3 className="font-bold">Nome:</h3>
-          <p>{p.name}</p>
+          <p>
+            {p.name} {p.shirt ? `(${p.shirt})` : ""}
+          </p>
         </div>
         <div>
           <h3 className="font-bold">Email:</h3>
