@@ -54,6 +54,7 @@ export function AddPlayer({ index, player = {}, onUpdate }) {
       email,
       phone,
       cpf,
+      shirt,
       position,
       leg,
     });
@@ -213,25 +214,25 @@ export function AddPlayer({ index, player = {}, onUpdate }) {
                     <SelectValue placeholder="Posição" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="g" className="cursor-pointer">
+                    <SelectItem value="Goleira" className="cursor-pointer">
                       Goleira
                     </SelectItem>
-                    <SelectItem value="zag" className="cursor-pointer">
+                    <SelectItem value="Zagueira" className="cursor-pointer">
                       Zagueira
                     </SelectItem>
-                    <SelectItem value="le" className="cursor-pointer">
+                    <SelectItem value="Lateral Esquerda" className="cursor-pointer">
                       Lateral Esquerda
                     </SelectItem>
-                    <SelectItem value="ld" className="cursor-pointer">
+                    <SelectItem value="Lateral Direita" className="cursor-pointer">
                       Lateral Direita
                     </SelectItem>
-                    <SelectItem value="me" className="cursor-pointer">
+                    <SelectItem value="Meia Esquerda" className="cursor-pointer">
                       Meia Esquerda
                     </SelectItem>
-                    <SelectItem value="md" className="cursor-pointer">
+                    <SelectItem value="Meia Direita" className="cursor-pointer">
                       Meia Direita
                     </SelectItem>
-                    <SelectItem value="ata" className="cursor-pointer">
+                    <SelectItem value="Atacante" className="cursor-pointer">
                       Atacante
                     </SelectItem>
                   </SelectContent>
@@ -245,10 +246,10 @@ export function AddPlayer({ index, player = {}, onUpdate }) {
                     <SelectValue placeholder="Perna" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="e" className="cursor-pointer">
+                    <SelectItem value="Esquerda" className="cursor-pointer">
                       Esquerda
                     </SelectItem>
-                    <SelectItem value="d" className="cursor-pointer">
+                    <SelectItem value="Direita" className="cursor-pointer">
                       Direita
                     </SelectItem>
                   </SelectContent>

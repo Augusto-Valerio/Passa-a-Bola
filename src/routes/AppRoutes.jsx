@@ -39,7 +39,7 @@ export const router = createBrowserRouter([
         element: <Dashboards />,
       },
       {
-        path: "time",
+        path: "time/:id",
         element: <Time />,
       },
     ],

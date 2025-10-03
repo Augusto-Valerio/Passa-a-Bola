@@ -51,15 +51,14 @@ export default function Form() {
 
   const [players, setPlayers] = useState(makeInitialPlayers());
 
-  const [mode, setMode] = useState(null); // "individual" ou "team"
-  const [openStep, setOpenStep] = useState(1); // 1 = escolher modo, 2 = formulário
+  const [mode, setMode] = useState(null); 
+  const [openStep, setOpenStep] = useState(1); 
 
   const uploadFile = async (file, folder = "") => {
     if (!file) return null;
     const filename = `${Date.now()}-${file.name}`;
     const path = folder ? `${folder}/${filename}` : filename;
 
-    // upload
     const { data, error } = await supabase.storage
       .from("uploads")
       .upload(path, file, { cacheControl: "0", upsert: false });
@@ -69,7 +68,6 @@ export default function Form() {
       throw error;
     }
 
-    // pegar URL pública
     const { data: publicData } = supabase.storage
       .from("uploads")
       .getPublicUrl(data.path);
@@ -80,20 +78,19 @@ export default function Form() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // (opcional) desabilitar o botão / mostrar loading
-      // 1) upload avatar principal
+      // upload avatar principal
       let avatarUrl = null;
       if (avatar) {
         avatarUrl = await uploadFile(avatar, "avatars");
       }
 
-      // 2) upload logo do time (se houver)
+      // upload logo do time (se houver)
       let teamLogoUrl = null;
       if (teamLogo) {
         teamLogoUrl = await uploadFile(teamLogo, "team-logos");
       }
 
-      // 3) preparar players (se for team)
+      // preparar players (se for team)
       let playersData = null;
       if (mode === "team") {
         // só considera jogadores com nome preenchido
@@ -102,7 +99,7 @@ export default function Form() {
         );
         // upload avatars das jogadoras em paralelo
         playersData = await Promise.all(
-          validPlayers.map(async (p, idx) => {
+          validPlayers.map(async (p) => {
             let playerAvatarUrl = null;
             if (p.avatarFile) {
               try {
@@ -111,7 +108,7 @@ export default function Form() {
                 console.warn("erro no upload da jogadora", p.name, err);
               }
             }
-            // mantenha os campos que deseja salvar
+
             return {
               name: p.name || "",
               email: p.email || "",
@@ -155,11 +152,11 @@ export default function Form() {
       }
 
       alert("Inscrição enviada com sucesso!");
-      handleMainCancel(); // reseta o formulário
+      handleMainCancel();
     } catch (err) {
       console.error("Erro no submit:", err);
       alert("Erro ao processar. Verifique o console.");
-    } 
+    }
   };
 
   const handleAvatarChange = (e) => {
@@ -408,13 +405,13 @@ export default function Form() {
                             <SelectValue placeholder="Posição" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="g">Goleira</SelectItem>
-                            <SelectItem value="zag">Zagueira</SelectItem>
-                            <SelectItem value="le">Lateral Esquerda</SelectItem>
-                            <SelectItem value="ld">Lateral Direita</SelectItem>
-                            <SelectItem value="me">Meia Esquerda</SelectItem>
-                            <SelectItem value="md">Meia Direita</SelectItem>
-                            <SelectItem value="ata">Atacante</SelectItem>
+                            <SelectItem value="Goleira">Goleira</SelectItem>
+                            <SelectItem value="Zagueira">Zagueira</SelectItem>
+                            <SelectItem value="Lateral Esquerda">Lateral Esquerda</SelectItem>
+                            <SelectItem value="Lateral Direita">Lateral Direita</SelectItem>
+                            <SelectItem value="Meia Esquerda">Meia Esquerda</SelectItem>
+                            <SelectItem value="Meia Direita">Meia Direita</SelectItem>
+                            <SelectItem value="Atacante">Atacante</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
@@ -426,8 +423,8 @@ export default function Form() {
                             <SelectValue placeholder="Perna" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="e">Esquerda</SelectItem>
-                            <SelectItem value="d">Direita</SelectItem>
+                            <SelectItem value="Esquerda">Esquerda</SelectItem>
+                            <SelectItem value="Direta">Direita</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>

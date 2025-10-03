@@ -30,7 +30,7 @@ export default function Stats() {
           </span>
           <span>QUADRAS</span>
         </div>
-        <p className="text-midnight text-[1.25] font-bold font-antonio">+8</p>
+        <p className="text-midnight text-[1.25rem] font-bold font-antonio">+8</p>
       </div>
     </div>
   );
