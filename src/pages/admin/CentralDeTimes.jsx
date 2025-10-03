@@ -77,7 +77,7 @@ export default function CentralDeTimes() {
                 className={`${index % 2 === 0 ? "bg-[#D9D9D9]" : "bg-white"}`}
               >
                 <Link
-                  to="/admin/time"
+                  to={`/admin/time/${time.id}`}
                   className="block w-full text-left py-2 px-3 hover:bg-gray-100 cursor-pointer"
                 >
                   {time.name}
