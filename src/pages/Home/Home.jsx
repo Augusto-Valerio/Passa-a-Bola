@@ -19,6 +19,21 @@ import Calendar from "../../assets/calendar.svg";
 import Match from "../../assets/match.svg";
 import Reload from "../../assets/reload.svg";
 
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import NossoTime from "../NossoTime/NossoTime";
+
 export default function Home() {
   return (
     <>
@@ -70,9 +85,28 @@ export default function Home() {
             <Stats />
 
             {/* Botão */}
-            <button className="py-[8px] px-[34px] rounded-[20px] bg-pink text-white button-text my-[32px] mr-auto lg:mr-0 lg:ml-auto">
-              Nosso time
-            </button>
+
+            <Dialog>
+              <form>
+                <DialogTrigger asChild>
+                  <Button className="py-[8px] px-[34px] rounded-[20px] bg-pink text-white button-text my-[32px] mr-auto lg:mr-0 lg:ml-auto cursor-pointer hover:bg-hover-pink">
+                    Nosso Time
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[1172px] overflow-y-auto max-h-[90vh]">
+                  <DialogHeader></DialogHeader>
+                  <NossoTime />
+
+                  <DialogFooter>
+                    <DialogClose asChild>
+                      <Button className=" bg-pink text-white hover:bg-hover-pink cursor-pointer mr-[24px]">
+                        Fechar
+                      </Button>
+                    </DialogClose>
+                  </DialogFooter>
+                </DialogContent>
+              </form>
+            </Dialog>
           </div>
 
           <div className=" mt-[10px] max-w[456px] mx-auto">
