@@ -21,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { DialogClose } from "@radix-ui/react-dialog";
 
 export default function Inbox() {
   const [inscricoes, setInscricoes] = useState([]);
@@ -58,8 +59,7 @@ export default function Inbox() {
 
     const teamsWithVacancy = (teamsData || [])
       .map((t) => {
-        // Conta todos os jogadores + capitão (se estiver separado)
-        const playersCount = (t.players?.length || 0) + 1; // adiciona 1 para o capitão
+        const playersCount = (t.players?.length || 0) + 1;
         return {
           id: t.id,
           name: t.team,
@@ -154,8 +154,11 @@ export default function Inbox() {
   };
 
   const renderJogadora = (p) => (
-    <li key={p.email} className="flex flex-col gap-3 border-2 rounded-2xl p-3">
-      <div className="border-b-2 flex justify-center mb-2">
+    <li
+      key={p.email}
+      className="flex flex-col gap-3 border border-stroke-color rounded-2xl p-3"
+    >
+      <div className="border-b border-gray-400 flex justify-center mb-2">
         {p.avatar ? (
           <img
             src={p.avatar}
@@ -166,36 +169,34 @@ export default function Inbox() {
           <FiUser size={48} className="text-gray-400 rounded-full mb-2" />
         )}
       </div>
-      <div className="grid gap-2">
+      <div className="grid gap-2 divide-y divide-gray-400">
         <div>
-          <h3 className="font-bold">Nome:</h3>
-          <p>
-            {p.name} {p.shirt ? `(${p.shirt})` : ""}
-          </p>
+          <h3 className="font-bold font-antonio">Nome:</h3>
+          <p className="font-antonio text-[0.9375rem]">{p.name}</p>
         </div>
         <div>
-          <h3 className="font-bold">Email:</h3>
-          <div>{p.email}</div>
+          <h3 className="font-bold font-antonio">Email:</h3>
+          <div className="font-antonio text-[0.9375rem]">{p.email}</div>
         </div>
         <div>
-          <h3 className="font-bold">Telefone:</h3>
-          <div>{p.phone}</div>
+          <h3 className="font-bold font-antonio">Telefone:</h3>
+          <div className="font-antonio text-[0.9375rem]">{p.phone}</div>
         </div>
         <div>
-          <h3 className="font-bold">CPF:</h3>
-          <div>{p.cpf}</div>
+          <h3 className="font-bold font-antonio">CPF:</h3>
+          <div className="font-antonio text-[0.9375rem]">{p.cpf}</div>
         </div>
         <div>
-          <h3 className="font-bold">Camisa:</h3>
-          <div>{p.shirt}</div>
+          <h3 className="font-bold font-antonio">Camisa:</h3>
+          <div className="font-antonio text-[0.9375rem]">{p.shirt}</div>
         </div>
         <div>
-          <h3 className="font-bold">Posição:</h3>
-          <div>{p.position}</div>
+          <h3 className="font-bold font-antonio">Posição:</h3>
+          <div className="font-antonio text-[0.9375rem]">{p.position}</div>
         </div>
         <div>
-          <h3 className="font-bold">Perna dominante:</h3>
-          <div>{p.leg}</div>
+          <h3 className="font-bold font-antonio">Perna dominante:</h3>
+          <div className="font-antonio text-[0.9375rem]">{p.leg}</div>
         </div>
       </div>
     </li>
@@ -249,49 +250,88 @@ export default function Inbox() {
           open={!!selected}
           onOpenChange={(open) => !open && setSelected(null)}
         >
-          <DialogContent className="sm:max-w-[39rem] max-h-[90vh] overflow-y-auto">
+          <DialogContent className="sm:max-w-[90rem] max-h-[90vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>Detalhes da inscrição</DialogTitle>
+              <DialogTitle className="font-antonio">Detalhes da inscrição</DialogTitle>
             </DialogHeader>
 
             {selected && (
               <div className="space-y-4">
                 {/* Jogadora info */}
-                <div className="flex gap-4 items-center">
-                  <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center">
-                    {selected.avatar ? (
-                      <img
-                        src={selected.avatar}
-                        alt="avatar"
-                        className="w-20 h-20 rounded-full object-cover"
-                      />
-                    ) : (
-                      <FiUser size={40} className="text-gray-400" />
-                    )}
-                  </div>
-                  <div className="grid gap-3">
-                    <h2 className="font-bold">Jogadora:</h2>
-                    <div className="grid grid-cols-2 gap-2">
-                      <div>
-                        <strong>Nome:</strong> {selected.name}
+                <div className="grid gap-4">
+                  <div className="grid gap-3 border-2 border-stroke-color rounded-md p-2">
+                    <h2 className="font-bold font-antonio text-xl place-self-center">
+                      Responsável pela inscrição:
+                    </h2>
+
+                    <div className="w-20 h-20 rounded-full bg-gray-100 place-self-center flex items-center justify-center">
+                      {selected.avatar ? (
+                        <img
+                          src={selected.avatar}
+                          alt="avatar"
+                          className="w-20 h-20 rounded-full object-cover"
+                        />
+                      ) : (
+                        <FiUser size={40} className="text-gray-400" />
+                      )}
+                    </div>
+
+                    <div className="grid sm:grid-cols-2 gap-3 divide-y divide-stroke-color">
+                      <div className="flex gap-1 items-center">
+                        <span className="font-antonio font-semibold text-[1.125rem]">
+                          Nome:
+                        </span>
+                        <span className="font-antonio text-[0.875rem]">
+                          {selected.name}
+                        </span>
                       </div>
-                      <div>
-                        <strong>Email:</strong> {selected.email}
+                      <div className="flex gap-1 items-center">
+                        <span className="font-antonio font-semibold text-[1.125rem]">
+                          Email:
+                        </span>
+                        <span className="font-antonio text-[0.875rem]">
+                          {selected.email}
+                        </span>
                       </div>
-                      <div>
-                        <strong>Telefone:</strong> {selected.phone}
+                      <div className="flex gap-1 items-center">
+                        <span className="font-antonio font-semibold text-[1.125rem]">
+                          Telefone:
+                        </span>
+                        <span className="font-antonio text-[0.875rem]">
+                          {selected.phone}
+                        </span>
                       </div>
-                      <div>
-                        <strong>CPF:</strong> {selected.cpf}
+                      <div className="flex gap-1 items-center">
+                        <span className="font-antonio font-semibold text-[1.125rem]">
+                          CPF:
+                        </span>
+                        <span className="font-antonio text-[0.875rem]">
+                          {selected.cpf}
+                        </span>
                       </div>
-                      <div>
-                        <strong>Camisa:</strong> {selected.shirt}
+                      <div className="flex gap-1 items-center">
+                        <span className="font-antonio font-semibold text-[1.125rem]">
+                          Camisa:
+                        </span>
+                        <span className="font-antonio text-[0.875rem]">
+                          {selected.shirt}
+                        </span>
                       </div>
-                      <div>
-                        <strong>Posição:</strong> {selected.position}
+                      <div className="flex gap-1 items-center">
+                        <span className="font-antonio font-semibold text-[1.125rem]">
+                          Posição:
+                        </span>
+                        <span className="font-antonio text-[0.875rem]">
+                          {selected.position}
+                        </span>
                       </div>
-                      <div>
-                        <strong>Perna dominante:</strong> {selected.leg}
+                      <div className="flex gap-1 items-center">
+                        <span className="font-antonio font-semibold text-[1.125rem]">
+                          Perna dominante:
+                        </span>
+                        <span className="font-antonio text-[0.875rem]">
+                          {selected.leg}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -299,20 +339,37 @@ export default function Inbox() {
 
                 {/* Time info */}
                 {selected.mode === "team" && selected.players && (
-                  <div className="mt-3">
-                    <div className="font-semibold">
-                      Nome do Time: {selected.team}
-                    </div>
+                  <div className="mt-3 border-2 border-stroke-color rounded-md p-2">
+                    <h4 className="font-antonio font-bold text-xl mt-3 justify-self-center">
+                      Informações do time
+                    </h4>
+
                     {selected.team_logo && (
-                      <img
-                        src={selected.team_logo}
-                        alt="logo do time"
-                        className="w-28 h-28 object-cover rounded mt-2"
-                      />
+                      <div className="grid mt-3 p-2 justify-center place-items-center">
+                        <img
+                          src={selected.team_logo}
+                          alt="logo do time"
+                          className="w-28 h-28 object-cover rounded mt-2 border"
+                        />
+
+                        <div>
+                          <div className="flex gap-1 border-b border-stroke-color mt-3 items-center">
+                            <span className="font-antonio font-semibold text-[1.125rem]">
+                              Nome do Time:
+                            </span>
+                            <span className="font-antonio text-[0.875rem]">
+                              {selected.team}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
                     )}
+
                     <div className="mt-3">
-                      <div className="font-bold">Jogadoras do time:</div>
-                      <ul className="mt-2 grid grid-cols-2 gap-2">
+                      <div className="font-bold font-antonio text-xl">
+                        Jogadoras do time:
+                      </div>
+                      <ul className="mt-2 grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
                         {selected.players.map(renderJogadora)}
                       </ul>
                     </div>
@@ -322,7 +379,7 @@ export default function Inbox() {
                 {/* Individual */}
                 {selected.mode === "individual" && (
                   <div className="mt-4">
-                    <label className="block font-bold mb-1">
+                    <label className="block font-bold font-antonio mb-1">
                       Escolher time:
                     </label>
 
@@ -332,7 +389,7 @@ export default function Inbox() {
                         setSelected((prev) => ({ ...prev, teamId: value }))
                       }
                     >
-                      <SelectTrigger className="w-[100%] cursor-pointer">
+                      <SelectTrigger className="w-[100%] cursor-pointer ">
                         <SelectValue placeholder="Selecione um time" />
                       </SelectTrigger>
                       <SelectContent>
@@ -366,13 +423,13 @@ export default function Inbox() {
                 onClick={handleReject}
                 variant="outline"
                 disabled={!selected || selected.status !== "Pendente"}
-                className="cursor-pointer"
+                className="cursor-pointer font-open-sans"
               >
                 Rejeitar
               </Button>
               <Button
                 onClick={handleAccept}
-                className="bg-pink text-white hover:bg-hover-pink cursor-pointer"
+                className="bg-pink text-white hover:bg-hover-pink cursor-pointer font-open-sans"
                 disabled={
                   !selected ||
                   selected.status !== "Pendente" ||
