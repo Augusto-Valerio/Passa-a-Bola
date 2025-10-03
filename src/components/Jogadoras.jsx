@@ -70,11 +70,18 @@ export default function JogadorasLista({ teamName }) {
             </div>
 
             {jogadora ? (
-              <span className="text-[0.75rem] font-antonio font-light">
-                {jogadora.name} {jogadora.shirt ? `(${jogadora.shirt})` : ""}
-              </span>
+              <div className="flex gap-1 items-center">
+                <span className="text-[0.90rem] lg:text-[1rem] font-antonio font-light">
+                  {jogadora.name}
+                </span>
+                <span className="text-[0.80rem] lg:text-[0.9rem] font-antonio font-light">
+                  {jogadora.shirt ? `(${jogadora.shirt})` : ""}
+                </span>
+              </div>
             ) : (
-              <span className="text-sm text-gray-500">Vaga disponível</span>
+              <span className="text-[0.90rem] lg:text-[1rem] text-gray-700 font-antonio font-light">
+                Vaga disponível
+              </span>
             )}
           </div>
         </div>

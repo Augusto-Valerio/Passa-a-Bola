@@ -16,7 +16,7 @@ export default function NavbarAdmin() {
     <>
       <header className="bg-headerAdmin py-[0.75rem] px-[1.3125rem]">
         <div className="flex items-center justify-between">
-          <Link to="time">
+          <Link to="/admin">
             <img
               src={logoMobile}
               alt="Logo passa a bola"
