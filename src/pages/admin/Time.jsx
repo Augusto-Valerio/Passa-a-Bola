@@ -7,7 +7,7 @@ export default function Copa() {
   return (
     <>
       <section className="flex justify-center bg-off-white h-screen">
-        <div className="bg-white w-[80vw] items-center rounded-2xl mt-[43px] h-fit drop-shadow-[0px_0px_12.1px_rgba(0,0,0,0.26)]">
+        <div className="bg-white w-[80vw] items-center rounded-2xl mt-[2.6875rem] h-fit drop-shadow-[0px_0px_12.1px_rgba(0,0,0,0.26)]">
           <div className="flex justify-center items-center mx-8 flex-col my-5">
             <div className="flex justify-between w-[100%] items-center">
               <img src={retorno} alt="icon de retorno" className="w-3 h-2" />

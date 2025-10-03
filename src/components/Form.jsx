@@ -199,7 +199,7 @@ export default function Form() {
   };
 
   return (
-    <section className="flex flex-col items-center gap-[14px] mx-auto lg:w-full lg:max-w-[335px] lg:mx-0 lg:ml-auto">
+    <section className="flex flex-col items-center gap-[0.875rem] mx-auto lg:w-full lg:max-w-[20.9375rem] lg:mx-0 lg:ml-auto">
       <h1 className="heading-form">Inscreva-se</h1>
 
       <div id="input-wrapper" className="flex flex-col lg:w-full mt-4">
@@ -271,19 +271,19 @@ export default function Form() {
           </span>
         </label>
 
-        <p className="form-caption lg:text-xs mb-11 lg:max-w-[292px]">
+        <p className="form-caption lg:text-xs mb-11 lg:max-w-[18.25rem]">
           Seus dados estão seguros. Use o formulário para começar seu cadastro
           com tranquilidade.
         </p>
 
         <Dialog>
           <DialogTrigger asChild>
-            <Button className="py-[12px] rounded-[20px] bg-pink text-white button-text button-form cursor-pointer w-full hover:bg-hover-pink">
+            <Button className="py-[1.375rem] rounded-[1.25rem] bg-pink text-white button-text button-form cursor-pointer w-full hover:bg-hover-pink">
               Continuar
             </Button>
           </DialogTrigger>
 
-          <DialogContent className="sm:max-w-[625px] max-h-[90vh] overflow-y-auto">
+          <DialogContent className="sm:max-w-[39.0625rem] max-h-[90vh] overflow-y-auto">
             {openStep === 1 && (
               <>
                 <DialogHeader className="place-self-center">

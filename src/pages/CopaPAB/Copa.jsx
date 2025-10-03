@@ -186,7 +186,7 @@ export default function Copa() {
         <span className="text-red section-label">TABELA</span>
       </div>
 
-      <h2 className="flex justify-center heading-section pb-10 text-midnight mt-[8px]">
+      <h2 className="flex justify-center heading-section pb-10 text-midnight mt-[0.5rem]">
         TABELA
       </h2>
       
@@ -217,16 +217,16 @@ export default function Copa() {
           </div>
       </div>
 
-      <button className="bg-pink rounded-[20px] mt-10 py-[11px] px-[15px] w-fit self-center text-white">SAIBA MAIS</button>
+      <button className="bg-pink rounded-[1.25rem] mt-10 py-[0.6875rem] px-[0.9375rem] w-fit self-center text-white">SAIBA MAIS</button>
     </section>
 
     <section className="bg-off-white flex justify-center flex-col items-center py-12">
       <div className="flex items-center gap-6 justify-center ">
-        <div className="w-[40px] h-px bg-purple"></div>
+        <div className="w-[2.5rem] h-px bg-purple"></div>
         <span className="text-purple section-label whitespace-nowrap">
           FIQUE DE OLHO
         </span>
-        <div className="w-[40px] h-px bg-purple"></div>
+        <div className="w-[2.5rem] h-px bg-purple"></div>
       </div>
       <h2 className="flex justify-center heading-section pb-6 text-midnight mt-4 mb-6">
         PROXIMOS JOGOS

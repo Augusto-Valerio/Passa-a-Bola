@@ -86,7 +86,7 @@ export function AddPlayer({ index, player = {}, onUpdate }) {
   };
 
   return (
-    <div className="flex gap-2 items-center max-w-[220px]">
+    <div className="flex gap-2 items-center max-w-[13.25rem]">
       {/* Avatar pequeno */}
       <div
         className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 cursor-pointer overflow-hidden shrink-0"
@@ -117,7 +117,7 @@ export function AddPlayer({ index, player = {}, onUpdate }) {
           <Button
             variant="outline"
             size="sm"
-            className="truncate w-[215px] text-left cursor-pointer"
+            className="truncate w-[13.4375rem] text-left cursor-pointer"
           >
             {player?.name ? (
               <>
@@ -130,7 +130,7 @@ export function AddPlayer({ index, player = {}, onUpdate }) {
           </Button>
         </DialogTrigger>
 
-        <DialogContent className="sm:max-w-[425px] max-h-[90vh] overflow-y-auto">
+        <DialogContent className="sm:max-w-[26.5625rem] max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>
               {player?.name ? "Editar Jogadora" : "Adicionar Jogadora"}

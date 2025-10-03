@@ -67,12 +67,12 @@ export default function Inbox() {
   }
 
   return (
-    <section className="py-[43px] flex flex-col justify-center items-center">
+    <section className="py-[2.6875rem] flex flex-col justify-center items-center">
       <div
         className="bg-white w-[80vw] items-center rounded-2xl h-fit 
         drop-shadow-[0px_0px_12.1px_rgba(0,0,0,0.26)] p-2"
       >
-        <h1 className="font-antonio text-[28px] text-center pt-[30px] pb-[37px]">
+        <h1 className="font-antonio text-[1.75rem] text-center pt-[1.875rem] pb-[2.3125rem]">
           Caixa de entrada
         </h1>
 
@@ -89,7 +89,7 @@ export default function Inbox() {
               .map((i) => (
                 <li
                   key={i.id}
-                  className="p-3 border-2 mt-2 flex justify-between items-center rounded-[13px]"
+                  className="p-3 border-2 mt-2 flex justify-between items-center rounded-[0.8125rem]"
                 >
                   <div>
                     <div className="font-semibold">{i.name}</div>
@@ -121,7 +121,7 @@ export default function Inbox() {
           open={!!selected}
           onOpenChange={(open) => !open && setSelected(null)}
         >
-          <DialogContent className="sm:max-w-[625px] max-h-[90vh] overflow-y-auto">
+          <DialogContent className="sm:max-w-[39.0625rem] max-h-[90vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>Detalhes da inscrição</DialogTitle>
             </DialogHeader>

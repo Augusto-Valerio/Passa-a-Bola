@@ -51,13 +51,13 @@ export default function Footer() {
 
   return (
     <footer className="bg-white pt-11">
-      <div className="border-b border-gray-base pb-9 max-w-[950px] mx-auto">
+      <div className="border-b border-gray-base pb-9 max-w-[59.375rem] mx-auto">
         <div
           id="social-media"
           className="flex gap-5 overflow-x-auto snap-x lg:justify-center lg:overflow-visible"
         >
           {socials.map((item) => (
-            <div className="shrink-0 w-[150px]">
+            <div className="shrink-0 w-[9.375rem]">
               <FooterCard
                 icon={item.icon}
                 platform={item.platform}
@@ -80,7 +80,7 @@ export default function Footer() {
         <div id="list-wrapper" className="grid grid-cols-2 mt-3 gap-12 md:flex">
           <div>
             <h3 className="footer-list-title mb-3">SOBRE NÓS</h3>
-            <ul className="flex flex-col gap-[10px] text-gray-700">
+            <ul className="flex flex-col gap-[0.625rem] text-gray-700">
               <li>
                 <a href="#" className="hover:underline">
                   Contato
@@ -101,7 +101,7 @@ export default function Footer() {
 
           <div>
             <h3 className="footer-list-title mb-3">SEJA UM PATROCINADOR</h3>
-            <ul className="flex flex-col gap-[10px] text-gray-700">
+            <ul className="flex flex-col gap-[0.625rem] text-gray-700">
               <li>
                 <a href="#" className="hover:underline">
                   Vendas
@@ -122,7 +122,7 @@ export default function Footer() {
 
           <div>
             <h3 className="footer-list-title mb-3">INFORMAÇÕES LEGAIS</h3>
-            <ul className="flex flex-col gap-[10px] text-gray-700">
+            <ul className="flex flex-col gap-[0.625rem] text-gray-700">
               <li>
                 <a href="#" className="hover:underline">
                   Sobre nós
@@ -148,7 +148,7 @@ export default function Footer() {
 
           <div>
             <h3 className="footer-list-title mb-3">MAIS PASSAABOLA</h3>
-            <ul className="flex flex-col gap-[10px] text-gray-700">
+            <ul className="flex flex-col gap-[0.625rem] text-gray-700">
               <li>
                 <a href="#" className="hover:underline">
                   App Store

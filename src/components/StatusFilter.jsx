@@ -39,13 +39,13 @@ export default function StatusFilter({ onChange }) {
       <PopoverTrigger asChild>
         <Button
           variant="outline"
-          className="w-[150px] flex justify-between items-center cursor-pointer"
+          className="w-[9.375rem] flex justify-between items-center cursor-pointer"
         >
           <span>{selectedStatus ? selectedStatus.label : "Todos"}</span>
           <RiArrowDownSLine className="w-4 h-4" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0" align="start">
+      <PopoverContent className="w-[12.5] p-0" align="start">
         <Command>
           <CommandInput placeholder="Buscar status..." />
           <CommandList>
