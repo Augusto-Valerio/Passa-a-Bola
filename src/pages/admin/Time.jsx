@@ -23,10 +23,10 @@ export default function Time() {
   if (!team) return <p>Carregando...</p>;
 
   return (
-    <section className="flex justify-center bg-off-white h-screen">
-      <div className="bg-white w-[80vw] rounded-2xl mt-[43px] drop-shadow-lg">
-        <div className="flex justify-center items-center mx-8 flex-col my-5">
-          <h1>{team.name}</h1>
+    <section className="flex justify-center bg-off-white">
+      <div className="bg-white w-[80vw] rounded-2xl mt-[43px] drop-shadow-[0px_0px_12.1px_rgba(0,0,0,0.26)]">
+        <div className="flex justify-center items-center flex-col pt-[1.875rem] pb-[2.3125rem]">
+          <h1 className="font-antonio text-[1.75rem] text-midnight">{team.name}</h1>
         </div>
 
         <div className="flex">

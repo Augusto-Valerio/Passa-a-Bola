@@ -70,7 +70,7 @@ export default function JogadorasLista({ teamName }) {
             </div>
 
             {jogadora ? (
-              <span className="text-sm font-medium">
+              <span className="text-[0.75rem] font-antonio font-light">
                 {jogadora.name} {jogadora.shirt ? `(${jogadora.shirt})` : ""}
               </span>
             ) : (

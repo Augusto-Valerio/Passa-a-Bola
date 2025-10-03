@@ -203,7 +203,7 @@ export default function Inbox() {
 
   return (
     <section className="py-[2.6875rem] flex flex-col justify-center items-center">
-      <div className="bg-white w-[80vw] rounded-2xl h-fit drop-shadow p-2">
+      <div className="bg-white w-[80vw] rounded-2xl h-fit p-2 drop-shadow-[0px_0px_12.1px_rgba(0,0,0,0.26)]">
         <h1 className="font-antonio text-[1.75rem] text-center pt-6 pb-9">
           Caixa de entrada
         </h1>
