@@ -405,13 +405,13 @@ export default function Form() {
                             <SelectValue placeholder="Posição" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="g">Goleira</SelectItem>
-                            <SelectItem value="zag">Zagueira</SelectItem>
-                            <SelectItem value="le">Lateral Esquerda</SelectItem>
-                            <SelectItem value="ld">Lateral Direita</SelectItem>
-                            <SelectItem value="me">Meia Esquerda</SelectItem>
-                            <SelectItem value="md">Meia Direita</SelectItem>
-                            <SelectItem value="ata">Atacante</SelectItem>
+                            <SelectItem value="Goleira">Goleira</SelectItem>
+                            <SelectItem value="Zagueira">Zagueira</SelectItem>
+                            <SelectItem value="Lateral Esquerda">Lateral Esquerda</SelectItem>
+                            <SelectItem value="Lateral Direita">Lateral Direita</SelectItem>
+                            <SelectItem value="Meia Esquerda">Meia Esquerda</SelectItem>
+                            <SelectItem value="Meia Direita">Meia Direita</SelectItem>
+                            <SelectItem value="Atacante">Atacante</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
@@ -423,8 +423,8 @@ export default function Form() {
                             <SelectValue placeholder="Perna" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="e">Esquerda</SelectItem>
-                            <SelectItem value="d">Direita</SelectItem>
+                            <SelectItem value="Esquerda">Esquerda</SelectItem>
+                            <SelectItem value="Direta">Direita</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
