@@ -110,7 +110,7 @@ export default function Home() {
           </div>
 
           <div className=" mt-[0.625rem] max-w[28.5rem] mx-auto">
-            <img src={Img1} className="" alt="" />
+            <img src={Img1} className="" alt="Imagem das criadoras do Passa A Bola e imagem de um trofeu" />
           </div>
         </div>
       </section>
@@ -123,12 +123,12 @@ export default function Home() {
           {/* imagens */}
           <div className="relative order-2 lg:order-1 max-w[28.5rem] mx-auto">
             <a href="https://www.youtube.com/@passabola" target="_blank">
-              <img src={Img2} alt="" />
+              <img src={Img2} alt="Imagem das criadoras do Passa A Bola com fundo rosa" />
             </a>
             <a href="https://www.youtube.com/@passabola" target="_blank">
               <img
                 src={Img3}
-                alt=""
+                alt="Imagem do Header do canal do Passa A Bola do Youtube"
                 className="absolute bottom-[-35%] right-[-10%] lg:bottom-[0.625rem] lg:left-auto lg:right-[-2.5rem]"
               />
             </a>

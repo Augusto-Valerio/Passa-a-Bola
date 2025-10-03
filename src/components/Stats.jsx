@@ -6,7 +6,7 @@ export default function Stats() {
       <div className="text-center">
         <div className="flex items-center gap-2 text-sm text-midnight font-open-sans">
           <span>
-            <img src={Check} alt="Ícone de verificado" />
+            <img src={Check} alt="Ícone de verificação" />
           </span>
           <span>JOGADORES</span>
         </div>
@@ -16,7 +16,7 @@ export default function Stats() {
       <div className="text-center">
         <div className="flex items-center gap-2 text-sm text-midnight font-open-sans">
           <span>
-            <img src={Check} alt="Ícone de verificado" />
+            <img src={Check} alt="Ícone de verificação" />
           </span>
           <span>JOGOS</span>
         </div>
@@ -26,7 +26,7 @@ export default function Stats() {
       <div className="text-center">
         <div className="flex items-center gap-2 text-sm text-midnight font-open-sans">
           <span>
-            <img src={Check} alt="Ícone de verificado" />
+            <img src={Check} alt="Ícone de verificação" />
           </span>
           <span>QUADRAS</span>
         </div>

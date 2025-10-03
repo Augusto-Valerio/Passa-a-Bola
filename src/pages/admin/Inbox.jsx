@@ -133,7 +133,7 @@ export default function Inbox() {
                     {selected.avatar ? (
                       <img
                         src={selected.avatar}
-                        alt="avatar"
+                        alt="avatar escolhido pela jogadora"
                         className="w-20 h-20 rounded-full object-cover"
                       />
                     ) : (
@@ -180,7 +180,7 @@ export default function Inbox() {
                       {selected.team_logo && (
                         <img
                           src={selected.team_logo}
-                          alt="team logo"
+                          alt="logo do time escolhido"
                           className="w-28 h-28 object-cover rounded mt-2"
                         />
                       )}

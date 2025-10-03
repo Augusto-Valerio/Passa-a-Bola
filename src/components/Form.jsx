@@ -331,7 +331,7 @@ export default function Form() {
                         {avatar ? (
                           <img
                             src={URL.createObjectURL(avatar)}
-                            alt="Avatar"
+                            alt="Avatar para a jogadora dentro do form"
                             className="rounded-full w-32 h-32 object-cover"
                           />
                         ) : (
