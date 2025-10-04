@@ -42,6 +42,7 @@ export default function Form() {
   const [team, setTeam] = useState("");
 
   const [canContinue, setCanContinue] = useState(false);
+  const [canSubmit, setCanSubmit] = useState(false);
 
   const [errors, setErrors] = useState({
     name: "",
@@ -83,6 +84,18 @@ export default function Form() {
     return data && data.length > 0;
   };
 
+  const makeInitialPlayers = () =>
+    Array.from({ length: 12 }).map(() => ({
+      avatar: null,
+      avatarFile: null,
+      name: "",
+      username: "",
+    }));
+
+  const [players, setPlayers] = useState(makeInitialPlayers());
+
+  const [mode, setMode] = useState(null);
+
   useEffect(() => {
     const phoneDigits = phone.replace(/\D/g, "");
     const cpfDigits = cpf.replace(/\D/g, "");
@@ -116,17 +129,29 @@ export default function Form() {
     validateUnique();
   }, [name, email, phone, cpf]);
 
-  const makeInitialPlayers = () =>
-    Array.from({ length: 12 }).map(() => ({
-      avatar: null,
-      avatarFile: null,
-      name: "",
-      username: "",
-    }));
+  useEffect(() => {
+    const isIndividualValid =
+      shirt.trim() !== "" && position.trim() !== "" && leg.trim() !== "";
 
-  const [players, setPlayers] = useState(makeInitialPlayers());
+    const validPlayersCount = players.filter(
+      (p) => p.name.trim() !== ""
+    ).length;
 
-  const [mode, setMode] = useState(null);
+    const isTeamValid =
+      isIndividualValid &&
+      team.trim() !== "" &&
+      teamLogo !== null &&
+      validPlayersCount >= 6;
+
+    if (mode === "individual") {
+      setCanSubmit(isIndividualValid);
+    } else if (mode === "team") {
+      setCanSubmit(isTeamValid);
+    } else {
+      setCanSubmit(false);
+    }
+  }, [shirt, position, leg, team, players, mode, teamLogo]);
+
   const [openStep, setOpenStep] = useState(1);
 
   const uploadFile = async (file, folder = "") => {
@@ -203,8 +228,8 @@ export default function Form() {
         mode,
         name,
         email,
-        phone: phone.replace(/\D/g, ""), 
-        cpf: cpf.replace(/\D/g, ""),     
+        phone: phone.replace(/\D/g, ""),
+        cpf: cpf.replace(/\D/g, ""),
         shirt,
         position,
         leg,
@@ -597,6 +622,9 @@ export default function Form() {
 
                         <div className="grid gap-3 mt-2">
                           <Label>Adicione jogadoras ao seu time</Label>
+                          <DialogDescription className="text-[0.80rem]">
+                            Adicione no mínimo 7 jogadoras
+                          </DialogDescription>
                           <div className="grid gap-3 sm:gap-x-21 sm:grid-cols-2 sm:place-self-start">
                             {players.map((p, idx) => (
                               <AddPlayer
@@ -625,9 +653,10 @@ export default function Form() {
                     <DialogClose asChild>
                       <Button
                         type="submit"
-                        className=" bg-pink text-white hover:bg-hover-pink cursor-pointer"
+                        disabled={!canSubmit}
+                        className="bg-pink text-white hover:bg-hover-pink cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                        Salvar
+                        Enviar
                       </Button>
                     </DialogClose>
                   </DialogFooter>

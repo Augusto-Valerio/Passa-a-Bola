@@ -1,4 +1,5 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -34,6 +35,21 @@ export function AddPlayer({ index, player = {}, onUpdate }) {
   const [shirt, setShirt] = useState(player.shirt || "");
   const [position, setPosition] = useState(player.position || "");
   const [leg, setLeg] = useState(player.leg || "");
+
+  const [isValid, setIsValid] = useState(false);
+
+  useEffect(() => {
+    const valid =
+      name.trim() !== "" &&
+      email.trim() !== "" &&
+      phone.trim() !== "" &&
+      cpf.trim() !== "" &&
+      shirt.trim() !== "" &&
+      position.trim() !== "" &&
+      leg.trim() !== "";
+
+    setIsValid(valid);
+  }, [name, email, phone, cpf, shirt, position, leg]);
 
   const handleAvatarChange = (e) => {
     const file = e.target.files?.[0];
@@ -220,13 +236,22 @@ export function AddPlayer({ index, player = {}, onUpdate }) {
                     <SelectItem value="Zagueira" className="cursor-pointer">
                       Zagueira
                     </SelectItem>
-                    <SelectItem value="Lateral Esquerda" className="cursor-pointer">
+                    <SelectItem
+                      value="Lateral Esquerda"
+                      className="cursor-pointer"
+                    >
                       Lateral Esquerda
                     </SelectItem>
-                    <SelectItem value="Lateral Direita" className="cursor-pointer">
+                    <SelectItem
+                      value="Lateral Direita"
+                      className="cursor-pointer"
+                    >
                       Lateral Direita
                     </SelectItem>
-                    <SelectItem value="Meia Esquerda" className="cursor-pointer">
+                    <SelectItem
+                      value="Meia Esquerda"
+                      className="cursor-pointer"
+                    >
                       Meia Esquerda
                     </SelectItem>
                     <SelectItem value="Meia Direita" className="cursor-pointer">
@@ -259,19 +284,22 @@ export function AddPlayer({ index, player = {}, onUpdate }) {
           </div>
 
           <DialogFooter>
-              <Button
-                variant="outline"
-                className="cursor-pointer"
-                onClick={handleCancel}
-              >
-                Limpar
-              </Button>
+            <Button
+              variant="outline"
+              className="cursor-pointer"
+              onClick={handleCancel}
+            >
+              Limpar
+            </Button>
             <DialogClose asChild>
               <Button
-                className=" bg-pink text-white hover:bg-hover-pink cursor-pointer"
+                className={`bg-pink text-white hover:bg-hover-pink cursor-pointer ${
+                  !isValid ? "opacity-50 cursor-not-allowed" : ""
+                }`}
                 onClick={handleSave}
+                disabled={!isValid}
               >
-                Salvar
+                Enviar
               </Button>
             </DialogClose>
           </DialogFooter>
