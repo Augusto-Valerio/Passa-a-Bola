@@ -2,7 +2,7 @@ import { supabase } from "@/lib/supabase";
 
 import { useState, useRef, useEffect } from "react";
 import { AddPlayer } from "./AddPlayer";
-import { FiUser } from "react-icons/fi";
+import { FiUser, FiCheck } from "react-icons/fi";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -85,7 +85,7 @@ export default function Form() {
   };
 
   const makeInitialPlayers = () =>
-    Array.from({ length: 12 }).map(() => ({
+    Array.from({ length: 11 }).map(() => ({
       avatar: null,
       avatarFile: null,
       name: "",
@@ -478,7 +478,14 @@ export default function Form() {
                     />
 
                     <div className="grid gap-3">
-                      <Label htmlFor="name-1">Nome completo</Label>
+                      <Label htmlFor="name-1">
+                        Nome completo{" "}
+                        {errors.name ? (
+                          <span className="text-red-500">*</span>
+                        ) : name.trim() !== "" ? (
+                          <FiCheck className="text-green-500" />
+                        ) : null}
+                      </Label>
                       <Input
                         id="name-1"
                         value={name}
@@ -488,7 +495,20 @@ export default function Form() {
                     </div>
 
                     <div className="grid gap-3">
-                      <Label htmlFor="email-1">E-mail para contato</Label>
+                      <Label htmlFor="email-1">
+                        E-mail para contato{" "}
+                        <Label
+                          htmlFor="email-1"
+                          className="flex items-center gap-1"
+                        >
+                          E-mail para contato
+                          {errors.email ? (
+                            <span className="text-red-500">*</span>
+                          ) : email.trim() !== "" ? (
+                            <FiCheck className="text-green-500" />
+                          ) : null}
+                        </Label>
+                      </Label>
                       <Input
                         id="email-1"
                         value={email}
@@ -498,7 +518,20 @@ export default function Form() {
                     </div>
 
                     <div className="grid gap-3">
-                      <Label htmlFor="phone-1">Telefone</Label>
+                      <Label htmlFor="phone-1">
+                        Telefone{" "}
+                        <Label
+                          htmlFor="email-1"
+                          className="flex items-center gap-1"
+                        >
+                          E-mail para contato
+                          {errors.phone ? (
+                            <span className="text-red-500">*</span>
+                          ) : email.trim() !== "" ? (
+                            <FiCheck className="text-green-500" />
+                          ) : null}
+                        </Label>
+                      </Label>
                       <Input
                         id="phone-1"
                         value={phone}
@@ -508,7 +541,20 @@ export default function Form() {
                     </div>
 
                     <div className="grid gap-3">
-                      <Label htmlFor="cpf-1">CPF</Label>
+                      <Label htmlFor="cpf-1">
+                        CPF{" "}
+                        <Label
+                          htmlFor="email-1"
+                          className="flex items-center gap-1"
+                        >
+                          E-mail para contato
+                          {errors.cpf ? (
+                            <span className="text-red-500">*</span>
+                          ) : email.trim() !== "" ? (
+                            <FiCheck className="text-green-500" />
+                          ) : null}
+                        </Label>
+                      </Label>
                       <Input
                         id="cpf-1"
                         value={cpf}
@@ -518,51 +564,75 @@ export default function Form() {
                     </div>
 
                     <div className="grid gap-3">
-                      <Label htmlFor="shirt-1">Número da camisa</Label>
+                      <Label htmlFor="shirt-1">
+                        Número da camisa{" "}
+                        {shirt.trim() === "" ? (
+                          <span className="text-red-500">*</span>
+                        ) : (
+                          <FiCheck className="text-green-500" />
+                        )}
+                      </Label>
                       <Input
                         id="shirt-1"
                         value={shirt}
-                        onChange={(e) => setShirt(e.target.value)}
+                        onChange={(e) => {
+                          const onlyNumbers = e.target.value.replace(/\D/g, "");
+                          setShirt(onlyNumbers);
+                        }}
                         placeholder="Ex: 10"
                       />
                     </div>
 
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div className="grid gap-3">
-                        <Label>Escolha a sua posição</Label>
+                        <Label>
+                          Escolha a sua posição{" "}
+                          {position === "" ? (
+                            <span className="text-red-500">*</span>
+                          ) : (
+                            <FiCheck className="text-green-500" />
+                          )}
+                        </Label>
                         <Select value={position} onValueChange={setPosition}>
                           <SelectTrigger className="w-[100%] cursor-pointer">
                             <SelectValue placeholder="Posição" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="Goleira">Goleira</SelectItem>
-                            <SelectItem value="Zagueira">Zagueira</SelectItem>
-                            <SelectItem value="Lateral Esquerda">
+                            <SelectItem className="cursor-pointer" value="Goleira">Goleira</SelectItem>
+                            <SelectItem className="cursor-pointer" value="Zagueira">Zagueira</SelectItem>
+                            <SelectItem className="cursor-pointer" value="Lateral Esquerda">
                               Lateral Esquerda
                             </SelectItem>
-                            <SelectItem value="Lateral Direita">
+                            <SelectItem className="cursor-pointer" value="Lateral Direita">
                               Lateral Direita
                             </SelectItem>
-                            <SelectItem value="Meia Esquerda">
+                            <SelectItem className="cursor-pointer" value="Meia Esquerda">
                               Meia Esquerda
                             </SelectItem>
-                            <SelectItem value="Meia Direita">
+                            <SelectItem className="cursor-pointer" value="Meia Direita">
                               Meia Direita
                             </SelectItem>
-                            <SelectItem value="Atacante">Atacante</SelectItem>
+                            <SelectItem className="cursor-pointer" value="Atacante">Atacante</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
 
                       <div className="grid gap-3">
-                        <Label>Perna dominante</Label>
+                        <Label>
+                          Perna dominante{" "}
+                          {leg === "" ? (
+                            <span className="text-red-500">*</span>
+                          ) : (
+                            <FiCheck className="text-green-500" />
+                          )}
+                        </Label>
                         <Select value={leg} onValueChange={setLeg}>
                           <SelectTrigger className="w-[100%] cursor-pointer">
                             <SelectValue placeholder="Perna" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="Esquerda">Esquerda</SelectItem>
-                            <SelectItem value="Direta">Direita</SelectItem>
+                            <SelectItem className="cursor-pointer" value="Esquerda">Esquerda</SelectItem>
+                            <SelectItem className="cursor-pointer" value="Direta">Direita</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
@@ -581,7 +651,14 @@ export default function Form() {
                         </DialogHeader>
 
                         <div className="grid gap-3 mt-2">
-                          <Label htmlFor="team-logo">Logotipo do time</Label>
+                          <Label htmlFor="team-logo">
+                            Logotipo do time{" "}
+                            {teamLogo === null ? (
+                              <span className="text-red-500">*</span>
+                            ) : (
+                              <FiCheck className="text-green-500" />
+                            )}
+                          </Label>
                           <div
                             className="w-full h-32 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-hover-pink transition-colors"
                             onClick={() => teamInputRef.current.click()}
@@ -611,7 +688,14 @@ export default function Form() {
                         </div>
 
                         <div className="grid gap-3 mt-2">
-                          <Label htmlFor="team-1">Nome do time</Label>
+                          <Label htmlFor="team-1">
+                            Nome do time{" "}
+                            {team.trim() === "" ? (
+                              <span className="text-red-500">*</span>
+                            ) : (
+                              <FiCheck className="text-green-500" />
+                            )}
+                          </Label>
                           <Input
                             id="team-1"
                             value={team}
@@ -621,9 +705,17 @@ export default function Form() {
                         </div>
 
                         <div className="grid gap-3 mt-2">
-                          <Label>Adicione jogadoras ao seu time</Label>
+                          <Label>
+                            Adicione jogadoras ao seu time{" "}
+                            {players.filter((p) => p.name.trim() !== "")
+                              .length < 6 ? (
+                              <span className="text-red-500">*</span>
+                            ) : (
+                              <FiCheck className="text-green-500" />
+                            )}
+                          </Label>
                           <DialogDescription className="text-[0.80rem]">
-                            Adicione no mínimo 7 jogadoras
+                            Adicione no mínimo 6 jogadoras
                           </DialogDescription>
                           <div className="grid gap-3 sm:gap-x-21 sm:grid-cols-2 sm:place-self-start">
                             {players.map((p, idx) => (
