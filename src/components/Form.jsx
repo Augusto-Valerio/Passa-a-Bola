@@ -1,6 +1,6 @@
 import { supabase } from "@/lib/supabase";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { AddPlayer } from "./AddPlayer";
 import { FiUser } from "react-icons/fi";
 
@@ -41,6 +41,81 @@ export default function Form() {
   const [leg, setLeg] = useState("");
   const [team, setTeam] = useState("");
 
+  const [canContinue, setCanContinue] = useState(false);
+
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    cpf: "",
+  });
+
+  const [dbError, setDbError] = useState("");
+
+  const checkIfExists = async () => {
+    if (!email && !phone && !cpf) return false;
+
+    let filters = [];
+
+    if (email) filters.push(`email.eq.${email}`);
+    if (phone) {
+      const digits = phone.replace(/\D/g, ""); // só números
+      filters.push(`phone.eq.${digits}`);
+    }
+    if (cpf) {
+      const digits = cpf.replace(/\D/g, ""); // só números
+      filters.push(`cpf.eq.${digits}`);
+    }
+
+    const orString = filters.join(",");
+
+    const { data, error } = await supabase
+      .from("inscricoes")
+      .select("id")
+      .or(orString)
+      .limit(1);
+
+    if (error) {
+      console.error("Erro ao verificar dados existentes:", error);
+      return false;
+    }
+
+    return data && data.length > 0;
+  };
+
+  useEffect(() => {
+    const phoneDigits = phone.replace(/\D/g, "");
+    const cpfDigits = cpf.replace(/\D/g, "");
+    const emailValid =
+      email.includes("@") && email.split("@")[1]?.includes(".");
+
+    let newErrors = { name: "", email: "", phone: "", cpf: "" };
+
+    if (!name.trim()) newErrors.name = "Nome é obrigatório";
+    if (!email.trim()) newErrors.email = "Email é obrigatório";
+    else if (!emailValid) newErrors.email = "Email inválido";
+    if (!phone.trim()) newErrors.phone = "Telefone é obrigatório";
+    else if (phoneDigits.length !== 11) newErrors.phone = "Telefone incompleto";
+    if (!cpf.trim()) newErrors.cpf = "CPF é obrigatório";
+    else if (cpfDigits.length !== 11) newErrors.cpf = "CPF incompleto";
+
+    setErrors(newErrors);
+
+    const hasErrors = Object.values(newErrors).some((err) => err !== "");
+
+    const validateUnique = async () => {
+      const exists = await checkIfExists();
+      if (exists) {
+        setDbError("CPF, email ou telefone já cadastrado.");
+      } else {
+        setDbError("");
+      }
+      setCanContinue(!hasErrors && !exists);
+    };
+
+    validateUnique();
+  }, [name, email, phone, cpf]);
+
   const makeInitialPlayers = () =>
     Array.from({ length: 12 }).map(() => ({
       avatar: null,
@@ -51,8 +126,8 @@ export default function Form() {
 
   const [players, setPlayers] = useState(makeInitialPlayers());
 
-  const [mode, setMode] = useState(null); 
-  const [openStep, setOpenStep] = useState(1); 
+  const [mode, setMode] = useState(null);
+  const [openStep, setOpenStep] = useState(1);
 
   const uploadFile = async (file, folder = "") => {
     if (!file) return null;
@@ -128,8 +203,8 @@ export default function Form() {
         mode,
         name,
         email,
-        phone,
-        cpf,
+        phone: phone.replace(/\D/g, ""), 
+        cpf: cpf.replace(/\D/g, ""),     
         shirt,
         position,
         leg,
@@ -207,7 +282,6 @@ export default function Form() {
             id="name"
             name="name"
             placeholder=" "
-            required
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="peer w-full border-b border-stroke-color outline-0 pt-2"
@@ -215,6 +289,7 @@ export default function Form() {
           <span className="absolute left-0 -top-3 text-sm transition-all duration-200 peer-placeholder-shown:top-1 peer-placeholder-shown:text-midnight peer-focus:-top-3 peer-focus:text-sm peer-focus:text-pink cursor-text">
             Nome completo
           </span>
+          {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
         </label>
 
         {/* Email */}
@@ -224,7 +299,6 @@ export default function Form() {
             id="email"
             name="email"
             placeholder=" "
-            required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="peer w-full border-b border-stroke-color outline-0 pt-2 "
@@ -232,6 +306,9 @@ export default function Form() {
           <span className="absolute left-0 -top-3 text-sm transition-all duration-200 peer-placeholder-shown:top-1 peer-placeholder-shown:text-midnight peer-focus:-top-3 peer-focus:text-sm peer-focus:text-pink cursor-text">
             E-mail para contato
           </span>
+          {errors.email && (
+            <p className="text-red-500 text-sm">{errors.email}</p>
+          )}
         </label>
 
         {/* Telefone */}
@@ -241,14 +318,25 @@ export default function Form() {
             id="phone"
             name="phone"
             placeholder=" "
-            required
             value={phone}
-            onChange={(e) => setPhone(e.target.value)}
+            onChange={(e) => {
+              let value = e.target.value.replace(/\D/g, "");
+              if (value.length > 11) value = value.slice(0, 11);
+
+              value = value.replace(/^(\d{2})(\d)/g, "($1) $2");
+              value = value.replace(/(\d{5})(\d{1,4})$/, "$1-$2");
+
+              setPhone(value);
+            }}
+            maxLength={15}
             className="peer w-full border-b border-stroke-color outline-0 pt-2"
           />
           <span className="absolute left-0 -top-3 text-sm transition-all duration-200 peer-placeholder-shown:top-1 peer-placeholder-shown:text-midnight peer-focus:-top-3 peer-focus:text-sm peer-focus:text-pink cursor-text">
             Telefone
           </span>
+          {errors.phone && (
+            <p className="text-red-500 text-sm">{errors.phone}</p>
+          )}
         </label>
 
         {/* CPF */}
@@ -258,14 +346,24 @@ export default function Form() {
             id="cpf"
             name="cpf"
             placeholder=" "
-            required
             value={cpf}
-            onChange={(e) => setCpf(e.target.value)}
+            onChange={(e) => {
+              let value = e.target.value.replace(/\D/g, "");
+              if (value.length > 11) value = value.slice(0, 11);
+
+              value = value.replace(/(\d{3})(\d)/, "$1.$2");
+              value = value.replace(/(\d{3})(\d)/, "$1.$2");
+              value = value.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+
+              setCpf(value);
+            }}
+            maxLength={14}
             className="peer w-full border-b border-stroke-color outline-0 pt-2"
           />
           <span className="absolute left-0 -top-3 text-sm transition-all duration-200 peer-placeholder-shown:top-1 peer-placeholder-shown:text-midnight peer-focus:-top-3 peer-focus:text-sm peer-focus:text-pink cursor-text whitespace-nowrap">
             CPF
           </span>
+          {errors.cpf && <p className="text-red-500 text-sm">{errors.cpf}</p>}
         </label>
 
         <p className="form-caption lg:text-xs mb-11 lg:max-w-[18.25rem]">
@@ -274,8 +372,15 @@ export default function Form() {
         </p>
 
         <Dialog>
+          {dbError && (
+            <p className="text-red-500 text-sm mb-2 text-center">{dbError}</p>
+          )}
+
           <DialogTrigger asChild>
-            <Button className="py-[1.375rem] rounded-[1.25rem] bg-pink text-white button-text button-form cursor-pointer w-full hover:bg-hover-pink">
+            <Button
+              disabled={!canContinue}
+              className="py-[1.375rem] rounded-[1.25rem] bg-pink hover:bg-hover-pink cursor-pointer text-white w-full disabled:opacity-50 disabled:cursor-not-allowed"
+            >
               Continuar
             </Button>
           </DialogTrigger>
@@ -352,8 +457,8 @@ export default function Form() {
                       <Input
                         id="name-1"
                         value={name}
+                        disabled
                         onChange={(e) => setName(e.target.value)}
-                        placeholder="Ex: Marcela Dantas"
                       />
                     </div>
 
@@ -362,8 +467,8 @@ export default function Form() {
                       <Input
                         id="email-1"
                         value={email}
+                        disabled
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="seuemail@example.com"
                       />
                     </div>
 
@@ -372,8 +477,8 @@ export default function Form() {
                       <Input
                         id="phone-1"
                         value={phone}
+                        disabled
                         onChange={(e) => setPhone(e.target.value)}
-                        placeholder="(11) 98323-0202"
                       />
                     </div>
 
@@ -382,8 +487,8 @@ export default function Form() {
                       <Input
                         id="cpf-1"
                         value={cpf}
+                        disabled
                         onChange={(e) => setCpf(e.target.value)}
-                        placeholder="123.456.789-12"
                       />
                     </div>
 
@@ -407,10 +512,18 @@ export default function Form() {
                           <SelectContent>
                             <SelectItem value="Goleira">Goleira</SelectItem>
                             <SelectItem value="Zagueira">Zagueira</SelectItem>
-                            <SelectItem value="Lateral Esquerda">Lateral Esquerda</SelectItem>
-                            <SelectItem value="Lateral Direita">Lateral Direita</SelectItem>
-                            <SelectItem value="Meia Esquerda">Meia Esquerda</SelectItem>
-                            <SelectItem value="Meia Direita">Meia Direita</SelectItem>
+                            <SelectItem value="Lateral Esquerda">
+                              Lateral Esquerda
+                            </SelectItem>
+                            <SelectItem value="Lateral Direita">
+                              Lateral Direita
+                            </SelectItem>
+                            <SelectItem value="Meia Esquerda">
+                              Meia Esquerda
+                            </SelectItem>
+                            <SelectItem value="Meia Direita">
+                              Meia Direita
+                            </SelectItem>
                             <SelectItem value="Atacante">Atacante</SelectItem>
                           </SelectContent>
                         </Select>
