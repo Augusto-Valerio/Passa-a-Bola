@@ -166,7 +166,6 @@ export default function Inbox() {
         )
       );
 
-      // ✅ Toasts personalizados
       if (selected.mode === "team") {
         toast("Time rejeitado com sucesso!", { type: "error" });
       } else if (selected.mode === "individual") {
