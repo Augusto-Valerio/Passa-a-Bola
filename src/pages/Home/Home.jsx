@@ -169,7 +169,7 @@ export default function Home() {
             <a
               href="https://www.youtube.com/@passabola"
               target="_blank"
-              className="inline-block py-[0.5rem] px-[2.125rem] rounded-[1.25rem] bg-pink text-white button-text my-[2rem]"
+              className="inline-block py-[0.5rem] px-[2.125rem] rounded-[1.25rem] bg-pink hover:bg-hover-pink cursor-pointer text-white button-text my-[2rem]"
             >
               Veja mais
             </a>

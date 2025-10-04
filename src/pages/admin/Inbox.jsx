@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import StatusFilter from "@/components/StatusFilter";
 
+import { toast } from "sonner";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -73,7 +75,7 @@ export default function Inbox() {
 
   const handleAcceptIndividual = async () => {
     if (!selected.teamId)
-      return alert("Selecione um time antes de aceitar a jogadora.");
+      return toast("Selecione um time antes de aceitar a jogadora.");
 
     const { data: teamData, error: teamError } = await supabase
       .from("inscricoes")
@@ -108,49 +110,74 @@ export default function Inbox() {
   const handleAccept = async () => {
     if (!selected) return;
 
-    if (selected.mode === "individual") await handleAcceptIndividual();
-    else if (selected.mode === "team") {
-      const { error: teamError } = await supabase
-        .from("teams")
-        .insert([{ name: selected.team }]);
-      if (teamError) console.error(teamError);
+    try {
+      if (selected.mode === "individual") {
+        await handleAcceptIndividual();
+      } else if (selected.mode === "team") {
+        const { error: teamError } = await supabase
+          .from("teams")
+          .insert([{ name: selected.team }]);
+        if (teamError) throw teamError;
+      }
+
+      const { error: statusError } = await supabase
+        .from("inscricoes")
+        .update({ status: "Aceitos" })
+        .eq("id", selected.id);
+
+      if (statusError) throw statusError;
+
+      setInscricoes((prev) =>
+        prev.map((i) =>
+          i.id === selected.id ? { ...i, status: "Aceitos" } : i
+        )
+      );
+      setSelected(null);
+      fetchAvailableTeams();
+
+      // ✅ Toasts personalizados
+      if (selected.mode === "team") {
+        toast("Time enviado à central de times com sucesso!", {
+          type: "success",
+        });
+      } else if (selected.mode === "individual") {
+        toast("Jogadora inscrita com sucesso!", { type: "success" });
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Erro ao aceitar inscrição.");
     }
-
-    const { error: statusError } = await supabase
-      .from("inscricoes")
-      .update({ status: "Aceitos" })
-      .eq("id", selected.id);
-
-    if (statusError) {
-      console.error(statusError);
-      alert("Erro ao atualizar status.");
-      return;
-    }
-
-    // Atualiza estado local
-    setInscricoes((prev) =>
-      prev.map((i) => (i.id === selected.id ? { ...i, status: "Aceitos" } : i))
-    );
-    setSelected(null);
-    fetchAvailableTeams();
   };
 
   const handleReject = async () => {
     if (!selected) return;
 
-    const { error } = await supabase
-      .from("inscricoes")
-      .update({ status: "Rejeitados" })
-      .eq("id", selected.id);
+    try {
+      const { error } = await supabase
+        .from("inscricoes")
+        .update({ status: "Rejeitados" })
+        .eq("id", selected.id);
 
-    if (error) return console.error(error);
+      if (error) throw error;
 
-    setInscricoes((prev) =>
-      prev.map((i) =>
-        i.id === selected.id ? { ...i, status: "Rejeitados" } : i
-      )
-    );
-    setSelected(null);
+      setInscricoes((prev) =>
+        prev.map((i) =>
+          i.id === selected.id ? { ...i, status: "Rejeitados" } : i
+        )
+      );
+
+      if (selected.mode === "team") {
+        toast("Time rejeitado com sucesso!", { type: "error" });
+      } else if (selected.mode === "individual") {
+        toast("Jogadora rejeitada com sucesso!", { type: "error" });
+      }
+
+      setSelected(null);
+      fetchAvailableTeams();
+    } catch (err) {
+      console.error(err);
+      toast.error("Erro ao rejeitar inscrição.");
+    }
   };
 
   const renderJogadora = (p) => (
@@ -252,7 +279,9 @@ export default function Inbox() {
         >
           <DialogContent className="sm:max-w-[90rem] max-h-[90vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle className="font-antonio">Detalhes da inscrição</DialogTitle>
+              <DialogTitle className="font-antonio">
+                Detalhes da inscrição
+              </DialogTitle>
             </DialogHeader>
 
             {selected && (

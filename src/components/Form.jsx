@@ -1,8 +1,8 @@
 import { supabase } from "@/lib/supabase";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { AddPlayer } from "./AddPlayer";
-import { FiUser } from "react-icons/fi";
+import { FiUser, FiCheck } from "react-icons/fi";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -17,6 +17,8 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+
+import { toast } from "sonner";
 
 import {
   Select,
@@ -41,8 +43,51 @@ export default function Form() {
   const [leg, setLeg] = useState("");
   const [team, setTeam] = useState("");
 
+  const [canContinue, setCanContinue] = useState(false);
+  const [canSubmit, setCanSubmit] = useState(false);
+
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    cpf: "",
+  });
+
+  const [dbError, setDbError] = useState("");
+
+  const checkIfExists = async () => {
+    if (!email && !phone && !cpf) return false;
+
+    let filters = [];
+
+    if (email) filters.push(`email.eq.${email}`);
+    if (phone) {
+      const digits = phone.replace(/\D/g, ""); // só números
+      filters.push(`phone.eq.${digits}`);
+    }
+    if (cpf) {
+      const digits = cpf.replace(/\D/g, ""); // só números
+      filters.push(`cpf.eq.${digits}`);
+    }
+
+    const orString = filters.join(",");
+
+    const { data, error } = await supabase
+      .from("inscricoes")
+      .select("id")
+      .or(orString)
+      .limit(1);
+
+    if (error) {
+      console.error("Erro ao verificar dados existentes:", error);
+      return false;
+    }
+
+    return data && data.length > 0;
+  };
+
   const makeInitialPlayers = () =>
-    Array.from({ length: 12 }).map(() => ({
+    Array.from({ length: 11 }).map(() => ({
       avatar: null,
       avatarFile: null,
       name: "",
@@ -51,8 +96,65 @@ export default function Form() {
 
   const [players, setPlayers] = useState(makeInitialPlayers());
 
-  const [mode, setMode] = useState(null); 
-  const [openStep, setOpenStep] = useState(1); 
+  const [mode, setMode] = useState(null);
+
+  useEffect(() => {
+    const phoneDigits = phone.replace(/\D/g, "");
+    const cpfDigits = cpf.replace(/\D/g, "");
+    const emailValid =
+      email.includes("@") && email.split("@")[1]?.includes(".");
+
+    let newErrors = { name: "", email: "", phone: "", cpf: "" };
+
+    if (!name.trim()) newErrors.name = "Nome é obrigatório";
+    if (!email.trim()) newErrors.email = "Email é obrigatório";
+    else if (!emailValid) newErrors.email = "Email inválido";
+    if (!phone.trim()) newErrors.phone = "Telefone é obrigatório";
+    else if (phoneDigits.length !== 11) newErrors.phone = "Telefone incompleto";
+    if (!cpf.trim()) newErrors.cpf = "CPF é obrigatório";
+    else if (cpfDigits.length !== 11) newErrors.cpf = "CPF incompleto";
+
+    setErrors(newErrors);
+
+    const hasErrors = Object.values(newErrors).some((err) => err !== "");
+
+    const validateUnique = async () => {
+      const exists = await checkIfExists();
+      if (exists) {
+        setDbError("CPF, email ou telefone já cadastrado.");
+      } else {
+        setDbError("");
+      }
+      setCanContinue(!hasErrors && !exists);
+    };
+
+    validateUnique();
+  }, [name, email, phone, cpf]);
+
+  useEffect(() => {
+    const isIndividualValid =
+      shirt.trim() !== "" && position.trim() !== "" && leg.trim() !== "";
+
+    const validPlayersCount = players.filter(
+      (p) => p.name.trim() !== ""
+    ).length;
+
+    const isTeamValid =
+      isIndividualValid &&
+      team.trim() !== "" &&
+      teamLogo !== null &&
+      validPlayersCount >= 6;
+
+    if (mode === "individual") {
+      setCanSubmit(isIndividualValid);
+    } else if (mode === "team") {
+      setCanSubmit(isTeamValid);
+    } else {
+      setCanSubmit(false);
+    }
+  }, [shirt, position, leg, team, players, mode, teamLogo]);
+
+  const [openStep, setOpenStep] = useState(1);
 
   const uploadFile = async (file, folder = "") => {
     if (!file) return null;
@@ -128,8 +230,8 @@ export default function Form() {
         mode,
         name,
         email,
-        phone,
-        cpf,
+        phone: phone.replace(/\D/g, ""),
+        cpf: cpf.replace(/\D/g, ""),
         shirt,
         position,
         leg,
@@ -147,15 +249,15 @@ export default function Form() {
 
       if (insertError) {
         console.error("Erro ao salvar inscrição:", insertError);
-        alert("Erro ao enviar inscrição. Veja console para detalhes.");
+        toast.error("Erro ao enviar inscrição. Veja console para detalhes.");
         return;
       }
 
-      alert("Inscrição enviada com sucesso!");
+      toast.success("Inscrição enviada com sucesso!");
       handleMainCancel();
     } catch (err) {
       console.error("Erro no submit:", err);
-      alert("Erro ao processar. Verifique o console.");
+      toast.error("Erro ao processar. Verifique o console.");
     }
   };
 
@@ -207,7 +309,6 @@ export default function Form() {
             id="name"
             name="name"
             placeholder=" "
-            required
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="peer w-full border-b border-stroke-color outline-0 pt-2"
@@ -215,6 +316,7 @@ export default function Form() {
           <span className="absolute left-0 -top-3 text-sm transition-all duration-200 peer-placeholder-shown:top-1 peer-placeholder-shown:text-midnight peer-focus:-top-3 peer-focus:text-sm peer-focus:text-pink cursor-text">
             Nome completo
           </span>
+          {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
         </label>
 
         {/* Email */}
@@ -224,7 +326,6 @@ export default function Form() {
             id="email"
             name="email"
             placeholder=" "
-            required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="peer w-full border-b border-stroke-color outline-0 pt-2 "
@@ -232,6 +333,9 @@ export default function Form() {
           <span className="absolute left-0 -top-3 text-sm transition-all duration-200 peer-placeholder-shown:top-1 peer-placeholder-shown:text-midnight peer-focus:-top-3 peer-focus:text-sm peer-focus:text-pink cursor-text">
             E-mail para contato
           </span>
+          {errors.email && (
+            <p className="text-red-500 text-sm">{errors.email}</p>
+          )}
         </label>
 
         {/* Telefone */}
@@ -241,14 +345,25 @@ export default function Form() {
             id="phone"
             name="phone"
             placeholder=" "
-            required
             value={phone}
-            onChange={(e) => setPhone(e.target.value)}
+            onChange={(e) => {
+              let value = e.target.value.replace(/\D/g, "");
+              if (value.length > 11) value = value.slice(0, 11);
+
+              value = value.replace(/^(\d{2})(\d)/g, "($1) $2");
+              value = value.replace(/(\d{5})(\d{1,4})$/, "$1-$2");
+
+              setPhone(value);
+            }}
+            maxLength={15}
             className="peer w-full border-b border-stroke-color outline-0 pt-2"
           />
           <span className="absolute left-0 -top-3 text-sm transition-all duration-200 peer-placeholder-shown:top-1 peer-placeholder-shown:text-midnight peer-focus:-top-3 peer-focus:text-sm peer-focus:text-pink cursor-text">
             Telefone
           </span>
+          {errors.phone && (
+            <p className="text-red-500 text-sm">{errors.phone}</p>
+          )}
         </label>
 
         {/* CPF */}
@@ -258,14 +373,24 @@ export default function Form() {
             id="cpf"
             name="cpf"
             placeholder=" "
-            required
             value={cpf}
-            onChange={(e) => setCpf(e.target.value)}
+            onChange={(e) => {
+              let value = e.target.value.replace(/\D/g, "");
+              if (value.length > 11) value = value.slice(0, 11);
+
+              value = value.replace(/(\d{3})(\d)/, "$1.$2");
+              value = value.replace(/(\d{3})(\d)/, "$1.$2");
+              value = value.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+
+              setCpf(value);
+            }}
+            maxLength={14}
             className="peer w-full border-b border-stroke-color outline-0 pt-2"
           />
           <span className="absolute left-0 -top-3 text-sm transition-all duration-200 peer-placeholder-shown:top-1 peer-placeholder-shown:text-midnight peer-focus:-top-3 peer-focus:text-sm peer-focus:text-pink cursor-text whitespace-nowrap">
             CPF
           </span>
+          {errors.cpf && <p className="text-red-500 text-sm">{errors.cpf}</p>}
         </label>
 
         <p className="form-caption lg:text-xs mb-11 lg:max-w-[18.25rem]">
@@ -274,8 +399,15 @@ export default function Form() {
         </p>
 
         <Dialog>
+          {dbError && (
+            <p className="text-red-500 text-sm mb-2 text-center">{dbError}</p>
+          )}
+
           <DialogTrigger asChild>
-            <Button className="py-[1.375rem] rounded-[1.25rem] bg-pink text-white button-text button-form cursor-pointer w-full hover:bg-hover-pink">
+            <Button
+              disabled={!canContinue}
+              className="py-[1.375rem] rounded-[1.25rem] bg-pink hover:bg-hover-pink cursor-pointer text-white w-full disabled:opacity-50 disabled:cursor-not-allowed"
+            >
               Continuar
             </Button>
           </DialogTrigger>
@@ -348,83 +480,161 @@ export default function Form() {
                     />
 
                     <div className="grid gap-3">
-                      <Label htmlFor="name-1">Nome completo</Label>
+                      <Label htmlFor="name-1">
+                        Nome completo{" "}
+                        {errors.name ? (
+                          <span className="text-red-500">*</span>
+                        ) : name.trim() !== "" ? (
+                          <FiCheck className="text-green-500" />
+                        ) : null}
+                      </Label>
                       <Input
                         id="name-1"
                         value={name}
+                        disabled
                         onChange={(e) => setName(e.target.value)}
-                        placeholder="Ex: Marcela Dantas"
                       />
                     </div>
 
                     <div className="grid gap-3">
-                      <Label htmlFor="email-1">E-mail para contato</Label>
+                      <Label htmlFor="email-1">
+                        E-mail para contato{" "}
+                        <Label
+                          htmlFor="email-1"
+                          className="flex items-center gap-1"
+                        >
+                          E-mail para contato
+                          {errors.email ? (
+                            <span className="text-red-500">*</span>
+                          ) : email.trim() !== "" ? (
+                            <FiCheck className="text-green-500" />
+                          ) : null}
+                        </Label>
+                      </Label>
                       <Input
                         id="email-1"
                         value={email}
+                        disabled
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="seuemail@example.com"
                       />
                     </div>
 
                     <div className="grid gap-3">
-                      <Label htmlFor="phone-1">Telefone</Label>
+                      <Label htmlFor="phone-1">
+                        Telefone{" "}
+                        <Label
+                          htmlFor="email-1"
+                          className="flex items-center gap-1"
+                        >
+                          E-mail para contato
+                          {errors.phone ? (
+                            <span className="text-red-500">*</span>
+                          ) : email.trim() !== "" ? (
+                            <FiCheck className="text-green-500" />
+                          ) : null}
+                        </Label>
+                      </Label>
                       <Input
                         id="phone-1"
                         value={phone}
+                        disabled
                         onChange={(e) => setPhone(e.target.value)}
-                        placeholder="(11) 98323-0202"
                       />
                     </div>
 
                     <div className="grid gap-3">
-                      <Label htmlFor="cpf-1">CPF</Label>
+                      <Label htmlFor="cpf-1">
+                        CPF{" "}
+                        <Label
+                          htmlFor="email-1"
+                          className="flex items-center gap-1"
+                        >
+                          E-mail para contato
+                          {errors.cpf ? (
+                            <span className="text-red-500">*</span>
+                          ) : email.trim() !== "" ? (
+                            <FiCheck className="text-green-500" />
+                          ) : null}
+                        </Label>
+                      </Label>
                       <Input
                         id="cpf-1"
                         value={cpf}
+                        disabled
                         onChange={(e) => setCpf(e.target.value)}
-                        placeholder="123.456.789-12"
                       />
                     </div>
 
                     <div className="grid gap-3">
-                      <Label htmlFor="shirt-1">Número da camisa</Label>
+                      <Label htmlFor="shirt-1">
+                        Número da camisa{" "}
+                        {shirt.trim() === "" ? (
+                          <span className="text-red-500">*</span>
+                        ) : (
+                          <FiCheck className="text-green-500" />
+                        )}
+                      </Label>
                       <Input
                         id="shirt-1"
                         value={shirt}
-                        onChange={(e) => setShirt(e.target.value)}
+                        onChange={(e) => {
+                          const onlyNumbers = e.target.value.replace(/\D/g, "");
+                          setShirt(onlyNumbers);
+                        }}
                         placeholder="Ex: 10"
                       />
                     </div>
 
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div className="grid gap-3">
-                        <Label>Escolha a sua posição</Label>
+                        <Label>
+                          Escolha a sua posição{" "}
+                          {position === "" ? (
+                            <span className="text-red-500">*</span>
+                          ) : (
+                            <FiCheck className="text-green-500" />
+                          )}
+                        </Label>
                         <Select value={position} onValueChange={setPosition}>
                           <SelectTrigger className="w-[100%] cursor-pointer">
                             <SelectValue placeholder="Posição" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="Goleira">Goleira</SelectItem>
-                            <SelectItem value="Zagueira">Zagueira</SelectItem>
-                            <SelectItem value="Lateral Esquerda">Lateral Esquerda</SelectItem>
-                            <SelectItem value="Lateral Direita">Lateral Direita</SelectItem>
-                            <SelectItem value="Meia Esquerda">Meia Esquerda</SelectItem>
-                            <SelectItem value="Meia Direita">Meia Direita</SelectItem>
-                            <SelectItem value="Atacante">Atacante</SelectItem>
+                            <SelectItem className="cursor-pointer" value="Goleira">Goleira</SelectItem>
+                            <SelectItem className="cursor-pointer" value="Zagueira">Zagueira</SelectItem>
+                            <SelectItem className="cursor-pointer" value="Lateral Esquerda">
+                              Lateral Esquerda
+                            </SelectItem>
+                            <SelectItem className="cursor-pointer" value="Lateral Direita">
+                              Lateral Direita
+                            </SelectItem>
+                            <SelectItem className="cursor-pointer" value="Meia Esquerda">
+                              Meia Esquerda
+                            </SelectItem>
+                            <SelectItem className="cursor-pointer" value="Meia Direita">
+                              Meia Direita
+                            </SelectItem>
+                            <SelectItem className="cursor-pointer" value="Atacante">Atacante</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
 
                       <div className="grid gap-3">
-                        <Label>Perna dominante</Label>
+                        <Label>
+                          Perna dominante{" "}
+                          {leg === "" ? (
+                            <span className="text-red-500">*</span>
+                          ) : (
+                            <FiCheck className="text-green-500" />
+                          )}
+                        </Label>
                         <Select value={leg} onValueChange={setLeg}>
                           <SelectTrigger className="w-[100%] cursor-pointer">
                             <SelectValue placeholder="Perna" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="Esquerda">Esquerda</SelectItem>
-                            <SelectItem value="Direta">Direita</SelectItem>
+                            <SelectItem className="cursor-pointer" value="Esquerda">Esquerda</SelectItem>
+                            <SelectItem className="cursor-pointer" value="Direta">Direita</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
@@ -443,7 +653,14 @@ export default function Form() {
                         </DialogHeader>
 
                         <div className="grid gap-3 mt-2">
-                          <Label htmlFor="team-logo">Logotipo do time</Label>
+                          <Label htmlFor="team-logo">
+                            Logotipo do time{" "}
+                            {teamLogo === null ? (
+                              <span className="text-red-500">*</span>
+                            ) : (
+                              <FiCheck className="text-green-500" />
+                            )}
+                          </Label>
                           <div
                             className="w-full h-32 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-hover-pink transition-colors"
                             onClick={() => teamInputRef.current.click()}
@@ -473,7 +690,14 @@ export default function Form() {
                         </div>
 
                         <div className="grid gap-3 mt-2">
-                          <Label htmlFor="team-1">Nome do time</Label>
+                          <Label htmlFor="team-1">
+                            Nome do time{" "}
+                            {team.trim() === "" ? (
+                              <span className="text-red-500">*</span>
+                            ) : (
+                              <FiCheck className="text-green-500" />
+                            )}
+                          </Label>
                           <Input
                             id="team-1"
                             value={team}
@@ -483,7 +707,18 @@ export default function Form() {
                         </div>
 
                         <div className="grid gap-3 mt-2">
-                          <Label>Adicione jogadoras ao seu time</Label>
+                          <Label>
+                            Adicione jogadoras ao seu time{" "}
+                            {players.filter((p) => p.name.trim() !== "")
+                              .length < 6 ? (
+                              <span className="text-red-500">*</span>
+                            ) : (
+                              <FiCheck className="text-green-500" />
+                            )}
+                          </Label>
+                          <DialogDescription className="text-[0.80rem]">
+                            Adicione no mínimo 6 jogadoras
+                          </DialogDescription>
                           <div className="grid gap-3 sm:gap-x-21 sm:grid-cols-2 sm:place-self-start">
                             {players.map((p, idx) => (
                               <AddPlayer
@@ -512,9 +747,10 @@ export default function Form() {
                     <DialogClose asChild>
                       <Button
                         type="submit"
-                        className=" bg-pink text-white hover:bg-hover-pink cursor-pointer"
+                        disabled={!canSubmit}
+                        className="bg-pink text-white hover:bg-hover-pink cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                        Salvar
+                        Enviar
                       </Button>
                     </DialogClose>
                   </DialogFooter>

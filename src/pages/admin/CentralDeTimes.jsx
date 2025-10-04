@@ -26,16 +26,42 @@ export default function CentralDeTimes() {
   }, []);
 
   async function fetchTimes() {
-    const { data, error } = await supabase
+    
+    const { data: times, error: timesError } = await supabase
       .from("teams")
       .select("*")
       .order("created_at", { ascending: false });
 
-    if (error) {
-      console.error("Erro ao buscar times:", error);
-    } else {
-      setListaTimes(data);
+    if (timesError) {
+      console.error("Erro ao buscar times:", timesError);
+      return;
     }
+
+    
+    const updatedTimes = await Promise.all(
+      times.map(async (time) => {
+        const { data: inscricao } = await supabase
+          .from("inscricoes")
+          .select("team_logo")
+          .eq("team", time.name)
+          .limit(1)
+          .single();
+
+        if (inscricao?.team_logo && inscricao.team_logo !== time.logo) {
+          
+          await supabase
+            .from("teams")
+            .update({ logo: inscricao.team_logo })
+            .eq("id", time.id);
+
+          return { ...time, logo: inscricao.team_logo };
+        }
+
+        return time;
+      })
+    );
+
+    setListaTimes(updatedTimes);
   }
 
   const adicionarTime = async (e) => {
@@ -70,71 +96,36 @@ export default function CentralDeTimes() {
             Nenhum time inscrito
           </p>
         ) : (
-          <ul className="divide-y divide-gray-200">
-            {listaTimes.map((time, index) => (
-              <li
-                key={time.id}
-                className={`${index % 2 === 0 ? "bg-[#D9D9D9]" : "bg-white"}`}
-              >
-                <Link
-                  to={`/admin/time/${time.id}`}
-                  className="block w-full text-left py-2 px-3 hover:bg-gray-100 cursor-pointer"
-                >
-                  {time.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
+<ul className="divide-y divide-gray-200">
+  {listaTimes.map((time, index) => (
+    <li
+      key={time.id}
+      className={`
+        ${index % 2 === 0 ? "bg-[#D9D9D9]" : "bg-white"}
+        ${index === listaTimes.length - 1 ? "rounded-b-2xl" : ""}
+      `}
+    >
+      <Link
+        to={`/admin/time/${time.id}`}
+        className="w-full text-left py-2 px-3 hover:bg-gray-100 cursor-pointer flex items-center gap-3"
+      >
+        {time.logo ? (
+          <img
+            src={time.logo}
+            alt={time.name}
+            className="w-8 h-8 object-cover rounded-full"
+          />
+        ) : (
+          <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-500 text-sm">
+            {time.name[0]}
+          </div>
         )}
-
-        {/* Botão para adicionar time */}
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button className="bg-pink text-white cursor-pointer hover:bg-hover-pink mt-3">
-              Adicionar time
-            </Button>
-          </DialogTrigger>
-
-          <DialogContent className="sm:max-w-[26.5625rem]">
-            <form onSubmit={adicionarTime}>
-              <DialogHeader>
-                <DialogTitle>Adicionar time</DialogTitle>
-                <DialogDescription>
-                  Escreva o nome do time para adicioná-lo.
-                </DialogDescription>
-              </DialogHeader>
-
-              <div className="grid gap-4 mt-4">
-                <div className="grid gap-3">
-                  <Label htmlFor="nome-time">Nome do time</Label>
-                  <Input
-                    id="nome-time"
-                    value={novoTime}
-                    onChange={(e) => setNovoTime(e.target.value)}
-                    placeholder="Digite o nome"
-                  />
-                </div>
-              </div>
-
-              <DialogFooter className="mt-4">
-                <DialogClose asChild>
-                  <Button variant="outline" className="cursor-pointer">
-                    Cancelar
-                  </Button>
-                </DialogClose>
-
-                <DialogClose asChild>
-                  <Button
-                    type="submit"
-                    className="bg-pink hover:bg-hover-pink cursor-pointer"
-                  >
-                    Salvar
-                  </Button>
-                </DialogClose>
-              </DialogFooter>
-            </form>
-          </DialogContent>
-        </Dialog>
+        <span className="font-antonio">{time.name}</span>
+      </Link>
+    </li>
+  ))}
+</ul>
+        )}
       </div>
     </section>
   );

@@ -1,4 +1,5 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -19,13 +20,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { FiUser } from "react-icons/fi";
-import { FiEdit2 } from "react-icons/fi";
+import { FiUser, FiEdit2, FiCheck } from "react-icons/fi";
 
 export function AddPlayer({ index, player = {}, onUpdate }) {
   const avatarInputRef = useRef(null);
 
-  // estados locais (baseados no que já tiver em player)
   const [avatar, setAvatar] = useState(player.avatarFile || null);
   const [name, setName] = useState(player.name || "");
   const [email, setEmail] = useState(player.email || "");
@@ -35,16 +34,51 @@ export function AddPlayer({ index, player = {}, onUpdate }) {
   const [position, setPosition] = useState(player.position || "");
   const [leg, setLeg] = useState(player.leg || "");
 
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    cpf: "",
+    shirt: "",
+    position: "",
+    leg: "",
+  });
+
+  const [isValid, setIsValid] = useState(false);
+
+  // validações automáticas
+  useEffect(() => {
+    const emailValid =
+      email.includes("@") && email.split("@")[1]?.includes(".");
+    const phoneDigits = phone.replace(/\D/g, "");
+    const cpfDigits = cpf.replace(/\D/g, "");
+    const shirtDigits = shirt.replace(/\D/g, "");
+
+    const newErrors = {
+      name: !name.trim() ? "*" : "",
+      email: !email.trim() ? "*" : !emailValid ? "Email inválido" : "",
+      phone: !phone.trim()
+        ? "*"
+        : phoneDigits.length !== 11
+        ? "Telefone incompleto"
+        : "",
+      cpf: !cpf.trim() ? "*" : cpfDigits.length !== 11 ? "CPF incompleto" : "",
+      shirt: !shirt.trim() ? "*" : "",
+      position: !position.trim() ? "*" : "",
+      leg: !leg.trim() ? "*" : "",
+    };
+
+    setErrors(newErrors);
+
+    const valid = Object.values(newErrors).every((msg) => msg === "");
+    setIsValid(valid);
+  }, [name, email, phone, cpf, shirt, position, leg]);
+
   const handleAvatarChange = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
-
     setAvatar(file);
-
-    onUpdate(index, {
-      ...player,
-      avatarFile: file,
-    });
+    onUpdate(index, { ...player, avatarFile: file });
   };
 
   const handleSave = () => {
@@ -69,10 +103,7 @@ export function AddPlayer({ index, player = {}, onUpdate }) {
     setShirt("");
     setPosition("");
     setLeg("");
-
-    if (avatarInputRef.current) {
-      avatarInputRef.current.value = null;
-    }
+    if (avatarInputRef.current) avatarInputRef.current.value = null;
 
     onUpdate(index, {
       avatarFile: null,
@@ -84,6 +115,30 @@ export function AddPlayer({ index, player = {}, onUpdate }) {
       position: "",
       leg: "",
     });
+  };
+
+  // máscaras automáticas
+  const handlePhoneChange = (e) => {
+    let value = e.target.value.replace(/\D/g, "");
+    if (value.length > 11) value = value.slice(0, 11);
+    value = value.replace(/^(\d{2})(\d)/g, "($1) $2");
+    value = value.replace(/(\d{5})(\d{1,4})$/, "$1-$2");
+    setPhone(value);
+  };
+
+  const handleCpfChange = (e) => {
+    let value = e.target.value.replace(/\D/g, "");
+    if (value.length > 11) value = value.slice(0, 11);
+    value = value.replace(/(\d{3})(\d)/, "$1.$2");
+    value = value.replace(/(\d{3})(\d)/, "$1.$2");
+    value = value.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+    setCpf(value);
+  };
+
+  const handleShirtChange = (e) => {
+    // Aceita apenas números
+    const value = e.target.value.replace(/\D/g, "");
+    setShirt(value);
   };
 
   return (
@@ -104,7 +159,6 @@ export function AddPlayer({ index, player = {}, onUpdate }) {
         )}
       </div>
 
-      {/* Input file escondido */}
       <input
         type="file"
         accept="image/*"
@@ -141,7 +195,6 @@ export function AddPlayer({ index, player = {}, onUpdate }) {
             </DialogDescription>
           </DialogHeader>
 
-          {/* Avatar grande */}
           <div className="flex justify-center mb-4">
             <div
               className="cursor-pointer"
@@ -150,7 +203,7 @@ export function AddPlayer({ index, player = {}, onUpdate }) {
               {avatar ? (
                 <img
                   src={URL.createObjectURL(avatar)}
-                  alt="Avatar para seleção de adicionar jogadoras"
+                  alt="Avatar jogadora"
                   className="rounded-full w-32 h-32 object-cover"
                 />
               ) : (
@@ -161,8 +214,16 @@ export function AddPlayer({ index, player = {}, onUpdate }) {
 
           {/* Inputs */}
           <div className="grid gap-4">
+            {/* Nome */}
             <div className="grid gap-3">
-              <Label>Nome Completo</Label>
+              <Label>
+                Nome Completo{" "}
+                {errors.name ? (
+                  <span className="text-red-500 text-sm">{errors.name}</span>
+                ) : (
+                  <FiCheck className="text-green-500" />
+                )}
+              </Label>
               <Input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -170,8 +231,16 @@ export function AddPlayer({ index, player = {}, onUpdate }) {
               />
             </div>
 
+            {/* Email */}
             <div className="grid gap-3">
-              <Label>E-mail</Label>
+              <Label>
+                E-mail{" "}
+                {errors.email ? (
+                  <span className="text-red-500 text-sm">{errors.email}</span>
+                ) : (
+                  <FiCheck className="text-green-500" />
+                )}
+              </Label>
               <Input
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -179,60 +248,106 @@ export function AddPlayer({ index, player = {}, onUpdate }) {
               />
             </div>
 
+            {/* Telefone */}
             <div className="grid gap-3">
-              <Label>Telefone</Label>
+              <Label>
+                Telefone{" "}
+                {errors.phone ? (
+                  <span className="text-red-500 text-sm">{errors.phone}</span>
+                ) : (
+                  <FiCheck className="text-green-500" />
+                )}
+              </Label>
               <Input
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={handlePhoneChange}
                 placeholder="(11) 98323-0202"
+                maxLength={15}
               />
             </div>
 
+            {/* CPF */}
             <div className="grid gap-3">
-              <Label>CPF</Label>
+              <Label>
+                CPF{" "}
+                {errors.cpf ? (
+                  <span className="text-red-500 text-sm">{errors.cpf}</span>
+                ) : (
+                  <FiCheck className="text-green-500" />
+                )}
+              </Label>
               <Input
                 value={cpf}
-                onChange={(e) => setCpf(e.target.value)}
+                onChange={handleCpfChange}
                 placeholder="123.456.789-12"
+                maxLength={14}
               />
             </div>
 
+            {/* Camisa */}
             <div className="grid gap-3">
-              <Label>Numero da camisa</Label>
+              <Label>
+                Número da camisa{" "}
+                {errors.shirt ? (
+                  <span className="text-red-500 text-sm">{errors.shirt}</span>
+                ) : (
+                  <FiCheck className="text-green-500" />
+                )}
+              </Label>
               <Input
                 value={shirt}
-                onChange={(e) => setShirt(e.target.value)}
+                onChange={handleShirtChange}
                 placeholder="Ex: 10"
+                inputMode="numeric"
               />
             </div>
 
+            {/* Seletores */}
             <div className="grid sm:grid-cols-2 gap-4">
               <div className="grid gap-3">
-                <Label>Escolha a posição</Label>
+                <Label>
+                  Escolha a posição{" "}
+                  {errors.position ? (
+                    <span className="text-red-500 text-sm">
+                      {errors.position}
+                    </span>
+                  ) : (
+                    <FiCheck className="text-green-500" />
+                  )}
+                </Label>
                 <Select value={position} onValueChange={setPosition}>
-                  <SelectTrigger className="w-[100%] cursor-pointer">
+                  <SelectTrigger className="cursor-pointer w-[100%]">
                     <SelectValue placeholder="Posição" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Goleira" className="cursor-pointer">
+                    <SelectItem className="cursor-pointer" value="Goleira">
                       Goleira
                     </SelectItem>
-                    <SelectItem value="Zagueira" className="cursor-pointer">
+                    <SelectItem className="cursor-pointer" value="Zagueira">
                       Zagueira
                     </SelectItem>
-                    <SelectItem value="Lateral Esquerda" className="cursor-pointer">
+                    <SelectItem
+                      className="cursor-pointer"
+                      value="Lateral Esquerda"
+                    >
                       Lateral Esquerda
                     </SelectItem>
-                    <SelectItem value="Lateral Direita" className="cursor-pointer">
+                    <SelectItem
+                      className="cursor-pointer"
+                      value="Lateral Direita"
+                    >
                       Lateral Direita
                     </SelectItem>
-                    <SelectItem value="Meia Esquerda" className="cursor-pointer">
+                    <SelectItem
+                      className="cursor-pointer"
+                      value="Meia Esquerda"
+                    >
                       Meia Esquerda
                     </SelectItem>
-                    <SelectItem value="Meia Direita" className="cursor-pointer">
+                    <SelectItem className="cursor-pointer" value="Meia Direita">
                       Meia Direita
                     </SelectItem>
-                    <SelectItem value="Atacante" className="cursor-pointer">
+                    <SelectItem className="cursor-pointer" value="Atacante">
                       Atacante
                     </SelectItem>
                   </SelectContent>
@@ -240,16 +355,23 @@ export function AddPlayer({ index, player = {}, onUpdate }) {
               </div>
 
               <div className="grid gap-3">
-                <Label>Perna dominante</Label>
+                <Label>
+                  Perna dominante{" "}
+                  {errors.leg ? (
+                    <span className="text-red-500 text-sm">{errors.leg}</span>
+                  ) : (
+                    <FiCheck className="text-green-500" />
+                  )}
+                </Label>
                 <Select value={leg} onValueChange={setLeg}>
-                  <SelectTrigger className="w-[100%] cursor-pointer">
+                  <SelectTrigger className="cursor-pointer w-[100%]">
                     <SelectValue placeholder="Perna" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Esquerda" className="cursor-pointer">
+                    <SelectItem className="cursor-pointer" value="Esquerda">
                       Esquerda
                     </SelectItem>
-                    <SelectItem value="Direita" className="cursor-pointer">
+                    <SelectItem className="cursor-pointer" value="Direita">
                       Direita
                     </SelectItem>
                   </SelectContent>
@@ -259,17 +381,20 @@ export function AddPlayer({ index, player = {}, onUpdate }) {
           </div>
 
           <DialogFooter>
-              <Button
-                variant="outline"
-                className="cursor-pointer"
-                onClick={handleCancel}
-              >
-                Limpar
-              </Button>
+            <Button
+              variant="outline"
+              onClick={handleCancel}
+              className="cursor-pointer"
+            >
+              Limpar
+            </Button>
             <DialogClose asChild>
               <Button
-                className=" bg-pink text-white hover:bg-hover-pink cursor-pointer"
+                className={`bg-pink text-white hover:bg-hover-pink cursor-pointer ${
+                  !isValid ? "opacity-50 cursor-not-allowed" : ""
+                }`}
                 onClick={handleSave}
+                disabled={!isValid}
               >
                 Salvar
               </Button>
