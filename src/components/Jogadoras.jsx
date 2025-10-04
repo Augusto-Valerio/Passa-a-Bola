@@ -32,7 +32,7 @@ export default function JogadorasLista({ teamName }) {
         .single();
 
       if (error || !data) {
-        setStats({ j: 0, g: 0, a: 0 }); // usa zeros
+        setStats({ j: 0, g: 0, a: 0 });
       } else {
         setStats({ j: data.j, g: data.g, a: data.a });
       }
@@ -370,18 +370,27 @@ export default function JogadorasLista({ teamName }) {
                         );
                       }
 
+                      if (selected.email !== editData.email) {
+                        await supabase
+                          .from("jogadora_stats")
+                          .delete()
+                          .eq("email", selected.email)
+                          .eq("team", teamName);
+                      }
+
+                      
                       const { error: statsError } = await supabase
                         .from("jogadora_stats")
                         .upsert(
                           {
-                            email: selected.email,
+                            email: editData.email, 
                             team: teamName,
                             j: stats.j,
                             g: stats.g,
                             a: stats.a,
                             updated_at: new Date(),
                           },
-                          { onConflict: ["email", "team"] } // ESSENCIAL
+                          { onConflict: ["email", "team"] }
                         );
 
                       if (statsError) {
