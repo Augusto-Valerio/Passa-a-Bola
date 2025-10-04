@@ -1,6 +1,5 @@
-// pages/login.tsx
 import { LoginForm } from "@/components/Login-form";
-import { FiArrowLeft } from "react-icons/fi"; // ícone flecha
+import { FiArrowLeft } from "react-icons/fi"; 
 
 export default function Login() {
   return (

@@ -1,7 +1,8 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import JogadorasLista from "@/components/Jogadoras";
+import { FaArrowLeft } from "react-icons/fa6";
 
 export default function Time() {
   const { id } = useParams();
@@ -27,8 +28,19 @@ export default function Time() {
     <div className="grid gap-4">
       <section className="flex justify-center bg-off-white">
         <div className="bg-white w-[80vw] rounded-2xl mt-[43px] drop-shadow-[0px_0px_12.1px_rgba(0,0,0,0.26)]">
+          <Link
+            to="/admin"
+            className="flex items-center gap-2 px-6 pt-2 w-fit text-black hover:text-pink cursor-pointer"
+          >
+            <FaArrowLeft />
+            <span>Voltar</span>
+          </Link>
+          
           {/* Header do time */}
           <div className="flex justify-center items-center flex-col pt-[1.875rem] pb-[2.3125rem] gap-2">
+            <h1 className="font-antonio text-[1.75rem] text-midnight">
+              {team.name}
+            </h1>
             {team.logo && (
               <img
                 src={team.logo}
@@ -36,9 +48,6 @@ export default function Time() {
                 className="w-24 h-24 object-cover rounded-full"
               />
             )}
-            <h1 className="font-antonio text-[1.75rem] text-midnight">
-              {team.name}
-            </h1>
           </div>
 
           {/* Tabs com borda completa */}
