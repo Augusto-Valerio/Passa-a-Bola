@@ -26,16 +26,42 @@ export default function CentralDeTimes() {
   }, []);
 
   async function fetchTimes() {
-    const { data, error } = await supabase
+    // 1️⃣ Pega todos os times
+    const { data: times, error: timesError } = await supabase
       .from("teams")
       .select("*")
       .order("created_at", { ascending: false });
 
-    if (error) {
-      console.error("Erro ao buscar times:", error);
-    } else {
-      setListaTimes(data);
+    if (timesError) {
+      console.error("Erro ao buscar times:", timesError);
+      return;
     }
+
+    // 2️⃣ Para cada time, busca o logo na tabela inscricoes
+    const updatedTimes = await Promise.all(
+      times.map(async (time) => {
+        const { data: inscricao } = await supabase
+          .from("inscricoes")
+          .select("team_logo")
+          .eq("team", time.name)
+          .limit(1)
+          .single();
+
+        if (inscricao?.team_logo && inscricao.team_logo !== time.logo) {
+          // Atualiza o logo na tabela teams
+          await supabase
+            .from("teams")
+            .update({ logo: inscricao.team_logo })
+            .eq("id", time.id);
+
+          return { ...time, logo: inscricao.team_logo };
+        }
+
+        return time;
+      })
+    );
+
+    setListaTimes(updatedTimes);
   }
 
   const adicionarTime = async (e) => {
@@ -78,9 +104,20 @@ export default function CentralDeTimes() {
               >
                 <Link
                   to={`/admin/time/${time.id}`}
-                  className="block w-full text-left py-2 px-3 hover:bg-gray-100 cursor-pointer"
+                  className="w-full text-left py-2 px-3 hover:bg-gray-100 cursor-pointer flex items-center gap-3"
                 >
-                  {time.name}
+                  {time.logo ? (
+                    <img
+                      src={time.logo}
+                      alt={time.name}
+                      className="w-8 h-8 object-cover rounded-full"
+                    />
+                  ) : (
+                    <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-500 text-sm">
+                      {time.name[0]}
+                    </div>
+                  )}
+                  <span className="font-antonio">{time.name}</span>
                 </Link>
               </li>
             ))}
