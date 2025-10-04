@@ -18,6 +18,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
+import { toast } from "sonner";
+
 import {
   Select,
   SelectContent,
@@ -247,15 +249,15 @@ export default function Form() {
 
       if (insertError) {
         console.error("Erro ao salvar inscrição:", insertError);
-        alert("Erro ao enviar inscrição. Veja console para detalhes.");
+        toast.error("Erro ao enviar inscrição. Veja console para detalhes.");
         return;
       }
 
-      alert("Inscrição enviada com sucesso!");
+      toast.success("Inscrição enviada com sucesso!");
       handleMainCancel();
     } catch (err) {
       console.error("Erro no submit:", err);
-      alert("Erro ao processar. Verifique o console.");
+      toast.error("Erro ao processar. Verifique o console.");
     }
   };
 
