@@ -6,6 +6,8 @@ import { Dialog, DialogContent, DialogFooter } from "@/components/ui/dialog";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 
+import { toast } from "sonner";
+
 import { FiUser } from "react-icons/fi";
 import { FiEdit } from "react-icons/fi";
 
@@ -223,7 +225,7 @@ export default function JogadorasLista({ teamName }) {
                           onChange={(e) =>
                             setStats({
                               ...stats,
-                              e: parseInt(e.target.value) || 0,
+                              a: parseInt(e.target.value) || 0,
                             })
                           }
                           className="w-12 text-center"
@@ -389,6 +391,8 @@ export default function JogadorasLista({ teamName }) {
 
                       setSelected(editData);
                       setIsEditing(false);
+
+                      toast.success("Alterações salvas!");
                     }}
                     className="bg-pink text-white hover:bg-hover-pink cursor-pointer"
                   >
