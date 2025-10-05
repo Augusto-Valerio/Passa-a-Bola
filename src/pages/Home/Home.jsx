@@ -227,7 +227,7 @@ export default function Home() {
           >
             {/* Label */}
             <div className="flex items-center gap-2 mr-auto ">
-              <div className="w-[2,5rem] h-px bg-purple"></div>
+              <div className="w-[2.5rem] h-px bg-purple"></div>
               <span className="text-purple section-label">FORMULÁRIO</span>
             </div>
 
