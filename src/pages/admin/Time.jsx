@@ -35,7 +35,7 @@ export default function Time() {
             <FaArrowLeft />
             <span>Voltar</span>
           </Link>
-          
+
           {/* Header do time */}
           <div className="flex justify-center items-center flex-col pt-[1.875rem] pb-[2.3125rem] gap-2">
             <h1 className="font-antonio text-[1.75rem] text-midnight">

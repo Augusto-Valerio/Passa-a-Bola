@@ -1,3 +1,6 @@
+import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase";
+
 import HeroPage from "../../components/HeroPage";
 import GameCards from "../../components/GameCards";
 import Positions from "../../components/Positions";
@@ -86,69 +89,35 @@ export default function Copa() {
     },
   ];
 
-  const proximos = [
-    {
-      num: 1,
-      quadra: "4",
-      hora: "11:00",
-      img1: time8,
-      desc: "escudo do time",
-      nomeTime: "sp",
-      img2: time2,
-      nomeTime2: "fluminense",
-    },
-    {
-      num: 2,
-      quadra: "5",
-      hora: "11:00",
-      img1: time1,
-      desc: "escudo do time",
-      nomeTime: "fluminense",
-      img2: time4,
-      nomeTime2: "fluminense",
-    },
-    {
-      num: 3,
-      quadra: "2",
-      hora: "11:00",
-      img1: time7,
-      desc: "escudo do time",
-      nomeTime: "sp",
-      img2: time5,
-      nomeTime2: "fluminense",
-    },
-    {
-      num: 4,
-      quadra: "1",
-      hora: "11:00",
-      img1: time6,
-      desc: "escudo do time",
-      nomeTime: "sp",
-      img2: time3,
-      nomeTime2: "fluminense",
-    },
-    {
-      num: 5,
-      quadra: "3",
-      hora: "11:00",
-      img1: logoPab,
-      desc: "escudo do time",
-      nomeTime: "sp",
-      img2: logoPab,
-      nomeTime2: "fluminense",
-    },
-    {
-      num: 6,
-      quadra: "6",
-      hora: "11:00",
-      img1: logoPab,
-      desc: "escudo do time",
-      nomeTime: "sp",
-      img2: logoPab,
-      nomeTime2: "fluminense",
-    },
-  ];
+  const [proximos, setProximos] = useState([]);
 
+  async function fetchProximos() {
+    const { data, error } = await supabase
+      .from("matches")
+      .select(
+        `
+        id,
+        team_a (id, name, logo),
+        team_b (id, name, logo),
+        court,
+        date,
+        time
+      `
+      )
+      .order("date", { ascending: true })
+      .order("time", { ascending: true });
+
+    if (error) {
+      console.error("Erro ao buscar próximos jogos:", error);
+      return;
+    }
+
+    setProximos(data);
+  }
+
+  useEffect(() => {
+    fetchProximos();
+  }, []);
   return (
     <>
       <BackTop />
@@ -239,19 +208,17 @@ export default function Copa() {
         </h2>
 
         <div className="grid gap-8">
-          {proximos.map((item) => (
-            <div>
-              <NextGame
-                num={item.num}
-                quadra={item.quadra}
-                hora={item.hora}
-                img1={item.img1}
-                desc={item.desc}
-                nomeTime={item.nomeTime}
-                img2={item.img2}
-                nomeTime2={item.nomeTime2}
-              />
-            </div>
+          {proximos.map((item, index) => (
+            <NextGame
+              key={item.id}
+              num={index + 1}
+              quadra={item.court || "-"}
+              hora={item.time || "-"}
+              img1={item.team_a?.logo || logoPab}
+              nomeTime={item.team_a?.name || "Time A"}
+              img2={item.team_b?.logo || logoPab}
+              nomeTime2={item.team_b?.name || "Time B"}
+            />
           ))}
         </div>
       </section>
