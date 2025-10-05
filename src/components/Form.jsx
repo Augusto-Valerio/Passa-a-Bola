@@ -45,6 +45,14 @@ export default function Form() {
 
   const [canContinue, setCanContinue] = useState(false);
   const [canSubmit, setCanSubmit] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const [touched, setTouched] = useState({
+    name: false,
+    email: false,
+    phone: false,
+    cpf: false,
+  });
 
   const [errors, setErrors] = useState({
     name: "",
@@ -62,11 +70,11 @@ export default function Form() {
 
     if (email) filters.push(`email.eq.${email}`);
     if (phone) {
-      const digits = phone.replace(/\D/g, ""); // só números
+      const digits = phone.replace(/\D/g, ""); 
       filters.push(`phone.eq.${digits}`);
     }
     if (cpf) {
-      const digits = cpf.replace(/\D/g, ""); // só números
+      const digits = cpf.replace(/\D/g, ""); 
       filters.push(`cpf.eq.${digits}`);
     }
 
@@ -106,17 +114,28 @@ export default function Form() {
 
     let newErrors = { name: "", email: "", phone: "", cpf: "" };
 
-    if (!name.trim()) newErrors.name = "Nome é obrigatório";
-    if (!email.trim()) newErrors.email = "Email é obrigatório";
-    else if (!emailValid) newErrors.email = "Email inválido";
-    if (!phone.trim()) newErrors.phone = "Telefone é obrigatório";
-    else if (phoneDigits.length !== 11) newErrors.phone = "Telefone incompleto";
-    if (!cpf.trim()) newErrors.cpf = "CPF é obrigatório";
-    else if (cpfDigits.length !== 11) newErrors.cpf = "CPF incompleto";
+    if (touched.name && !name.trim()) newErrors.name = "Nome é obrigatório";
+
+    if (touched.email && !email.trim()) newErrors.email = "Email é obrigatório";
+    else if (touched.email && !emailValid) newErrors.email = "Email inválido";
+
+    if (touched.phone && !phone.trim())
+      newErrors.phone = "Telefone é obrigatório";
+    else if (touched.phone && phoneDigits.length !== 11)
+      newErrors.phone = "Telefone incompleto";
+
+    if (touched.cpf && !cpf.trim()) newErrors.cpf = "CPF é obrigatório";
+    else if (touched.cpf && cpfDigits.length !== 11)
+      newErrors.cpf = "CPF incompleto";
 
     setErrors(newErrors);
 
     const hasErrors = Object.values(newErrors).some((err) => err !== "");
+
+    if (!touched.name && !touched.email && !touched.phone && !touched.cpf) {
+      setCanContinue(false);
+      return;
+    }
 
     const validateUnique = async () => {
       const exists = await checkIfExists();
@@ -129,7 +148,7 @@ export default function Form() {
     };
 
     validateUnique();
-  }, [name, email, phone, cpf]);
+  }, [name, email, phone, cpf, touched]);
 
   useEffect(() => {
     const isIndividualValid =
@@ -180,26 +199,20 @@ export default function Form() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // upload avatar principal
       let avatarUrl = null;
       if (avatar) {
         avatarUrl = await uploadFile(avatar, "avatars");
       }
 
-      // upload logo do time (se houver)
       let teamLogoUrl = null;
       if (teamLogo) {
         teamLogoUrl = await uploadFile(teamLogo, "team-logos");
       }
-
-      // preparar players (se for team)
       let playersData = null;
       if (mode === "team") {
-        // só considera jogadores com nome preenchido
         const validPlayers = players.filter(
           (p) => p.name && p.name.trim() !== ""
         );
-        // upload avatars das jogadoras em paralelo
         playersData = await Promise.all(
           validPlayers.map(async (p) => {
             let playerAvatarUrl = null;
@@ -225,7 +238,6 @@ export default function Form() {
         );
       }
 
-      // 4) inserir no banco
       const insertPayload = {
         mode,
         name,
@@ -327,7 +339,11 @@ export default function Form() {
             name="email"
             placeholder=" "
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              if (!touched.email)
+                setTouched((prev) => ({ ...prev, email: true }));
+            }}
             className="peer w-full border-b border-stroke-color outline-0 pt-2 "
           />
           <span className="absolute left-0 -top-3 text-sm transition-all duration-200 peer-placeholder-shown:top-1 peer-placeholder-shown:text-midnight peer-focus:-top-3 peer-focus:text-sm peer-focus:text-pink cursor-text">
@@ -354,6 +370,8 @@ export default function Form() {
               value = value.replace(/(\d{5})(\d{1,4})$/, "$1-$2");
 
               setPhone(value);
+              if (!touched.phone)
+                setTouched((prev) => ({ ...prev, phone: true }));
             }}
             maxLength={15}
             className="peer w-full border-b border-stroke-color outline-0 pt-2"
@@ -383,6 +401,7 @@ export default function Form() {
               value = value.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
 
               setCpf(value);
+              if (!touched.cpf) setTouched((prev) => ({ ...prev, cpf: true }));
             }}
             maxLength={14}
             className="peer w-full border-b border-stroke-color outline-0 pt-2"
@@ -398,19 +417,37 @@ export default function Form() {
           com tranquilidade.
         </p>
 
-        <Dialog>
+        <Button
+          onClick={() => {
+            setTouched({
+              name: true,
+              email: true,
+              phone: true,
+              cpf: true,
+            });
+            setName((p) => p); // força revalidação
+            setEmail((p) => p);
+            setPhone((p) => p);
+            setCpf((p) => p);
+
+            if (canContinue) {
+              setOpenStep(1); // reseta pro primeiro passo
+              setDialogOpen(true);
+            } else {
+              toast.error(
+                "Preencha todos os campos obrigatórios antes de continuar."
+              );
+            }
+          }}
+          className="py-[1.375rem] rounded-[1.25rem] bg-pink hover:bg-hover-pink cursor-pointer text-white w-full"
+        >
+          Continuar
+        </Button>
+
+        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           {dbError && (
             <p className="text-red-500 text-sm mb-2 text-center">{dbError}</p>
           )}
-
-          <DialogTrigger asChild>
-            <Button
-              disabled={!canContinue}
-              className="py-[1.375rem] rounded-[1.25rem] bg-pink hover:bg-hover-pink cursor-pointer text-white w-full disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Continuar
-            </Button>
-          </DialogTrigger>
 
           <DialogContent className="sm:max-w-[39.0625rem] max-h-[90vh] overflow-y-auto">
             {openStep === 1 && (
@@ -600,21 +637,48 @@ export default function Form() {
                             <SelectValue placeholder="Posição" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem className="cursor-pointer" value="Goleira">Goleira</SelectItem>
-                            <SelectItem className="cursor-pointer" value="Zagueira">Zagueira</SelectItem>
-                            <SelectItem className="cursor-pointer" value="Lateral Esquerda">
+                            <SelectItem
+                              className="cursor-pointer"
+                              value="Goleira"
+                            >
+                              Goleira
+                            </SelectItem>
+                            <SelectItem
+                              className="cursor-pointer"
+                              value="Zagueira"
+                            >
+                              Zagueira
+                            </SelectItem>
+                            <SelectItem
+                              className="cursor-pointer"
+                              value="Lateral Esquerda"
+                            >
                               Lateral Esquerda
                             </SelectItem>
-                            <SelectItem className="cursor-pointer" value="Lateral Direita">
+                            <SelectItem
+                              className="cursor-pointer"
+                              value="Lateral Direita"
+                            >
                               Lateral Direita
                             </SelectItem>
-                            <SelectItem className="cursor-pointer" value="Meia Esquerda">
+                            <SelectItem
+                              className="cursor-pointer"
+                              value="Meia Esquerda"
+                            >
                               Meia Esquerda
                             </SelectItem>
-                            <SelectItem className="cursor-pointer" value="Meia Direita">
+                            <SelectItem
+                              className="cursor-pointer"
+                              value="Meia Direita"
+                            >
                               Meia Direita
                             </SelectItem>
-                            <SelectItem className="cursor-pointer" value="Atacante">Atacante</SelectItem>
+                            <SelectItem
+                              className="cursor-pointer"
+                              value="Atacante"
+                            >
+                              Atacante
+                            </SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
@@ -633,8 +697,18 @@ export default function Form() {
                             <SelectValue placeholder="Perna" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem className="cursor-pointer" value="Esquerda">Esquerda</SelectItem>
-                            <SelectItem className="cursor-pointer" value="Direta">Direita</SelectItem>
+                            <SelectItem
+                              className="cursor-pointer"
+                              value="Esquerda"
+                            >
+                              Esquerda
+                            </SelectItem>
+                            <SelectItem
+                              className="cursor-pointer"
+                              value="Direta"
+                            >
+                              Direita
+                            </SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
