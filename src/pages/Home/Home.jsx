@@ -33,6 +33,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import NossoTime from "../NossoTime/NossoTime";
+import Maps from "@/components/Maps";
 
 export default function Home() {
   return (
@@ -110,7 +111,11 @@ export default function Home() {
           </div>
 
           <div className=" mt-[0.625rem] max-w[28.5rem] mx-auto">
-            <img src={Img1} className="" alt="Imagem das criadoras do Passa A Bola e imagem de um trofeu" />
+            <img
+              src={Img1}
+              className=""
+              alt="Imagem das criadoras do Passa A Bola e imagem de um trofeu"
+            />
           </div>
         </div>
       </section>
@@ -123,7 +128,10 @@ export default function Home() {
           {/* imagens */}
           <div className="relative order-2 lg:order-1 max-w[28.5rem] mx-auto">
             <a href="https://www.youtube.com/@passabola" target="_blank">
-              <img src={Img2} alt="Imagem das criadoras do Passa A Bola com fundo rosa" />
+              <img
+                src={Img2}
+                alt="Imagem das criadoras do Passa A Bola com fundo rosa"
+              />
             </a>
             <a href="https://www.youtube.com/@passabola" target="_blank">
               <img
@@ -250,6 +258,8 @@ export default function Home() {
         </div>
       </section>
 
+      <Maps />
+      
       <section id="partners" className="bg-off-white py-20">
         {/* label */}
         <div className="flex items-center gap-6 justify-center">
