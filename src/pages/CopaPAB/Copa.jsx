@@ -44,52 +44,8 @@ export default function Copa() {
     },
   ];
 
-  const jogos = [
-    {
-      pos: "1",
-      clube: "TIME PASSABOLA",
-      jogos: "40",
-      vitorias: "20",
-      pontos: "30",
-    },
-    {
-      pos: "2",
-      clube: "TIME PASSABOLA",
-      jogos: "40",
-      vitorias: "20",
-      pontos: "30",
-    },
-    {
-      pos: "3",
-      clube: "TIME PASSABOLA",
-      jogos: "40",
-      vitorias: "20",
-      pontos: "30",
-    },
-    {
-      pos: "4",
-      clube: "TIME PASSABOLA",
-      jogos: "40",
-      vitorias: "20",
-      pontos: "30",
-    },
-    {
-      pos: "5",
-      clube: "TIME PASSABOLA",
-      jogos: "40",
-      vitorias: "20",
-      pontos: "30",
-    },
-    {
-      pos: "6",
-      clube: "TIME PASSABOLA",
-      jogos: "40",
-      vitorias: "20",
-      pontos: "30",
-    },
-  ];
-
   const [proximos, setProximos] = useState([]);
+  const [classificacao, setClassificacao] = useState([]);
 
   async function fetchProximos() {
     const { data, error } = await supabase
@@ -101,7 +57,9 @@ export default function Copa() {
         team_b (id, name, logo),
         court,
         date,
-        time
+        time,
+        score_a,
+        score_b
       `
       )
       .order("date", { ascending: true })
@@ -113,11 +71,90 @@ export default function Copa() {
     }
 
     setProximos(data);
+    calcularClassificacao(data);
+  }
+
+  function calcularClassificacao(matches) {
+    const tabela = {};
+
+    matches.forEach((match) => {
+      const teamA = match.team_a?.name;
+      const teamB = match.team_b?.name;
+
+      if (!teamA || !teamB) return;
+
+      if (!tabela[teamA]) {
+        tabela[teamA] = {
+          nome: teamA,
+          logo: match.team_a?.logo || logoPab,
+          jogos: 0,
+          vitorias: 0,
+          empates: 0,
+          derrotas: 0,
+          golsPro: 0,
+          golsContra: 0,
+          pontos: 0,
+        };
+      }
+      if (!tabela[teamB]) {
+        tabela[teamB] = {
+          nome: teamB,
+          logo: match.team_b?.logo || logoPab,
+          jogos: 0,
+          vitorias: 0,
+          empates: 0,
+          derrotas: 0,
+          golsPro: 0,
+          golsContra: 0,
+          pontos: 0,
+        };
+      }
+
+      if (match.score_a === null || match.score_b === null) return;
+
+      const timeA = tabela[teamA];
+      const timeB = tabela[teamB];
+
+      timeA.jogos++;
+      timeB.jogos++;
+
+      timeA.golsPro += match.score_a;
+      timeA.golsContra += match.score_b;
+
+      timeB.golsPro += match.score_b;
+      timeB.golsContra += match.score_a;
+
+      if (match.score_a > match.score_b) {
+        timeA.vitorias++;
+        timeA.pontos += 3;
+        timeB.derrotas++;
+      } else if (match.score_a < match.score_b) {
+        timeB.vitorias++;
+        timeB.pontos += 3;
+        timeA.derrotas++;
+      } else {
+        timeA.empates++;
+        timeB.empates++;
+        timeA.pontos += 1;
+        timeB.pontos += 1;
+      }
+    });
+
+    const ranking = Object.values(tabela).sort((a, b) => {
+      if (b.pontos !== a.pontos) return b.pontos - a.pontos;
+      const saldoA = a.golsPro - a.golsContra;
+      const saldoB = b.golsPro - b.golsContra;
+      if (saldoB !== saldoA) return saldoB - saldoA;
+      return b.golsPro - a.golsPro;
+    });
+
+    setClassificacao(ranking);
   }
 
   useEffect(() => {
     fetchProximos();
   }, []);
+
   return (
     <>
       <BackTop />
@@ -163,34 +200,46 @@ export default function Copa() {
           TABELA
         </h2>
 
-        <div className="flex justify-center flex-col items-center">
-          <div className="bg-off-white flex flex-row items-center justify-between px-3 h-12 w-[95%] rounded-md">
-            <div className="flex gap-8 ml-3">
-              <h3>POS</h3>
-              <h3>TIME</h3>
-            </div>
-            <div className="flex gap-8 mr-3">
-              <h3>J</h3>
-              <h3>V</h3>
-              <h3>PTS</h3>
-            </div>
-          </div>
-          <div className="flex flex-col">
-            {jogos.map((item) => (
-              <div className="">
-                <Positions
-                  pos={item.pos}
-                  clube={item.clube}
-                  jogos={item.jogos}
-                  vitorias={item.vitorias}
-                  pontos={item.pontos}
-                />
+        <div className="overflow-x-auto w-full max-w-[95%] mx-auto rounded-md bg-white ">
+          <div className="min-w-[650px]">
+            {/* Cabeçalho */}
+            <div className="flex bg-off-white items-center h-12 border-b border-gray-200 sm:justify-between">
+              <div className="flex items-center gap-3 sticky left-0 z-10 w-[180px] flex-shrink-0 pl-3 bg-off-white bg">
+                <p className="w-6 text-center font-semibold">Pos</p>
+                <p className="font-medium text-sm">Time</p>
               </div>
+              <div className="flex items-center gap-6 px-4 text-sm font-semibold flex-shrink-0 ">
+                <h3 className="w-6 text-center">PJ</h3>
+                <h3 className="w-6 text-center">V</h3>
+                <h3 className="w-6 text-center">E</h3>
+                <h3 className="w-6 text-center">D</h3>
+                <h3 className="w-6 text-center">GP</h3>
+                <h3 className="w-6 text-center">GC</h3>
+                <h3 className="w-6 text-center">SG</h3>
+                <h3 className="w-6 text-center">Pts</h3>
+              </div>
+            </div>
+
+            {/* Linhas */}
+            {classificacao.map((item, index) => (
+              <Positions
+                key={item.nome}
+                pos={index + 1}
+                clube={item.nome}
+                logo={item.logo}
+                jogos={item.jogos}
+                vitorias={item.vitorias}
+                empates={item.empates}
+                derrotas={item.derrotas}
+                golsPro={item.golsPro}
+                golsContra={item.golsContra}
+                pontos={item.pontos}
+              />
             ))}
           </div>
         </div>
 
-        <button className="bg-pink rounded-[1.25rem] mt-10 py-[0.6875rem] px-[0.9375rem] w-fit self-center text-white">
+        <button className="font-open-sans font-light text-[0.875rem] bg-pink hover:bg-hover-pink rounded-[1.25rem] mt-10 py-[0.6875rem] px-[0.9375rem] w-fit self-center text-white cursor-pointer">
           SAIBA MAIS
         </button>
       </section>

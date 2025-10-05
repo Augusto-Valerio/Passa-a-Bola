@@ -6,22 +6,9 @@ import { Link } from "react-router-dom";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 
 export default function CentralDeTimes() {
   const [listaTimes, setListaTimes] = useState([]);
-  const [novoTime, setNovoTime] = useState("");
 
   useEffect(() => {
     fetchTimes();
@@ -63,30 +50,15 @@ export default function CentralDeTimes() {
     setListaTimes(updatedTimes);
   }
 
-  const adicionarTime = async (e) => {
-    e.preventDefault();
-    if (!novoTime.trim()) return;
-
-    const { data, error } = await supabase
-      .from("teams")
-      .insert([{ name: novoTime }])
-      .select();
-
-    if (error) {
-      console.error("Erro ao adicionar time:", error);
-    } else {
-      setListaTimes((prev) => [data[0], ...prev]);
-      setNovoTime("");
-    }
-  };
-
   async function gerarConfrontos() {
     try {
       const { data: times, error } = await supabase.from("teams").select("*");
 
       if (error) throw error;
       if (!times || times.length < 2) {
-        toast("É necessário ter pelo menos 2 times para gerar confrontos.");
+        toast.error(
+          "É necessário ter pelo menos 2 times para gerar confrontos."
+        );
         return;
       }
 
