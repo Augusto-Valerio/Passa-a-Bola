@@ -55,10 +55,16 @@ export default function CentralDeTimes() {
       const { data: times, error } = await supabase.from("teams").select("*");
 
       if (error) throw error;
+
       if (!times || times.length < 2) {
         toast.error(
           "É necessário ter pelo menos 2 times para gerar confrontos."
         );
+        return;
+      }
+
+      if (times.length % 2 !== 0) {
+        toast.error("O número de times deve ser par para gerar confrontos.");
         return;
       }
 
@@ -68,27 +74,24 @@ export default function CentralDeTimes() {
 
       const matches = [];
       for (let i = 0; i < shuffled.length; i += 2) {
-        if (i + 1 < shuffled.length) {
-          matches.push({
-            team_a: shuffled[i].id,
-            team_b: shuffled[i + 1].id,
-            court: Math.floor(Math.random() * 10) + 1,
-            date: new Date().toISOString().split("T")[0],
-            time: "11:00",
-          });
-        }
+        matches.push({
+          team_a: shuffled[i].id,
+          team_b: shuffled[i + 1].id,
+          court: Math.floor(Math.random() * 10) + 1,
+          date: new Date().toISOString().split("T")[0],
+          time: "11:00",
+        });
       }
 
       const { error: insertError } = await supabase
         .from("matches")
         .insert(matches);
-
       if (insertError) throw insertError;
 
       toast.success("Confrontos gerados com sucesso!");
     } catch (err) {
       console.error(err);
-      toast.error("Erro ao gerar confrontos. Veja o console.");
+      toast.error("Erro ao gerar confrontos.");
     }
   }
 

@@ -202,7 +202,6 @@ export default function Copa() {
 
         <div className="overflow-x-auto w-full max-w-[95%] mx-auto rounded-md bg-white ">
           <div className="min-w-[650px]">
-            {/* Cabeçalho */}
             <div className="flex bg-off-white items-center h-12 border-b border-gray-200 sm:justify-between">
               <div className="flex items-center gap-3 sticky left-0 z-10 w-[180px] flex-shrink-0 pl-3 bg-off-white bg">
                 <p className="w-6 text-center font-semibold">Pos</p>
@@ -220,7 +219,6 @@ export default function Copa() {
               </div>
             </div>
 
-            {/* Linhas */}
             {classificacao.map((item, index) => (
               <Positions
                 key={item.nome}
