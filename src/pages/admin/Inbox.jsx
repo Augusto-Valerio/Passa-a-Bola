@@ -50,7 +50,6 @@ export default function Inbox() {
   }
 
   async function fetchAvailableTeams() {
-    // Buscar inscrições de times aceitos
     const { data: teamsData, error } = await supabase
       .from("inscricoes")
       .select("id, team, players")
@@ -360,6 +359,17 @@ export default function Inbox() {
                         </span>
                         <span className="font-antonio text-[0.875rem]">
                           {selected.leg}
+                        </span>
+                      </div>
+
+                      <div className="flex gap-1 items-center">
+                        <span className="font-antonio font-semibold text-[1.125rem]">
+                          Experiência profissional:
+                        </span>
+                        <span className="font-antonio text-[0.875rem]">
+                          {selected.experience_professional
+                            ? "Possui"
+                            : "Nenhuma"}
                         </span>
                       </div>
                     </div>

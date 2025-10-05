@@ -223,21 +223,27 @@ export default function Copa() {
               </div>
             </div>
 
-            {timesVisiveis.map((item, index) => (
-              <Positions
-                key={item.nome}
-                pos={index + 1}
-                clube={item.nome}
-                logo={item.logo}
-                jogos={item.jogos}
-                vitorias={item.vitorias}
-                empates={item.empates}
-                derrotas={item.derrotas}
-                golsPro={item.golsPro}
-                golsContra={item.golsContra}
-                pontos={item.pontos}
-              />
-            ))}
+            {timesVisiveis.length > 0 ? (
+              timesVisiveis.map((item, index) => (
+                <Positions
+                  key={item.nome}
+                  pos={index + 1}
+                  clube={item.nome}
+                  logo={item.logo}
+                  jogos={item.jogos}
+                  vitorias={item.vitorias}
+                  empates={item.empates}
+                  derrotas={item.derrotas}
+                  golsPro={item.golsPro}
+                  golsContra={item.golsContra}
+                  pontos={item.pontos}
+                />
+              ))
+            ) : (
+              <p className="text-center py-6 text-gray-500 font-medium">
+                Times a serem definidos
+              </p>
+            )}
           </div>
         </div>
 

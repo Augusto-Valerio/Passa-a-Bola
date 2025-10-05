@@ -106,7 +106,6 @@ export default function Time() {
         </div>
       </section>
 
-      {/* Botões abaixo */}
       <div className="grid place-self-center w-[80vw] gap-[0.375rem] pb-10">
         <button className="border border-pink font-antonio rounded-[0.3125rem] py-[5px] text-pink hover:bg-white hover:text-midnight transition cursor-pointer">
           Ausente

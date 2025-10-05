@@ -18,6 +18,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
+import { Checkbox } from "@/components/ui/checkbox";
+
 import { toast } from "sonner";
 
 import {
@@ -47,6 +49,9 @@ export default function Form() {
   const [canSubmit, setCanSubmit] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
 
+  const [individualExperience, setIndividualExperience] = useState(false);
+  const [teamExperience, setTeamExperience] = useState(false);
+
   const [touched, setTouched] = useState({
     name: false,
     email: false,
@@ -70,11 +75,11 @@ export default function Form() {
 
     if (email) filters.push(`email.eq.${email}`);
     if (phone) {
-      const digits = phone.replace(/\D/g, ""); 
+      const digits = phone.replace(/\D/g, "");
       filters.push(`phone.eq.${digits}`);
     }
     if (cpf) {
-      const digits = cpf.replace(/\D/g, ""); 
+      const digits = cpf.replace(/\D/g, "");
       filters.push(`cpf.eq.${digits}`);
     }
 
@@ -251,6 +256,8 @@ export default function Form() {
         players: mode === "team" ? playersData : null,
         avatar: avatarUrl,
         team_logo: teamLogoUrl,
+        experience_professional:
+          mode === "individual" ? individualExperience : teamExperience,
         status: "Pendente",
       };
 
@@ -712,6 +719,20 @@ export default function Form() {
                           </SelectContent>
                         </Select>
                       </div>
+                      {mode === "individual" && (
+                        <div className="flex items-center gap-3">
+                          <Checkbox
+                            id="individual-experience"
+                            checked={individualExperience}
+                            onCheckedChange={(checked) =>
+                              setIndividualExperience(checked)
+                            }
+                          />
+                          <label htmlFor="individual-experience">
+                            Você possui experiência profissional?
+                          </label>
+                        </div>
+                      )}
                     </div>
 
                     {/* Só mostra se for time */}
@@ -803,6 +824,19 @@ export default function Form() {
                               />
                             ))}
                           </div>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <Checkbox
+                            id="team-experience"
+                            checked={teamExperience}
+                            onCheckedChange={(checked) =>
+                              setTeamExperience(checked)
+                            }
+                            className="cursor-pointer"
+                          />
+                          <label htmlFor="team-experience">
+                            Seu time contém alguém com experiência profissional?
+                          </label>
                         </div>
                       </div>
                     )}
