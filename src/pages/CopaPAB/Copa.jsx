@@ -15,8 +15,9 @@ import time5 from "../../assets/time5.png";
 import time6 from "../../assets/time6.png";
 import time7 from "../../assets/time7.png";
 import time8 from "../../assets/time8.png";
-import Navbar from "../../components/Navbar";
 import logoPab from "../../assets/icon-pab.png";
+
+import Navbar from "../../components/Navbar";
 import BackTop from "../../components/BackTop";
 
 export default function Copa() {
@@ -46,6 +47,7 @@ export default function Copa() {
 
   const [proximos, setProximos] = useState([]);
   const [classificacao, setClassificacao] = useState([]);
+  const [mostrarMais, setMostrarMais] = useState(false);
 
   async function fetchProximos() {
     const { data, error } = await supabase
@@ -155,6 +157,8 @@ export default function Copa() {
     fetchProximos();
   }, []);
 
+  const timesVisiveis = mostrarMais ? classificacao : classificacao.slice(0, 5);
+
   return (
     <>
       <BackTop />
@@ -219,7 +223,7 @@ export default function Copa() {
               </div>
             </div>
 
-            {classificacao.map((item, index) => (
+            {timesVisiveis.map((item, index) => (
               <Positions
                 key={item.nome}
                 pos={index + 1}
@@ -237,9 +241,14 @@ export default function Copa() {
           </div>
         </div>
 
-        <button className="font-open-sans font-light text-[0.875rem] bg-pink hover:bg-hover-pink rounded-[1.25rem] mt-10 py-[0.6875rem] px-[0.9375rem] w-fit self-center text-white cursor-pointer">
-          SAIBA MAIS
-        </button>
+        {classificacao.length > 5 && !mostrarMais && (
+          <button
+            onClick={() => setMostrarMais(true)}
+            className="font-open-sans font-light text-[0.875rem] bg-pink hover:bg-hover-pink rounded-[1.25rem] mt-10 py-[0.6875rem] px-[0.9375rem] w-fit self-center text-white cursor-pointer"
+          >
+            SAIBA MAIS
+          </button>
+        )}
       </section>
 
       <section className="bg-off-white flex justify-center flex-col items-center py-12">
