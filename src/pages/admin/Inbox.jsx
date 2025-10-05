@@ -134,7 +134,6 @@ export default function Inbox() {
       setSelected(null);
       fetchAvailableTeams();
 
-      // ✅ Toasts personalizados
       if (selected.mode === "team") {
         toast("Time enviado à central de times com sucesso!", {
           type: "success",

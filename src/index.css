@@ -24,7 +24,7 @@ body {
   --color-stroke-color: #7f7f7f;
   --color-headerAdmin: #0b121a;
 
-  --color-hover-pink: #F279B2;
+  --color-hover-pink: #f279b2;
 
   --font-antonio: "Antonio", sans-serif;
   --font-open-sans: "Open Sans", sans-serif;
@@ -47,9 +47,16 @@ body {
     }
   }
 
-  .bg-hero-copa{
-    background-image: url("./assets/img-copaPab.png");
+  .bg-hero-copa {
+    background-image: url("./assets/heroCopa-mobile.png");
 
+    @media (width >= 700px) {
+      background-image: url("./assets/heroCopa-tablet.png");
+    }
+
+    @media (width >= 1100px) {
+      background-image: url("./assets/img-copaPab.png");
+    }
   }
 }
 
