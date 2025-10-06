@@ -98,13 +98,7 @@ export default function Home() {
                   <DialogHeader></DialogHeader>
                   <NossoTime />
 
-                  <DialogFooter>
-                    <DialogClose asChild>
-                      <Button className="w-full sm:w-auto bg-pink text-white hover:bg-hover-pink cursor-pointer mr-0 sm:mr-[24px]">
-                        Fechar
-                      </Button>
-                    </DialogClose>
-                  </DialogFooter>
+                  
                 </DialogContent>
               </form>
             </Dialog>

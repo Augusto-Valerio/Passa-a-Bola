@@ -14,15 +14,9 @@ export default function NossoTime() {
           NOSSO TIME
         </h2>
         <p className="max-w-[11.438rem] text-center font-antonio font-light text-[0.75rem]">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum.
+          O Passa A Bola é formado por mulheres que acreditam na força do esporte feminino.
+          À frente do projeto estão Luana Maluf e Alexandra Xavier, responsáveis pela administração, e Marcela Dantas, que comanda as redes sociais e a comunicação.
+          Juntas, elas fazem o Passa A Bola acontecer, unindo organização, criatividade e paixão pelo futebol.
         </p>
       </div>
 
