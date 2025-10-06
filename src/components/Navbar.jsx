@@ -9,6 +9,21 @@ import { RiAdminLine } from "react-icons/ri";
 import logoHeader from "../assets/logo-header.svg";
 import logoSidebar from "../assets/logo-sidebar.svg";
 
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import NossoTime from "@/pages/NossoTime/NossoTime";
+
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -18,7 +33,10 @@ export default function Navigation() {
       <header className="hidden lg:block absolute top-0 left-0 w-full z-30">
         <div className="max-w-[75rem] mx-auto px-5 flex justify-between items-center nav-text py-[1.875rem]">
           <Link to="/">
-            <img src={logoHeader} alt="Logo do passa a bola na parte superior esquerda do site" />
+            <img
+              src={logoHeader}
+              alt="Logo do passa a bola na parte superior esquerda do site"
+            />
           </Link>
 
           <nav>
@@ -35,7 +53,13 @@ export default function Navigation() {
               </li>
               <li>
                 <Link to="" className="hover:text-pink">
-                  Nosso time
+                  <Dialog>
+                    <DialogTrigger className="cursor-pointer">Nosso Time</DialogTrigger>
+                    <DialogContent className="sm:max-w-[73.25rem] overflow-y-auto max-h-[90vh]">
+                      <DialogHeader></DialogHeader>
+                      <NossoTime />
+                    </DialogContent>
+                  </Dialog>
                 </Link>
               </li>
               <li>
@@ -47,7 +71,10 @@ export default function Navigation() {
           </nav>
 
           <div className="flex items-center gap-3 text-white">
-            <a href="#form" className="py-[0.30rem] px-[1.875rem] border-1 border-white rounded-[1.875rem] cursor-pointer">
+            <a
+              href="#form"
+              className="py-[0.30rem] px-[1.875rem] border-1 border-white rounded-[1.875rem] cursor-pointer"
+            >
               Inscreva-se
             </a>
             <Link to="/login">
