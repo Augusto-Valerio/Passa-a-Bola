@@ -100,7 +100,7 @@ export default function Home() {
 
                   <DialogFooter>
                     <DialogClose asChild>
-                      <Button className=" bg-pink text-white hover:bg-hover-pink cursor-pointer mr-[1.5rem]">
+                      <Button className="w-full sm:w-auto bg-pink text-white hover:bg-hover-pink cursor-pointer mr-0 sm:mr-[24px]">
                         Fechar
                       </Button>
                     </DialogClose>

@@ -6,7 +6,7 @@ import Logo from "@/assets/logo-admin.svg";
 
 export default function NossoTime() {
   return (
-    <div className="grid grid-cols-4 gap-6 p-6">
+    <div className="grid grid-cols-1 md:grid-cols-4 gap-2 sm:gap-3 md:gap-6 p-2 sm:p-3 md:p-6 max-w-full overflow-hidden mx-auto md:max-w-7xl">
       {/* Card de apresentação "Nosso Time" */}
       <div className=" col-span-1 bg-pink text-white rounded-[0.625rem] p-3 flex flex-col items-center gap-[3.125rem] pt-[3.75rem]">
         <img src={Logo} alt="logo" className="w-25 h-25 mb-4" />
@@ -27,7 +27,7 @@ export default function NossoTime() {
       </div>
 
       {/* Cards de integrantes */}
-      <div className="col-span-3 grid grid-cols-3 gap-6">
+      <div className="md:col-span-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3 md:gap-6 w-full max-w-full overflow-hidden justify-items-center mx-auto md:justify-items-start md:mx-0">
         <CardNossoTime
           nome="Luana Maluf"
           imagem={LuanaMaluf}
