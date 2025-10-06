@@ -16,7 +16,7 @@ import {
 
 import { RiArrowDownSLine } from "react-icons/ri";
 
-// Lista de status com label e valor real do banco
+
 const statuses = [
   { value: "Pendente", label: "Pendente" },
   { value: "Aceitos", label: "Aceitos" },
@@ -31,7 +31,7 @@ export default function StatusFilter({ onChange }) {
   const handleSelect = (status) => {
     setSelectedStatus(status);
     setOpen(false);
-    if (onChange) onChange(status.value); // retorna label em português
+    if (onChange) onChange(status.value);
   };
 
   return (
@@ -39,13 +39,13 @@ export default function StatusFilter({ onChange }) {
       <PopoverTrigger asChild>
         <Button
           variant="outline"
-          className="w-[150px] flex justify-between items-center cursor-pointer"
+          className="w-[9.375rem] flex justify-between items-center cursor-pointer"
         >
           <span>{selectedStatus ? selectedStatus.label : "Todos"}</span>
           <RiArrowDownSLine className="w-4 h-4" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0" align="start">
+      <PopoverContent className="w-[12.5rem] p-0" align="start">
         <Command>
           <CommandInput placeholder="Buscar status..." />
           <CommandList>

@@ -16,9 +16,9 @@ export default function Navigation() {
     <>
       {/* Header */}
       <header className="hidden lg:block absolute top-0 left-0 w-full z-30">
-        <div className="max-w-[1200px] mx-auto px-5 flex justify-between items-center nav-text py-[1.875rem]">
+        <div className="max-w-[75rem] mx-auto px-5 flex justify-between items-center nav-text py-[1.875rem]">
           <Link to="/">
-            <img src={logoHeader} alt="Logo passa a bola" />
+            <img src={logoHeader} alt="Logo do passa a bola na parte superior esquerda do site" />
           </Link>
 
           <nav>

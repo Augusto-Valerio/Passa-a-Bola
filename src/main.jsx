@@ -5,6 +5,8 @@ import "./index.css";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./routes/AppRoutes";
 
+import { Toaster } from "@/components/ui/sonner";
+
 // main.jsx
 const users = [
   { email: "luanaMaluf@passabola.com", senha: "admin" },
@@ -17,10 +19,11 @@ if (!localStorage.getItem("users")) {
   localStorage.setItem("users", JSON.stringify(users));
 }
 
-
-
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <>
+      <RouterProvider router={router} />
+      <Toaster position="top-right" /> 
+    </>
   </StrictMode>
 );
