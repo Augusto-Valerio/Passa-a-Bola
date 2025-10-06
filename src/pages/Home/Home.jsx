@@ -96,9 +96,7 @@ export default function Home() {
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[73.25rem] overflow-y-auto max-h-[90vh]">
                   <DialogHeader></DialogHeader>
-                  <NossoTime />
-
-                  
+                  <NossoTime />          
                 </DialogContent>
               </form>
             </Dialog>

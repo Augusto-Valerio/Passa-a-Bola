@@ -9,8 +9,8 @@ export default function CardNossoTime({ nome, imagem, cargo, data }) {
         <img className="w-[25rem] h-[25rem] object-cover" src={imagem} alt={nome} />
 
         {/* Logo no canto superior direito */}
-        <div className="absolute top-0 right-0 p-2">
-          <img className="w-6 h-6" src={Logo} alt="logo" />
+        <div className="absolute top-0 right-0 p-4">
+          <img className="w-8 h-8" src={Logo} alt="logo" />
         </div>
 
         {/* Data no canto superior esquerdo */}
@@ -19,8 +19,8 @@ export default function CardNossoTime({ nome, imagem, cargo, data }) {
         </div>
 
         {/* Nome e cargo grudados no rodapé da imagem */}
-        <div className="absolute bottom-2 left-0 w-full px-4 text-white">
-          <h2 className="border-b border-white text-center font-antonio">
+        <div className="absolute bottom-4 left-0 w-full px-4 text-white">
+          <h2 className="border-b border-white text-center font-antonio h-8">
             {nome}
           </h2>
           <h3 className="text-center font-open-sans text-[0.75rem] font-light">{cargo}</h3>
