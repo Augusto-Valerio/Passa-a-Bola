@@ -1,7 +1,7 @@
 export default function Maps() {
   return (
     <section
-      id="about"
+      id="maps"
       className="bg-off-white pb-[6.25rem] lg:py-[6.25rem] overflow-hidden"
     >
       <div className="max-w-[62.625rem] px-[2.375rem] mx-auto lg:items-center flex flex-col justify-between lg:flex-row lg:px-0 gap-[4.75rem]">

@@ -70,14 +70,14 @@ export default function Footer() {
       </div>
 
       {/* Links e logo */}
-      <div className="mt-8 place-self-center md:flex md:gap-16">
+      <div className="mt-8 place-self-center lg:flex md:gap-16 px-12">
         {/* Logo */}
         <div>
           <img src={LogoFooter} alt="Logo do Passa a Bola no footer" />
         </div>
 
         {/* Colunas */}
-        <div id="list-wrapper" className="grid grid-cols-2 mt-3 gap-12 md:flex">
+        <div id="list-wrapper" className="grid grid-cols-2 mt-3 gap-12 lg:flex">
           <div>
             <h3 className="footer-list-title mb-3">SOBRE NÓS</h3>
             <ul className="flex flex-col gap-[0.625rem] text-gray-700">
