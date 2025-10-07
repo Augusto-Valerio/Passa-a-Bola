@@ -29,6 +29,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import TeamNameInput from "./TeamNameInput";
 
 export default function Form() {
   const [avatar, setAvatar] = useState(null);
@@ -51,6 +52,7 @@ export default function Form() {
 
   const [individualExperience, setIndividualExperience] = useState(false);
   const [teamExperience, setTeamExperience] = useState(false);
+  const [teamAvailable, setTeamAvailable] = useState(null);
 
   const [touched, setTouched] = useState({
     name: false,
@@ -167,7 +169,8 @@ export default function Form() {
       isIndividualValid &&
       team.trim() !== "" &&
       teamLogo !== null &&
-      validPlayersCount >= 6;
+      validPlayersCount >= 6 &&
+      teamAvailable === true; // <--- novo requisito
 
     if (mode === "individual") {
       setCanSubmit(isIndividualValid);
@@ -176,7 +179,7 @@ export default function Form() {
     } else {
       setCanSubmit(false);
     }
-  }, [shirt, position, leg, team, players, mode, teamLogo]);
+  }, [shirt, position, leg, team, players, mode, teamLogo, teamAvailable]);
 
   const [openStep, setOpenStep] = useState(1);
 
@@ -784,20 +787,11 @@ export default function Form() {
                           />
                         </div>
 
-                        <div className="grid gap-3 mt-2">
-                          <Label htmlFor="team-1">
-                            Nome do time{" "}
-                            {team.trim() === "" ? (
-                              <span className="text-red-500">*</span>
-                            ) : (
-                              <FiCheck className="text-green-500" />
-                            )}
-                          </Label>
-                          <Input
-                            id="team-1"
-                            value={team}
-                            onChange={(e) => setTeam(e.target.value)}
-                            placeholder="Ex: Wolves"
+                        <div>
+                          <TeamNameInput
+                            team={team}
+                            setTeam={setTeam}
+                            setTeamAvailable={setTeamAvailable}
                           />
                         </div>
 
