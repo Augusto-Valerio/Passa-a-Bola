@@ -142,16 +142,15 @@ export default function CentralDeTimes() {
             </ul>
           )}
         </div>
+        <div className="grid w-[80vw] mt-3">
+          <Button
+            onClick={gerarConfrontos}
+            className="bg-pink hover:bg-hover-pink cursor-pointer font-antonio rounded-[0.3125rem] text-white py-[5px] transition"
+          >
+            Gerar Confrontos
+          </Button>
+        </div>
       </section>
-
-      <div className="grid place-self-center w-[80vw]">
-        <Button
-          onClick={gerarConfrontos}
-          className="bg-pink hover:bg-hover-pink cursor-pointer font-antonio rounded-[0.3125rem] text-white py-[5px] transition"
-        >
-          Gerar Confrontos
-        </Button>
-      </div>
     </>
   );
 }
