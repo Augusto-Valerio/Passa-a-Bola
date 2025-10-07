@@ -170,7 +170,7 @@ export default function Form() {
       team.trim() !== "" &&
       teamLogo !== null &&
       validPlayersCount >= 6 &&
-      teamAvailable === true; // <--- novo requisito
+      teamAvailable === true; 
 
     if (mode === "individual") {
       setCanSubmit(isIndividualValid);
@@ -435,13 +435,13 @@ export default function Form() {
               phone: true,
               cpf: true,
             });
-            setName((p) => p); // força revalidação
+            setName((p) => p); 
             setEmail((p) => p);
             setPhone((p) => p);
             setCpf((p) => p);
 
             if (canContinue) {
-              setOpenStep(1); // reseta pro primeiro passo
+              setOpenStep(1); 
               setDialogOpen(true);
             } else {
               toast.error(
