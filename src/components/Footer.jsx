@@ -169,7 +169,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <p className="mt-10 place-self-center pb-3 text-[0.875rem] text-gray-700">
+      <p className="mt-10 flex flex-wrap justify-center pb-3 text-[0.875rem] text-gray-700">
         Copyright © 2025 Passaabola. Todos os direitos reservados.
       </p>
     </footer>
