@@ -70,7 +70,7 @@ export default function Footer() {
       </div>
 
       {/* Links e logo */}
-      <div className="mt-8 place-self-center lg:flex md:gap-16 px-12">
+      <div className="mt-8 lg:justify-center lg:flex md:gap-16 px-12">
         {/* Logo */}
         <div>
           <img src={LogoFooter} alt="Logo do Passa a Bola no footer" />

@@ -113,7 +113,7 @@ export default function Navigation() {
 
       {/* Sidebar */}
       <aside
-        className={`min-w-56 w-[50%] bg-white text-midnight h-screen p-5 flex flex-col fixed top-0 right-0 z-30 lg:hidden transform transition-transform duration-300
+        className={`min-w-56 w-[50%] bg-white text-midnight h-dvh p-5 flex flex-col fixed top-0 right-0 z-30 lg:hidden transform transition-transform duration-300
         ${isOpen ? "translate-x-0" : "translate-x-160"}`}
       >
         <div className="flex justify-between items-center">
