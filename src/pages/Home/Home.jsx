@@ -37,7 +37,7 @@ import Maps from "@/components/Maps";
 
 export default function Home() {
   return (
-    <>
+    <section>
       <Navbar />
 
       <BackTop />
@@ -287,6 +287,6 @@ export default function Home() {
       </section>
 
       <Footer />
-    </>
+    </section>
   );
 }
