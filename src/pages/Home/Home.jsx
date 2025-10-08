@@ -252,7 +252,7 @@ export default function Home() {
 
       <Maps />
       
-      <section id="partners" className="bg-off-white py-20">
+      <section id="partners" className="bg-off-white py-20 flex flex-col justify-center">
         {/* label */}
         <div className="flex items-center gap-6 justify-center">
           <div className="w-[2.5rem] h-px bg-purple"></div>

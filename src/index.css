@@ -58,6 +58,10 @@ body {
       background-image: url("./assets/img-copaPab.png");
     }
   }
+
+  .cursor {
+    cursor: pointer;
+  }
 }
 
 @layer components {

@@ -9,7 +9,7 @@ export default function HeroPage({ title, subtitle, buttonText, bgClass, buttonH
           <h1 className="heading-hero">{title}</h1>
           <p className="subtext-hero">{subtitle}</p>
 
-          <a href={buttonHref} className="button-text bg-pink hover:bg-hover-pink cursor-pointer rounded-[1.25rem] py-[0.6875rem] px-[0.9375rem] w-fit self-center lg:self-start">
+          <a href={buttonHref} className="button-text bg-pink hover:bg-hover-pink cursor-pointer rounded-[1.25rem] py-[0.6875rem] px-[0.9375rem] w-fit self-center lg:self-start cursor" >
             {buttonText}
           </a>
         </div>
