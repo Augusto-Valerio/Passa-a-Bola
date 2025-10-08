@@ -68,7 +68,7 @@ body {
 @layer components {
   /* Fontes Antonio */
   .heading-hero {
-    @apply text-[48px] text-center leading-[124.2%] font-bold font-antonio;
+    @apply text-[48px] text-left leading-[124.2%] font-bold font-antonio;
 
     @media (width >= 1024px) {
       @apply text-[64px] text-left leading-[124.2%] font-bold font-antonio;
@@ -93,7 +93,7 @@ body {
   }
 
   .subtext-hero {
-    @apply text-[1.125rem] text-center font-normal font-open-sans;
+    @apply text-[1rem] text-left font-normal font-open-sans;
 
     @media (width >= 1024px) {
       @apply font-normal text-[0.875rem] leading-[124.2%] lg:text-left font-open-sans;

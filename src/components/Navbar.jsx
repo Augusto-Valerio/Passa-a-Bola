@@ -54,7 +54,9 @@ export default function Navigation() {
               <li>
                 <Link to="" className="hover:text-pink">
                   <Dialog>
-                    <DialogTrigger className="cursor-pointer">Nosso Time</DialogTrigger>
+                    <DialogTrigger className="cursor-pointer">
+                      Nosso Time
+                    </DialogTrigger>
                     <DialogContent className="sm:max-w-[73.25rem] overflow-y-auto max-h-[90vh]">
                       <DialogHeader></DialogHeader>
                       <NossoTime />
@@ -132,7 +134,15 @@ export default function Navigation() {
             Copa PAB
           </Link>
           <Link to="" className="p-2 border-b border-stroke-color">
-            Nosso time
+            <Dialog>
+              <DialogTrigger className="cursor-pointer">
+                Nosso Time
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[73.25rem] overflow-y-auto max-h-[90vh]">
+                <DialogHeader></DialogHeader>
+                <NossoTime />
+              </DialogContent>
+            </Dialog>
           </Link>
           <Link to="" className="p-2 border-b border-stroke-color">
             Contato

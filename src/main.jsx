@@ -11,7 +11,7 @@ import { Toaster } from "@/components/ui/sonner";
 const users = [
   { email: "luanaMaluf@passabola.com", senha: "admin" },
   { email: "aleXavier@passabola.com", senha: "admin" },
-  { email: "andreMaluf@passabola.com", senha: "admin" },
+  { email: "marcelaDantas@passabola.com", senha: "admin" },
 ];
 
 // Só salva no localStorage se ainda não existir

@@ -87,19 +87,21 @@ export default function Home() {
 
             {/* Botão */}
 
-            <Dialog>
-              <form>
-                <DialogTrigger asChild>
-                  <Button className="py-[0.5rem] px-[2.125rem] rounded-[1.25rem] bg-pink text-white button-text my-[2rem] mr-auto lg:mr-0 lg:ml-auto cursor-pointer hover:bg-hover-pink">
-                    Nosso Time
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[73.25rem] overflow-y-auto max-h-[90vh]">
-                  <DialogHeader></DialogHeader>
-                  <NossoTime />          
-                </DialogContent>
-              </form>
-            </Dialog>
+            <div className="my-[2rem] mr-auto lg:mr-0 lg:ml-auto">
+              <Dialog>
+                <form>
+                  <DialogTrigger asChild>
+                    <Button className="py-[0.5rem] px-[2.125rem] rounded-[1.25rem] bg-pink text-white button-text my-[2rem]  cursor-pointer hover:bg-hover-pink">
+                      Nosso Time
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-[73.25rem] overflow-y-auto max-h-[90vh]">
+                    <DialogHeader></DialogHeader>
+                    <NossoTime />
+                  </DialogContent>
+                </form>
+              </Dialog>
+            </div>
           </div>
 
           <div className=" mt-[0.625rem] max-w[28.5rem] mx-auto">
@@ -251,8 +253,11 @@ export default function Home() {
       </section>
 
       <Maps />
-      
-      <section id="partners" className="bg-off-white py-20 flex flex-col justify-center">
+
+      <section
+        id="partners"
+        className="bg-off-white py-20 flex flex-col justify-center"
+      >
         {/* label */}
         <div className="flex items-center gap-6 justify-center">
           <div className="w-[2.5rem] h-px bg-purple"></div>
