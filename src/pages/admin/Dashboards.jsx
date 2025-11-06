@@ -1,7 +1,7 @@
-import { ChartBarMixed } from "@/components/DashboardCity";
+import { ChartPieDonutText } from "@/components/DashboardStats";
 
 export default function Dashboards() {
   return (
-    <ChartBarMixed />
+    <ChartPieDonutText />
   );
 }
